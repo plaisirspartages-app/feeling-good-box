@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css"> 
+    <title>Feeling Good Box - Boostez votre moral</title>
+</head>
+<body>
+
+    <nav class="bandeau-haut">
+        <button type="button" class="bouton-burger" id="bouton-burger">☰</button>
+
+        <div class="menu-gauche" id="menu-gauche">
+            <a href="index.html">Notre Concept</a>
+            <a href="#abonnement">Abonnement</a>
+            <a href="#box-unitaire">Box Unitaire</a>
+            <a href="faq.html">FAQ</a>
+            <a href="#">Contact</a>
+        </div>
+        
+        <div class="nom-centre">
+            <h1>Feeling Good Box</h1>
+        </div>
+        <div class="droite-navigation">
+            <a href="#" class="icone-compte">👤 Mon Compte</a>
+            <a href="#">🛒 Panier (<span id="compteur-panier">0</span>)</a>
+        </div>
+    </nav>
+
+    <header>
+        <img src="logo.png" alt="Feeling Good Box Logo" width="220">
+        <p>Don’t just move on. Level up.</p>
+    </header>
+
+    <main>
+        <section class="concept">
+            <h2>Chaque mois, votre dose de bonheur à domicile</h2>
+            <p>Une box unique conçue pour vous redonner le sourire et booster votre quotidien.</p>
+            
+            <h3>Ce que contient votre box :</h3>
+            <ul>
+                <li>✨ <strong>Un objet déco</strong> pour réenchanter votre intérieur</li>
+                <li>🍪 <strong>Une pause gourmande</strong> pour réconforter vos papilles</li>
+                <li>🎨 <strong>Une activité manuelle</strong> pour libérer votre créativité</li>
+                <li>🌿 <strong>Un produit self-care</strong> pour prendre soin de vous</li>
+                <li>💬 <strong>Une citation inspirante</strong> par semaine</li>
+                <li>🎯 <strong>Un petit défi</strong> par semaine + 🚀 <strong>Un gros défi mensuel</strong> pour évoluer</li>
+            </ul>
+        </section>
+
+        <hr>
+
+        <section class="formules">
+            <h2>Choisissez votre formule</h2>
+            
+            <div class="formules-container">
+            
+                <div id="box-unitaire" class="carte-produit">
+                    <div class="image-box-placeholder">
+                        <img src="box-unique.png" alt="La Box Unique" onerror="this.src='https://placehold.co/300x200/b56547/ffffff?text=Photo+Box+Unique'">
+                    </div>
+                    <h3>La Box Unique</h3>
+                    <p>Idéal pour tester ou pour offrir un shoot de positivité à un proche.</p>
+                    <p class="prix"><strong>29,90 €</strong></p>
+                    <button type="button">Commander cette box</button>
+                </div>
+
+                <div id="abonnement" class="carte-produit">
+                    <div class="image-box-placeholder">
+                        <img src="box-abonnement.png" alt="L'Abonnement Sourire" onerror="this.src='https://placehold.co/300x200/b56547/ffffff?text=Photo+Abonnement'">
+                    </div>
+                    <h3>L'Abonnement Sourire</h3>
+                    <p>Votre rendez-vous bien-être mensuel, directement dans votre boîte aux lettres.</p>
+                    <p class="prix"><strong>24,90 € / mois</strong></p>
+                    <button type="button">S'abonner maintenant</button>
+                </div>
+
+            </div>
+        </section>
+
+        <hr>
+
+        <section class="comment-ca-marche">
+            <h2>Le bonheur en 3 étapes simples</h2>
+            <div class="etapes-container">
+                <div class="etape">
+                    <div class="numero">1</div>
+                    <h3>Vous commandez</h3>
+                    <p>Choisissez la formule unique pour tester ou l'abonnement pour installer la positivité dans votre durée.</p>
+                </div>
+                <div class="etape">
+                    <div class="numero">2</div>
+                    <h3>On prépare avec amour</h3>
+                    <p>Chaque mois, nous composons une box surprise thématique avec nos meilleurs produits self-care.</p>
+                </div>
+                <div class="etape">
+                    <div class="numero">3</div>
+                    <h3>Vous rayonnez !</h3>
+                    <p>Ouvrez votre box, découvrez vos surprises et relevez vos défis de la semaine pour booster votre moral.</p>
+                </div>
+            </div>
+        </section>
+
+        
+    </main>
+
+    <footer>
+        <p>© 2026 Feeling Good Box - Prenez soin de votre esprit.</p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

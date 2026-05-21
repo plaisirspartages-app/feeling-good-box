@@ -1,0 +1,308 @@
+/* 1. Paramètres généraux */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f7f1e6;
+    color: #5c4033;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 2. LE BANDEAU DE NAVIGATION (Haut de page) */
+/* 2. LE BANDEAU DE NAVIGATION AVEC BURGER */
+.bandeau-haut {
+    background-color: #ffffff;
+    width: 100%;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Le bouton avec les 3 traits */
+.bouton-burger {
+    background: none;
+    color: #5c4033;
+    border: none;
+    font-size: 2rem;
+    padding: 0;
+    margin-left: 20px;
+    cursor: pointer;
+}
+.bouton-burger:hover {
+    background: none; /* Annule l'effet de survol des autres boutons */
+    color: #b56547;
+}
+
+/* Le menu est masqué par défaut grâce à "display: none" */
+.menu-gauche {
+    display: none; 
+    position: absolute;
+    top: 70px; /* Juste en dessous du bandeau */
+    left: 0;
+    background-color: #ffffff;
+    width: 250px;
+    flex-direction: column;
+    gap: 0;
+    box-shadow: 2px 4px 10px rgba(0,0,0,0.1);
+    border-radius: 0 0 10px 0;
+}
+
+.menu-gauche a {
+    padding: 15px 25px;
+    border-bottom: 1px solid #f7f1e6;
+    text-decoration: none;
+    color: #5c4033;
+    font-weight: 600;
+}
+
+/* LA CLASSE MAGIQUE : Quand JavaScript ajoutera cette classe, le menu apparaîtra */
+.menu-gauche.visible {
+    display: flex;
+}
+
+.nom-centre h1 {
+    font-size: 1.4rem;
+    color: #b56547;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.droite-navigation {
+    padding-right: 30px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.droite-navigation a {
+    text-decoration: none;
+    color: #5c4033;
+    font-weight: 600;
+}
+
+.icone-compte {
+    font-size: 0.95rem;
+}
+
+/* Un petit effet visuel pour savoir sur quelle page on se trouve */
+.bandeau-haut a.active {
+    color: #b56547;
+    border-bottom: 2px solid #b56547;
+    padding-bottom: 5px;
+}
+
+/* 3. L'en-tête (Header sous le bandeau) */
+header {
+    text-align: center;
+    padding: 30px 20px 10px 20px;
+}
+
+header p {
+    font-style: italic;
+    color: #9e7256;
+    font-size: 1.1rem;
+    margin-top: 5px;
+}
+
+/* 4. Le Concept */
+.concept {
+    max-width: 600px;
+    text-align: center;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    margin: 20px auto;
+}
+
+.concept h2 {
+    color: #b56547;
+}
+
+.concept ul {
+    text-align: left;
+    list-style-type: none;
+    padding-left: 10px;
+}
+
+.concept li {
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: #e0d5c1;
+    width: 80%;
+    margin: 40px auto;
+}
+
+/* 5. Les Formules (Cartes identiques) */
+.formules {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto 60px auto;
+}
+
+.formules h2 {
+    color: #b56547;
+    margin-bottom: 30px;
+}
+
+.formules-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    padding: 0 20px;
+}
+
+/* Les deux cartes sont maintenant strictement identiques */
+.carte-produit {
+    background: #ffffff;
+    border: 2px solid #e0d5c1;
+    border-radius: 15px;
+    padding: 25px;
+    width: 300px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s;
+}
+
+.carte-produit:hover {
+    transform: translateY(-5px);
+}
+
+/* 6. Gestion des images des box */
+.image-box-placeholder {
+    width: 100%;
+    height: 200px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.image-box-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Permet à l'image de bien s'adapter au cadre */
+}
+
+.prix {
+    font-size: 1.4rem;
+    color: #b56547;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+/* 7. Section Comment ça marche */
+.comment-ca-marche {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.comment-ca-marche h2 {
+    color: #b56547;
+    margin-bottom: 40px;
+}
+
+.etapes-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.etape {
+    flex: 1;
+    min-width: 250px;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    position: relative;
+}
+
+.numero {
+    background-color: #b56547;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin: 0 auto 15px auto;
+}
+
+/* 8. Section FAQ */
+.faq {
+    max-width: 700px;
+    margin: 0 auto 60px auto;
+    padding: 0 20px;
+}
+
+.faq h2 {
+    text-align: center;
+    color: #b56547;
+    margin-bottom: 30px;
+}
+
+.faq-item {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.faq-item h3 {
+    margin-top: 0;
+    color: #5c4033;
+    font-size: 1.1rem;
+}
+
+.faq-item p {
+    margin-bottom: 0;
+    color: #7a5c4c;
+    line-height: 1.5;
+}
+
+/* Boutons */
+button {
+    background-color: #b56547;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background-color: #944e33;
+}
+
+footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #9e7256;
+}
