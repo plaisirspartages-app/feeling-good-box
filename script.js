@@ -48,15 +48,26 @@ liensMenu.forEach(lien => {
 // ==========================================
 // On attend que la page soit complètement chargée
 document.addEventListener('DOMContentLoaded', () => {
-    const questions = document.querySelectorAll('.faq-question');
+    const faqItems = document.querySelectorAll('.faq-item');
 
-    questions.forEach(question => {
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        
+        // Par défaut, on s'assure que tout est fermé
+        item.classList.remove('active');
+
         question.addEventListener('click', () => {
-            // On récupère le bloc parent (.faq-item)
-            const faqItem = question.parentElement;
-            
-            // On bascule la classe .active (si elle y est, on l'enlève, sinon on l'ajoute)
-            faqItem.classList.toggle('active');
+            // Si l'élément cliqué est déjà actif, on le ferme
+            if (item.classList.contains('active')) {
+                item.classList.remove('active');
+            } else {
+                // Sinon, on ferme tous les autres éléments d'abord (optionnel, pour n'en avoir qu'un d'ouvert à la fois)
+                faqItems.forEach(otherItem => {
+                    otherItem.classList.remove('active');
+                });
+                // Et on ouvre celui qui a été cliqué
+                item.classList.add('active');
+            }
         });
     });
 });
