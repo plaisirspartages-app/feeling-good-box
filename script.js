@@ -41,3 +41,22 @@ liensMenu.forEach(lien => {
         menuGauche.classList.remove("visible");
     });
 });
+
+
+// ==========================================
+// GESTION DYNAMIQUE DE LA FAQ
+// ==========================================
+// On attend que la page soit complètement chargée
+document.addEventListener('DOMContentLoaded', () => {
+    const questions = document.querySelectorAll('.faq-question');
+
+    questions.forEach(question => {
+        question.addEventListener('click', () => {
+            // On récupère le bloc parent (.faq-item)
+            const faqItem = question.parentElement;
+            
+            // On bascule la classe .active (si elle y est, on l'enlève, sinon on l'ajoute)
+            faqItem.classList.toggle('active');
+        });
+    });
+});

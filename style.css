@@ -297,6 +297,54 @@ button:hover {
     background-color: #944e33;
 }
 
+/* Style de la question (le bouton) */
+.faq-question {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 15px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* On ajoute un petit "+" à droite de la question */
+.faq-question::after {
+    content: '+';
+    font-size: 1.5rem;
+}
+
+/* Quand la question est ouverte, le "+" devient un "-" */
+.faq-item.active .faq-question::after {
+    content: '−';
+}
+
+/* Le bloc de la réponse : caché par défaut */
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out; /* Effet de glissement fluide */
+    padding: 0 15px;
+}
+
+/* Quand le parent a la classe .active, on affiche la réponse */
+.faq-item.active .faq-answer {
+    max-height: 200px; /* Ajuste selon la longueur de tes textes */
+    padding-bottom: 15px;
+}
+.faq-category-title {
+    font-size: 1.4rem;
+    color: #333; /* Mets ici la couleur principale de ton site */
+    margin-top: 30px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 5px;
+}
+
 footer {
     padding: 20px;
     text-align: center;
