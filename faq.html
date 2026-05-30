@@ -1,125 +1,306 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style.css">
-    <title>FAQ - Feeling Good Box</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FAQ — Feeling Good Box</title>
+<link rel="stylesheet" href="fgb.css" />
+<style>
+/* ===== FAQ ===== */
+.faq-hero { padding:56px 0 40px; position:relative; overflow:hidden; text-align:center; }
+.faq-hero .blob { position:absolute; width:480px; height:480px; border-radius:50%; filter:blur(10px); opacity:.45; background:radial-gradient(circle,#FFE6A8,transparent 70%); top:-200px; left:50%; transform:translateX(-50%); z-index:0;}
+.faq-hero-inner { position:relative; z-index:1; max-width:720px; margin:0 auto; }
+.faq-hero h1 { font-size:clamp(2.6rem,6vw,4.6rem); }
+
+/* search */
+.faq-search { position:relative; max-width:520px; margin:28px auto 0; }
+.faq-search input {
+  width:100%; border:1px solid var(--line); border-radius:999px; padding:16px 22px 16px 54px;
+  font-family:inherit; font-size:1.05rem; background:#fff; color:var(--ink); box-shadow:var(--shadow-sm);
+}
+.faq-search input:focus { outline:none; border-color:var(--coral); box-shadow:0 0 0 3px rgba(242,97,63,.14); }
+.faq-search .si { position:absolute; left:20px; top:50%; transform:translateY(-50%); font-size:1.2rem; opacity:.5; }
+
+/* category tabs */
+.faq-tabs { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:30px; }
+.faq-tab {
+  padding:10px 20px; border-radius:999px; font-weight:600; font-size:.95rem;
+  background:#fff; border:1px solid var(--line); color:var(--ink-soft); box-shadow:var(--shadow-sm);
+  transition:all .15s;
+}
+.faq-tab:hover { color:var(--ink); }
+.faq-tab.active { background:var(--ink); color:var(--cream); border-color:var(--ink); }
+
+/* layout */
+.faq-main { display:grid; grid-template-columns:230px 1fr; gap:48px; align-items:start; }
+.faq-side { position:sticky; top:90px; display:flex; flex-direction:column; gap:4px; }
+.faq-side a { padding:10px 16px; border-radius:12px; font-weight:600; color:var(--ink-soft); font-size:.96rem; transition:all .15s; }
+.faq-side a:hover { background:var(--cream-2); color:var(--ink); }
+.faq-side a.on { background:var(--cream-2); color:var(--coral); }
+
+/* groups */
+.faq-group { margin-bottom:44px; scroll-margin-top:90px; }
+.faq-group > h2 { font-family:var(--font-display); font-weight:800; font-size:1.6rem; margin-bottom:6px; display:flex; align-items:center; gap:12px; }
+.faq-group > h2 .gi { width:42px; height:42px; border-radius:12px; display:grid; place-items:center; font-size:1.3rem; }
+.faq-group > .gsub { color:var(--ink-soft); margin-bottom:18px; }
+
+/* accordion */
+details.qa { background:#fff; border:1px solid var(--line); border-radius:16px; padding:2px 22px; margin-bottom:12px; transition:box-shadow .2s; }
+details.qa[open] { box-shadow:var(--shadow-sm); }
+details.qa summary {
+  font-family:var(--font-display); font-weight:600; font-size:1.1rem; padding:18px 0; cursor:pointer;
+  list-style:none; display:flex; justify-content:space-between; align-items:center; gap:18px; color:var(--ink);
+}
+details.qa summary::-webkit-details-marker { display:none; }
+details.qa summary::after { content:'+'; font-size:1.7rem; color:var(--coral); font-weight:400; line-height:1; flex:none; transition:transform .2s; }
+details.qa[open] summary::after { content:'–'; }
+details.qa .ans { color:var(--ink-soft); padding:0 0 20px; line-height:1.6; }
+details.qa .ans a { color:var(--coral); font-weight:600; text-decoration:underline; }
+details.qa .ans ul { margin:10px 0 0 18px; }
+details.qa .ans li { margin-bottom:6px; }
+
+.faq-empty { display:none; text-align:center; padding:50px 0; color:var(--ink-soft); }
+.faq-empty.show { display:block; }
+
+/* contact */
+.contact-card { background:var(--ink); color:var(--cream); border-radius:var(--radius-lg); padding:48px; text-align:center; margin-top:20px; position:relative; overflow:hidden; }
+.contact-card .ray { position:absolute; width:300px; height:300px; border-radius:50%; background:radial-gradient(circle,rgba(255,194,61,.2),transparent 70%); top:-120px; right:-60px; }
+.contact-card h2 { font-family:var(--font-display); font-weight:800; font-size:clamp(1.8rem,3.5vw,2.6rem); position:relative; }
+.contact-card p { color:rgba(255,247,234,.8); max-width:480px; margin:12px auto 0; position:relative; }
+.contact-ctas { display:flex; gap:14px; justify-content:center; margin-top:28px; flex-wrap:wrap; position:relative; }
+
+/* footer */
+.foot-grid { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:36px; }
+.foot-col h5 { font-family:var(--font-display); font-weight:700; font-size:1rem; margin-bottom:14px; }
+.foot-col a { display:block; padding:5px 0; font-size:.95rem; }
+.foot-bottom { display:flex; justify-content:space-between; margin-top:48px; padding-top:22px; border-top:1px solid rgba(255,247,234,.16); font-size:.86rem; color:rgba(255,247,234,.6); flex-wrap:wrap; gap:14px; }
+
+@media (max-width:980px){
+  .faq-main{grid-template-columns:1fr;}
+  .faq-side{position:static; flex-direction:row; flex-wrap:wrap; margin-bottom:20px;}
+  .contact-card{padding:36px 24px;}
+  .foot-grid{grid-template-columns:1fr;}
+}
+</style>
 </head>
 <body>
 
-    <nav class="bandeau-haut">
-        <button type="button" class="bouton-burger" id="bouton-burger">☰</button>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" data-logo data-logo-text aria-label="Feeling Good Box"></a>
+    <div class="nav-links">
+      <a href="la-box.html">La box</a>
+      <a href="abonnement.html">Abonnement</a>
+      <a href="pour-qui.html">Pour qui&nbsp;?</a>
+      <a href="offrir.html">Offrir</a>
+      <a href="notre-histoire.html">Notre histoire</a>
+    </div>
+    <div class="nav-right">
+      <button class="icon-btn" aria-label="Favoris">♡</button>
+      <button class="icon-btn" aria-label="Panier">🛍</button>
+      <a class="btn btn-primary" href="la-box.html">Découvrir la box</a>
+    </div>
+  </div>
+</nav>
 
-        <div class="menu-gauche" id="menu-gauche">
-            <a href="index.html">Notre Concept</a>
-            <a href="index.html#abonnement">Abonnement</a>
-            <a href="index.html#box-unitaire">Box Unitaire</a>
-            <a href="faq.html" class="active">FAQ</a>
-            <a href="#">Contact</a>
-        </div>
-        
-        <div class="nom-centre">
-            <h1>Feeling Good Box</h1>
-        </div>
-        <div class="droite-navigation">
-            <a href="#" class="icone-compte">👤 Mon Compte</a>
-            <a href="#">🛒 Panier (<span id="compteur-panier">0</span>)</a>
-        </div>
-    </nav>
+<!-- HERO -->
+<header class="faq-hero">
+  <div class="blob"></div>
+  <div class="wrap faq-hero-inner">
+    <span class="pill pill-coral pill-dot">Centre d'aide</span>
+    <h1 class="display mt-s">Comment <span class="sun-text">peut-on t'aider</span> ?</h1>
+    <p class="lead mt-s">Une question sur la box, la livraison, l'abonnement ou les cadeaux ? La réponse est sûrement juste ici.</p>
+    <div class="faq-search">
+      <span class="si">🔍</span>
+      <input id="faqSearch" type="text" placeholder="Rechercher une question…" oninput="filterFaq()" aria-label="Rechercher" />
+    </div>
+    <div class="faq-tabs" id="faqTabs">
+      <button class="faq-tab active" data-cat="all" onclick="setCat(this)">Tout</button>
+      <button class="faq-tab" data-cat="box" onclick="setCat(this)">La box</button>
+      <button class="faq-tab" data-cat="abo" onclick="setCat(this)">Abonnement</button>
+      <button class="faq-tab" data-cat="livraison" onclick="setCat(this)">Livraison</button>
+      <button class="faq-tab" data-cat="cadeau" onclick="setCat(this)">Cadeaux</button>
+      <button class="faq-tab" data-cat="paiement" onclick="setCat(this)">Paiement</button>
+    </div>
+  </div>
+</header>
 
-    <main>
-        <div class="faq-container">
+<!-- MAIN -->
+<section class="section-pad" style="padding-top:36px;">
+  <div class="wrap faq-main">
 
-        <!-- Catégorie : Le Concept -->
-        <h2 class="faq-category-title">🎁 Le Concept & Le Contenu</h2>
+    <!-- side nav -->
+    <aside class="faq-side" id="faqSide">
+      <a href="#g-box" class="on">📦 La box</a>
+      <a href="#g-abo">🔁 Abonnement</a>
+      <a href="#g-livraison">🚚 Livraison</a>
+      <a href="#g-cadeau">🎁 Cadeaux</a>
+      <a href="#g-paiement">💳 Paiement</a>
+      <a href="#g-divers">💛 Le reste</a>
+    </aside>
 
-        <div class="faq-item">
-            <button type="button" class="faq-question">Qu'y a-t-il exactement dans une Feeling Good Box ?</button>
-            <div class="faq-answer">
-                <p>Chaque mois, votre box contient une sélection surprise de 4 à 6 produits soigneusement dénichés pour votre bien-être : des cosmétiques naturels ou bio, des gourmandises réconfortantes, des accessoires cocooning, et des outils de développement personnel (carnets, défis self-care, guides de méditation).</p>
-            </div>
-        </div>
+    <!-- questions -->
+    <div id="faqContent">
 
-        <div class="faq-item">
-            <button type="button" class="faq-question">Est-ce que je peux connaître le contenu de la box avant de la recevoir ?</button>
-            <div class="faq-answer">
-                <p>C'est une surprise totale ! Nous dévoilons uniquement un petit indice ou un thème général au début de chaque mois sur nos réseaux sociaux. Le but est de vous offrir un vrai moment de découverte et de plaisir à l'ouverture de votre colis.</p>
-            </div>
-        </div>
+      <!-- LA BOX -->
+      <div class="faq-group" id="g-box" data-cat="box">
+        <h2><span class="gi" style="background:#FFE6A8;">📦</span> La box</h2>
+        <p class="gsub">Tout ce qu'il y a à savoir sur son contenu.</p>
 
-        <div class="faq-item">
-            <button type="button" class="faq-question">Les produits sont-ils écoresponsables ?</button>
-            <div class="faq-answer">
-                <p>Oui, c'est au cœur de nos engagements. Nous privilégions au maximum des produits d'origine naturelle, cruelty-free (non testés sur les animaux), et fabriqués par des artisans ou des marques françaises et européennes engagées.</p>
-            </div>
-        </div>
+        <details class="qa"><summary>Que contient exactement une box ?</summary><div class="ans">Chaque box réunit <b>six rituels</b> : un soin bien-être, un objet déco, un atelier manuel, une pause gourmande, des cartes citations et des défis (4 petits + 1 grand par mois). Le contenu change à chaque édition. <a href="la-box.html">Voir un exemple détaillé.</a></div></details>
+        <details class="qa"><summary>Le contenu est-il le même chaque mois ?</summary><div class="ans">Non ! La structure reste (6 rituels), mais chaque mois a son thème, ses artisans et ses surprises. C'est tout l'intérêt : on ne s'attend jamais à ce qu'on va recevoir.</div></details>
+        <details class="qa"><summary>Quelle est la valeur réelle d'une box ?</summary><div class="ans">Le contenu représente environ <b>75€ de valeur</b>, pour un prix de 39€ à l'unité (et dès 27€/mois en abonnement annuel). On tient à ce que chaque box vaille bien plus que son prix.</div></details>
+        <details class="qa"><summary>Les produits sont-ils adaptés si j'ai des allergies ?</summary><div class="ans">Chaque box liste précisément les ingrédients des soins et gourmandises. Si tu as une allergie connue (gluten, fruits à coque, parfum…), écris-nous avant l'envoi : on peut adapter certains éléments.</div></details>
+        <details class="qa"><summary>Puis-je savoir à l'avance ce qu'il y aura dedans ?</summary><div class="ans">On préfère garder la surprise — c'est le cœur du plaisir. Mais on dévoile le <b>thème du mois</b> sur la page <a href="la-box.html">La box</a> et sur notre Instagram quelques jours avant l'envoi.</div></details>
+        <details class="qa"><summary>La box convient-elle aux hommes ?</summary><div class="ans">Absolument. Reprendre goût aux petites choses n'a pas de genre. Les soins, ateliers et défis sont pensés pour tout le monde.</div></details>
+      </div>
 
-        <!-- Catégorie : Les Abonnements -->
-        <h2 class="faq-category-title">💳 Abonnements & Paiements</h2>
+      <!-- ABONNEMENT -->
+      <div class="faq-group" id="g-abo" data-cat="abo">
+        <h2><span class="gi" style="background:rgba(46,158,120,.16);">🔁</span> Abonnement</h2>
+        <p class="gsub">Souple, sans engagement, à ton rythme.</p>
 
-        <div class="faq-item">
-            <button type="button" class="faq-question">Comment fonctionne l'abonnement mensuel ?</button>
-            <div class="faq-answer">
-                <p>L'abonnement mensuel est à tacite reconduction. Vous êtes prélevée automatiquement chaque mois (le 1er du mois). C'est 100% sans engagement : vous pouvez suspendre ou résilier votre abonnement en un clic depuis votre espace client avant le dernier jour du mois en cours.</p>
-            </div>
-        </div>
+        <details class="qa"><summary>Quelles formules d'abonnement proposez-vous ?</summary><div class="ans">Trois : <b>Mensuelle</b> (33€/mois), <b>Trimestrielle</b> (29€/mois) et <b>Annuelle</b> (27€/mois). Plus l'engagement est long, plus le tarif baisse. <a href="abonnement.html">Comparer les formules.</a></div></details>
+        <details class="qa"><summary>Puis-je mettre mon abonnement en pause ?</summary><div class="ans">Oui, en un clic depuis ton espace. Tu peux <b>sauter un mois</b> ou <b>décaler une livraison</b> autant de fois que tu veux, sans frais.</div></details>
+        <details class="qa"><summary>Comment résilier ?</summary><div class="ans">Depuis ton espace personnel, rubrique « Mon abonnement », bouton « Résilier ». Aucun frais, aucune justification. L'abonnement s'arrête à la fin de la période en cours.</div></details>
+        <details class="qa"><summary>Quand vais-je être prélevé·e ?</summary><div class="ans">Le jour de ton inscription, puis à chaque renouvellement. Tu reçois toujours un <b>email de rappel</b> avant chaque prélèvement.</div></details>
+        <details class="qa"><summary>Quand ma première box arrive-t-elle ?</summary><div class="ans">Si tu t'abonnes avant le 15 du mois, tu reçois la box du mois en cours. Après le 15, tu démarres avec celle du mois suivant (et on t'envoie un petit cadeau de bienvenue en attendant).</div></details>
+      </div>
 
-        <div class="faq-item">
-           <button type="button" class="faq-question">Quelles sont les formules disponibles ?</button>
-            <div class="faq-answer">
-                <p>Nous proposons 3 formules : l'abonnement mensuel sans engagement (résiliable à tout moment), et des formules d'engagement de 3 mois ou 6 mois (payées en une seule fois ou mensuellement) qui vous permettent de bénéficier d'un tarif plus avantageux.</p>
-            </div>
-        </div>
+      <!-- LIVRAISON -->
+      <div class="faq-group" id="g-livraison" data-cat="livraison">
+        <h2><span class="gi" style="background:rgba(242,97,63,.16);">🚚</span> Livraison</h2>
+        <p class="gsub">Où, quand, comment.</p>
 
-        <div class="faq-item">
-            <button type="button" class="faq-question">Puis-je offrir la Feeling Good Box en cadeau ?</button>
-            <div class="faq-answer">
-                <p>Absolument ! Nous avons une section "Offrir" où vous pouvez acheter une carte cadeau ou un abonnement de 1, 3 ou 6 mois pour un proche. L'heureux(se) bénéficiaire recevra un joli bon par e-mail et pourra activer sa box quand il/elle le souhaite.</p>
-            </div>
-        </div>
+        <details class="qa"><summary>Quels sont les délais de livraison ?</summary><div class="ans">Comptez <b>3 à 5 jours ouvrés</b> après l'expédition. Tu reçois un email avec un numéro de suivi dès que ta box part.</div></details>
+        <details class="qa"><summary>Combien coûte la livraison ?</summary><div class="ans">2,90€ en point relais, 4,90€ à domicile. <b>Offerte</b> dès 2 box ou avec la formule annuelle.</div></details>
+        <details class="qa"><summary>Livrez-vous à l'étranger ?</summary><div class="ans">Oui : France, Belgique, Luxembourg et Suisse. Les frais sont calculés à la commande selon la destination.</div></details>
+        <details class="qa"><summary>Puis-je me faire livrer en point relais ?</summary><div class="ans">Bien sûr ! Tu choisis ton point relais préféré au moment de la commande. C'est aussi l'option la plus économique.</div></details>
+        <details class="qa"><summary>Que faire si ma box est endommagée ou perdue ?</summary><div class="ans">Écris-nous à <a href="#contact">bonjour@feelinggoodbox.fr</a> avec une photo si possible. On te renvoie une box neuve sans discuter — c'est notre engagement.</div></details>
+      </div>
 
-        <!-- Catégorie : Livraison -->
-        <h2 class="faq-category-title">📦 Livraison & Retours</h2>
+      <!-- CADEAUX -->
+      <div class="faq-group" id="g-cadeau" data-cat="cadeau">
+        <h2><span class="gi" style="background:#FFD0BC;">🎁</span> Cadeaux</h2>
+        <p class="gsub">Offrir un moment, en toute simplicité.</p>
 
-        <div class="faq-item">
-            <button type="button" class="faq-question">Quels sont les modes de livraison et les tarifs ?</button>
-            <div class="faq-answer">
-                <p>Nous livrons en France métropolitaine, en Belgique et au Luxembourg. Vous pouvez choisir la livraison en point relais (Mondial Relay, la moins chère et plus écologique) ou directement à domicile (Colissimo). Les tarifs exacts sont calculés au moment de la validation de votre panier.</p>
-            </div>
-        </div>
+        <details class="qa"><summary>Comment offrir une box ?</summary><div class="ans">Rends-toi sur la page <a href="offrir.html">Offrir</a> : tu choisis la formule (box unique, 3 mois ou carte cadeau), tu ajoutes un mot personnalisé et la date d'envoi. On emballe et on livre directement à la personne.</div></details>
+        <details class="qa"><summary>Le prix est-il visible par la personne qui reçoit ?</summary><div class="ans">Non, jamais. Aucun montant ni facture n'est glissé dans une box cadeau — seulement ton message.</div></details>
+        <details class="qa"><summary>Puis-je choisir la date de livraison du cadeau ?</summary><div class="ans">Oui ! Parfait pour un anniversaire ou une date spéciale. Tu indiques la date souhaitée et on s'arrange pour que la box arrive pile au bon moment.</div></details>
+        <details class="qa"><summary>Comment fonctionne la carte cadeau ?</summary><div class="ans">Tu choisis un montant libre (de 20€ à 200€), envoyé par email ou en version imprimable. La personne l'utilise quand elle veut, sur tout le site. Validité : <b>1 an</b>.</div></details>
+        <details class="qa"><summary>Un abonnement offert se renouvelle-t-il tout seul ?</summary><div class="ans">Non. Un abonnement cadeau (3 ou 12 mois) <b>s'arrête automatiquement</b> à la fin — aucune mauvaise surprise pour la personne qui le reçoit.</div></details>
+      </div>
 
-        <div class="faq-item">
-            <button type="button" class="faq-question">Quand vais-je recevoir ma première box ?</button>
-            <div class="faq-answer">
-                <p>Si vous commandez avant le 20 du mois en cours, votre première box est expédiée entre le 5 et le 10 du mois suivant. Par exemple, si vous vous abonnez le 15 mai, votre première box sera celle de juin, expédiée autour du 8 juin.</p>
-            </div>
-        </div>
+      <!-- PAIEMENT -->
+      <div class="faq-group" id="g-paiement" data-cat="paiement">
+        <h2><span class="gi" style="background:#FFE6A8;">💳</span> Paiement</h2>
+        <p class="gsub">Sécurisé et flexible.</p>
 
-        <div class="faq-item">
-            <button type="button" class="faq-question">Puis-je retourner une box si un produit ne me plaît pas ?</button>
-            <div class="faq-answer">
-                <p>Le concept de la box reposant sur la surprise, nous n'acceptons pas les retours de produits individuels. En revanche, si la box complète ne vous convient pas et qu'aucun produit n'a été ouvert ou utilisé, vous disposez d'un délai de 14 jours après réception pour nous la renvoyer à vos frais pour un remboursement complet.</p>
-            </div>
-        </div>
+        <details class="qa"><summary>Quels moyens de paiement acceptez-vous ?</summary><div class="ans">Carte bancaire (Visa, Mastercard, CB), Apple Pay, Google Pay et PayPal. Tous les paiements sont sécurisés et chiffrés.</div></details>
+        <details class="qa"><summary>Mes données bancaires sont-elles en sécurité ?</summary><div class="ans">Oui. Nous ne stockons jamais tes coordonnées bancaires : elles transitent par notre prestataire de paiement certifié (norme PCI-DSS).</div></details>
+        <details class="qa"><summary>Puis-je payer en plusieurs fois ?</summary><div class="ans">Le paiement en 3 fois sans frais est disponible pour les commandes supérieures à 80€ (formules trimestrielle et annuelle, cartes cadeaux).</div></details>
+        <details class="qa"><summary>Comment obtenir une facture ?</summary><div class="ans">Une facture est disponible dans ton espace personnel après chaque commande, et envoyée par email automatiquement.</div></details>
+      </div>
 
-        <!-- Catégorie : SAV -->
-        <h2 class="faq-category-title">💬 Service Client</h2>
+      <!-- DIVERS -->
+      <div class="faq-group" id="g-divers" data-cat="box abo livraison cadeau paiement">
+        <h2><span class="gi" style="background:rgba(46,158,120,.16);">💛</span> Le reste</h2>
+        <p class="gsub">Nos engagements et le reste.</p>
 
-        <div class="faq-item">
-            <button type="button" class="faq-question">Que faire si un produit arrive cassé ou endommagé ?</button>
-            <div class="faq-answer">
-                <p>Pas de panique ! Prenez une petite photo du produit endommagé à l'intérieur du colis et envoyez-la nous par e-mail via notre formulaire de contact dans les 48 heures suivant la réception. Nous vous renverrons un produit de remplacement gratuitement et avec le sourire !</p>
-            </div>
-        </div>
+        <details class="qa"><summary>Vos produits sont-ils écoresponsables ?</summary><div class="ans">Oui : carton kraft recyclé, calage papier, encres végétales, <b>zéro plastique</b>. Et 1€ par box est reversé à des associations d'accompagnement psychologique.</div></details>
+        <details class="qa"><summary>D'où viennent les produits ?</summary><div class="ans">De <b>6 artisans français</b> par box, choisis avec soin. On raconte leur histoire dans notre <a href="notre-histoire.html">page Notre histoire</a> et sur le Journal.</div></details>
+        <details class="qa"><summary>Puis-je retourner une box ?</summary><div class="ans">Pour des raisons d'hygiène (soins, gourmandises), les box ouvertes ne sont pas reprises. Mais si quelque chose ne va pas, écris-nous : on trouve toujours une solution.</div></details>
+        <details class="qa"><summary>Comment vous contacter ?</summary><div class="ans">Par email à <a href="#contact">bonjour@feelinggoodbox.fr</a> ou via le formulaire ci-dessous. On répond sous 24–48h, avec le sourire.</div></details>
+      </div>
+
+      <!-- empty state -->
+      <div class="faq-empty" id="faqEmpty">
+        <div style="font-size:2.5rem;">🤔</div>
+        <p style="margin-top:10px; font-size:1.1rem;">Aucune question ne correspond à ta recherche.<br>Essaie un autre mot, ou <a href="#contact" style="color:var(--coral); font-weight:700; text-decoration:underline;">écris-nous directement</a>.</p>
+      </div>
 
     </div>
-    </main>
+  </div>
+</section>
 
-    <footer>
-        <p>© 2026 Feeling Good Box - Prenez soin de votre esprit.</p>
-    </footer>
+<!-- CONTACT -->
+<section class="section-pad" id="contact" style="padding-top:0;">
+  <div class="wrap">
+    <div class="contact-card reveal">
+      <div class="ray"></div>
+      <div class="script" style="color:var(--sun); font-size:1.5rem; position:relative;">Toujours une question ?</div>
+      <h2>On est là, pour de vrai.</h2>
+      <p>Une équipe humaine te répond sous 24 à 48h. Pas de robot, pas de jargon — juste de l'aide, avec le sourire.</p>
+      <div class="contact-ctas">
+        <a class="btn btn-sun btn-lg" href="mailto:bonjour@feelinggoodbox.fr">Nous écrire</a>
+        <a class="btn btn-lg" href="#" style="background:rgba(255,247,234,.12); color:var(--cream); border:2px solid rgba(255,247,234,.3);">Chat en direct</a>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <script src="script.js"></script>
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <div data-logo data-logo-text style="--terra:var(--cream);"></div>
+        <p class="script" style="color:var(--sun); font-size:1.5rem; margin-top:14px;">Reprendre goût.<br>Reprendre vie.</p>
+      </div>
+      <div class="foot-col"><h5>La boutique</h5><a href="la-box.html">Box du mois</a><a href="abonnement.html">Abonnement</a><a href="offrir.html">Cartes cadeaux</a></div>
+      <div class="foot-col"><h5>Le concept</h5><a href="pour-qui.html">Pour qui ?</a><a href="notre-histoire.html">Notre histoire</a><a href="#">Le journal</a></div>
+      <div class="foot-col"><h5>Aide</h5><a href="faq.html">FAQ</a><a href="#">Livraison</a><a href="#contact">Contact</a></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="year">2026</span> Feeling Good Box — Fait avec ❤ en France</span>
+      <span>CGV · Mentions légales · Confidentialité</span>
+    </div>
+  </div>
+</footer>
+
+<script src="image-slot.js"></script>
+<script src="fgb.js"></script>
+<script>
+let faqCat = 'all';
+
+function setCat(btn){
+  faqCat = btn.dataset.cat;
+  document.querySelectorAll('.faq-tab').forEach(t => t.classList.toggle('active', t === btn));
+  filterFaq();
+}
+
+function filterFaq(){
+  const q = (document.getElementById('faqSearch').value || '').trim().toLowerCase();
+  let anyVisible = false;
+
+  document.querySelectorAll('.faq-group').forEach(group => {
+    const cats = (group.dataset.cat || '').split(' ');
+    const catMatch = faqCat === 'all' || cats.includes(faqCat);
+    let groupHasVisible = false;
+
+    group.querySelectorAll('details.qa').forEach(qa => {
+      const text = qa.textContent.toLowerCase();
+      const textMatch = !q || text.includes(q);
+      const show = catMatch && textMatch;
+      qa.style.display = show ? '' : 'none';
+      if (show) groupHasVisible = true;
+      if (q && textMatch && catMatch) qa.open = true;
+      if (!q) qa.open = false;
+    });
+
+    group.style.display = groupHasVisible ? '' : 'none';
+    if (groupHasVisible) anyVisible = true;
+  });
+
+  document.getElementById('faqEmpty').classList.toggle('show', !anyVisible);
+}
+
+// side nav scroll-spy + active state
+const sideLinks = document.querySelectorAll('.faq-side a');
+sideLinks.forEach(a => a.addEventListener('click', () => {
+  sideLinks.forEach(x => x.classList.remove('on'));
+  a.classList.add('on');
+}));
+</script>
 </body>
 </html>

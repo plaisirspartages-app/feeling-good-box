@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pour qui ? — Feeling Good Box</title>
+<link rel="stylesheet" href="fgb.css" />
+<style>
+/* ===== POUR QUI ===== */
+.pq-hero { padding:56px 0 48px; position:relative; overflow:hidden; }
+.pq-hero .blob { position:absolute; width:460px; height:460px; border-radius:50%; filter:blur(10px); opacity:.5; background:radial-gradient(circle,#FFD0BC,transparent 70%); top:-160px; right:-100px; z-index:0;}
+.pq-hero-inner { position:relative; z-index:1; max-width:740px; }
+.pq-hero h1 { font-size:clamp(2.8rem,6vw,5rem); }
+
+/* intro chips */
+.pq-chips { display:flex; flex-wrap:wrap; gap:10px; margin-top:26px; }
+
+/* alternating cases */
+.case-row { display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; padding:46px 0; }
+.case-row.flip .case-media { order:2; }
+.case-media { position:relative; }
+.case-media image-slot { width:100%; height:400px; border-radius:var(--radius-lg); box-shadow:var(--shadow-md); }
+.case-media .tagfloat { position:absolute; bottom:-16px; left:24px; }
+.case-body .lbl { font-family:var(--font-script); font-size:1.5rem; color:var(--coral); }
+.case-body h2 { font-family:var(--font-display); font-weight:800; font-size:clamp(1.8rem,3.5vw,2.6rem); margin-top:4px; line-height:1.05; }
+.case-body p { color:var(--ink-soft); margin-top:14px; font-size:1.05rem; }
+.case-body .inside { margin-top:18px; background:var(--cream-2); border-radius:16px; padding:16px 20px; }
+.case-body .inside b { font-family:var(--font-display); font-size:.95rem; }
+.case-body .inside .items { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+.case-body .cta { margin-top:22px; display:flex; gap:12px; flex-wrap:wrap; }
+.case-row + .case-row { border-top:1px solid var(--line); }
+
+/* soi reassurance */
+.soi { background:var(--ink); color:var(--cream); text-align:center; }
+.soi h2 { font-family:var(--font-display); font-weight:800; font-size:clamp(2rem,4vw,3.2rem); }
+.soi .script { color:var(--sun); font-size:clamp(1.6rem,3vw,2.4rem); }
+.soi p { color:rgba(255,247,234,.8); max-width:560px; margin:18px auto 0; font-size:1.1rem; }
+
+/* footer */
+.foot-grid { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:36px; }
+.foot-col h5 { font-family:var(--font-display); font-weight:700; font-size:1rem; margin-bottom:14px; }
+.foot-col a { display:block; padding:5px 0; font-size:.95rem; }
+.foot-bottom { display:flex; justify-content:space-between; margin-top:48px; padding-top:22px; border-top:1px solid rgba(255,247,234,.16); font-size:.86rem; color:rgba(255,247,234,.6); flex-wrap:wrap; gap:14px; }
+
+@media (max-width:980px){
+  .case-row{grid-template-columns:1fr; gap:30px; padding:36px 0;}
+  .case-row.flip .case-media{order:0;}
+  .case-media image-slot{height:300px;}
+  .foot-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" data-logo data-logo-text aria-label="Feeling Good Box"></a>
+    <div class="nav-links">
+      <a href="la-box.html">La box</a>
+      <a href="abonnement.html">Abonnement</a>
+      <a href="pour-qui.html">Pour qui&nbsp;?</a>
+      <a href="offrir.html">Offrir</a>
+      <a href="notre-histoire.html">Notre histoire</a>
+    </div>
+    <div class="nav-right">
+      <button class="icon-btn" aria-label="Favoris">♡</button>
+      <button class="icon-btn" aria-label="Panier">🛍</button>
+      <a class="btn btn-primary" href="la-box.html">Découvrir la box</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="pq-hero">
+  <div class="blob"></div>
+  <div class="wrap pq-hero-inner">
+    <span class="pill pill-coral pill-dot">Pour qui ?</span>
+    <h1 class="display mt-s">Quand la vie fait <span class="sun-text">un creux</span>.</h1>
+    <p class="lead mt-s">
+      Il y a mille raisons de reprendre goût aux petites choses. Une épreuve, un passage à vide,
+      une nouvelle vie qui commence — ou juste l'envie de se dire « je compte aussi ».
+      La box s'adapte à chaque histoire.
+    </p>
+    <div class="pq-chips">
+      <a class="pill" href="#rupture">💔 Rupture</a>
+      <a class="pill" href="#deuil">🕊️ Deuil</a>
+      <a class="pill" href="#postpartum">🤱 Post-partum</a>
+      <a class="pill" href="#coupdemou">🌥️ Coup de mou</a>
+      <a class="pill" href="#soi">☀️ Juste pour soi</a>
+      <a class="pill" href="#proche">💛 Un proche</a>
+    </div>
+  </div>
+</header>
+
+<!-- CASES -->
+<section class="section-pad" style="padding-top:24px;">
+  <div class="wrap">
+
+    <!-- RUPTURE -->
+    <div class="case-row reveal" id="rupture">
+      <div class="case-media">
+        <image-slot id="pq-rupture" src="img/case-rupture.svg" placeholder="rupture"></image-slot>
+        <span class="tagfloat pill pill-sun">Se reconstruire</span>
+      </div>
+      <div class="case-body">
+        <div class="lbl">Après une rupture</div>
+        <h2>Réapprendre à habiter sa vie, seul·e.</h2>
+        <p>Quand une histoire se termine, le quotidien sonne creux. La box réintroduit, tout doucement,
+          des petits plaisirs rien qu'à soi : un soin, un geste créatif, un défi pour rouvrir une porte.</p>
+        <div class="inside">
+          <b>On y glisse souvent…</b>
+          <div class="items">
+            <span class="pill pill-coral">Soin réconfortant</span>
+            <span class="pill pill-coral">Défi « sortir seul·e »</span>
+            <span class="pill pill-coral">Cartes « tu es entier·ère »</span>
+          </div>
+        </div>
+        <div class="cta">
+          <a class="btn btn-primary" href="la-box.html">Découvrir la box</a>
+          <a class="btn btn-ghost" href="offrir.html">L'offrir à quelqu'un</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEUIL -->
+    <div class="case-row flip reveal" id="deuil">
+      <div class="case-media">
+        <image-slot id="pq-deuil" src="img/case-deuil.svg" placeholder="deuil"></image-slot>
+        <span class="tagfloat pill pill-sun">Être là, sans les mots</span>
+      </div>
+      <div class="case-body">
+        <div class="lbl">Traverser un deuil</div>
+        <h2>Une présence douce, quand les mots manquent.</h2>
+        <p>Face au chagrin, on ne sait jamais quoi dire. La box parle à notre place : elle dit « je pense à toi »,
+          sans bruit, sans injonction à aller mieux. Juste de la tendresse, à ouvrir quand on est prêt·e.</p>
+        <div class="inside">
+          <b>On y glisse souvent…</b>
+          <div class="items">
+            <span class="pill pill-coral">Bougie & infusion du soir</span>
+            <span class="pill pill-coral">Carnet pour écrire</span>
+            <span class="pill pill-coral">Défi « marcher au calme »</span>
+          </div>
+        </div>
+        <div class="cta">
+          <a class="btn btn-primary" href="offrir.html">Offrir un réconfort</a>
+          <a class="btn btn-ghost" href="la-box.html">Voir la box</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- POST-PARTUM -->
+    <div class="case-row reveal" id="postpartum">
+      <div class="case-media">
+        <image-slot id="pq-postpartum" src="img/case-postpartum.svg" placeholder="post-partum"></image-slot>
+        <span class="tagfloat pill pill-sun">Se retrouver après bébé</span>
+      </div>
+      <div class="case-body">
+        <div class="lbl">Jeune maman</div>
+        <h2>Exister encore, derrière la maman.</h2>
+        <p>Les premiers mois, tout tourne autour du bébé. La box rappelle qu'il y a aussi une femme,
+          qui mérite cinq minutes de douceur. Des rituels courts, faisables d'une main, sans culpabilité.</p>
+        <div class="inside">
+          <b>On y glisse souvent…</b>
+          <div class="items">
+            <span class="pill pill-coral">Soin express</span>
+            <span class="pill pill-coral">Gourmandise « pause café »</span>
+            <span class="pill pill-coral">Défi « 10 min pour toi »</span>
+          </div>
+        </div>
+        <div class="cta">
+          <a class="btn btn-primary" href="la-box.html">Découvrir la box</a>
+          <a class="btn btn-ghost" href="offrir.html">L'offrir à une maman</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- COUP DE MOU -->
+    <div class="case-row flip reveal" id="coupdemou">
+      <div class="case-media">
+        <image-slot id="pq-coupdemou" src="img/case-coupdemou.svg" placeholder="coup de mou"></image-slot>
+        <span class="tagfloat pill pill-sun">Remettre de la lumière</span>
+      </div>
+      <div class="case-body">
+        <div class="lbl">Un coup de mou</div>
+        <h2>Quand tout va « bien »… mais que rien ne brille.</h2>
+        <p>Pas besoin d'un drame pour avoir besoin de douceur. La routine, la grisaille, la charge mentale —
+          la box rallume des petites étincelles de plaisir, une par semaine.</p>
+        <div class="inside">
+          <b>On y glisse souvent…</b>
+          <div class="items">
+            <span class="pill pill-coral">Atelier créatif</span>
+            <span class="pill pill-coral">Playlist & citations</span>
+            <span class="pill pill-coral">Défi « admire le ciel »</span>
+          </div>
+        </div>
+        <div class="cta">
+          <a class="btn btn-primary" href="abonnement.html">M'abonner</a>
+          <a class="btn btn-ghost" href="la-box.html">Voir la box</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROCHE -->
+    <div class="case-row reveal" id="proche">
+      <div class="case-media">
+        <image-slot id="pq-proche" src="img/case-proche.svg" placeholder="un proche"></image-slot>
+        <span class="tagfloat pill pill-sun">Offrir une attention</span>
+      </div>
+      <div class="case-body">
+        <div class="lbl">Pour un proche fragile</div>
+        <h2>Dire « je suis là », autrement.</h2>
+        <p>Un parent, un·e ami·e, un·e collègue qui traverse une période difficile ? La box est un câlin
+          qu'on envoie par la poste. Tu choisis, on emballe avec soin, ton mot fait le reste.</p>
+        <div class="inside">
+          <b>On y glisse souvent…</b>
+          <div class="items">
+            <span class="pill pill-coral">Mot manuscrit personnalisé</span>
+            <span class="pill pill-coral">Emballage cadeau</span>
+            <span class="pill pill-coral">Livraison directe</span>
+          </div>
+        </div>
+        <div class="cta">
+          <a class="btn btn-primary" href="offrir.html">Offrir une box →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- JUSTE POUR SOI -->
+<section class="soi section-pad" id="soi">
+  <div class="wrap reveal">
+    <div class="script">Et la plus belle raison…</div>
+    <h2>Juste pour soi.</h2>
+    <p>Pas besoin d'une bonne excuse pour se faire du bien. Vouloir prendre soin de soi,
+      c'est déjà une raison suffisante. La plus importante, même.</p>
+    <div style="display:flex; gap:16px; justify-content:center; margin-top:32px; flex-wrap:wrap;">
+      <a class="btn btn-sun btn-lg" href="la-box.html">M'offrir une box</a>
+      <a class="btn btn-lg" href="abonnement.html" style="background:rgba(255,247,234,.12); color:var(--cream); border:2px solid rgba(255,247,234,.3);">M'abonner</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <div data-logo data-logo-text style="--terra:var(--cream);"></div>
+        <p class="script" style="color:var(--sun); font-size:1.5rem; margin-top:14px;">Reprendre goût.<br>Reprendre vie.</p>
+      </div>
+      <div class="foot-col"><h5>La boutique</h5><a href="la-box.html">Box du mois</a><a href="abonnement.html">Abonnement</a><a href="offrir.html">Cartes cadeaux</a></div>
+      <div class="foot-col"><h5>Le concept</h5><a href="pour-qui.html">Pour qui ?</a><a href="notre-histoire.html">Notre histoire</a><a href="#">Le journal</a></div>
+      <div class="foot-col"><h5>Aide</h5><a href="faq.html">FAQ</a><a href="#">Livraison</a><a href="#">Contact</a></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="year">2026</span> Feeling Good Box — Fait avec ❤ en France</span>
+      <span>CGV · Mentions légales · Confidentialité</span>
+    </div>
+  </div>
+</footer>
+
+<script src="image-slot.js"></script>
+<script src="fgb.js"></script>
+</body>
+</html>

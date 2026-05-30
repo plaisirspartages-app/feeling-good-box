@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Offrir — Feeling Good Box</title>
+<link rel="stylesheet" href="fgb.css" />
+<style>
+/* ===== OFFRIR ===== */
+.of-hero { padding:56px 0 56px; position:relative; overflow:hidden; }
+.of-hero .blob { position:absolute; width:480px; height:480px; border-radius:50%; filter:blur(10px); opacity:.5; background:radial-gradient(circle,#FFE6A8,transparent 70%); top:-180px; left:-120px; z-index:0;}
+.of-hero-inner { position:relative; z-index:1; display:grid; grid-template-columns:1.05fr 1fr; gap:56px; align-items:center; }
+.of-hero h1 { font-size:clamp(2.8rem,6vw,5rem); }
+
+/* gift card preview */
+.giftcard {
+  position:relative; background:#fff; border-radius:var(--radius-lg); box-shadow:var(--shadow-lg);
+  overflow:hidden; border:1px solid var(--line);
+}
+.giftcard image-slot { width:100%; height:230px; border-radius:0; }
+.giftcard .gc-body { padding:24px 26px 26px; }
+.giftcard .gc-from { font-family:var(--font-script); font-size:1.05rem; color:var(--ink-soft); }
+.giftcard .gc-msg { font-family:var(--font-script); font-size:1.6rem; color:var(--ink); line-height:1.2; margin-top:4px; }
+.giftcard .gc-sign { font-family:var(--font-script); font-size:1.2rem; color:var(--coral); margin-top:14px; text-align:right; }
+.giftcard .gc-ribbon { position:absolute; top:18px; right:18px; }
+
+/* steps */
+.steps { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:50px; }
+.gstep { text-align:center; padding:28px 22px; }
+.gstep .n { width:60px; height:60px; border-radius:50%; background:var(--grad-sun); color:#fff; font-family:var(--font-display); font-weight:800; font-size:1.5rem; display:grid; place-items:center; margin:0 auto 16px; box-shadow:0 10px 24px rgba(255,158,44,.34);}
+.gstep b { font-family:var(--font-display); font-size:1.18rem; display:block; }
+.gstep p { color:var(--ink-soft); margin-top:6px; font-size:.96rem; }
+
+/* options */
+.opts { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:50px; align-items:stretch; }
+.opt { padding:0; overflow:hidden; display:flex; flex-direction:column; }
+.opt .pic { height:150px; position:relative; }
+.opt .pic image-slot { width:100%; height:100%; border-radius:0; }
+.opt .ob { padding:24px; display:flex; flex-direction:column; flex:1; }
+.opt h3 { font-family:var(--font-display); font-weight:800; font-size:1.4rem; }
+.opt .sub { color:var(--ink-soft); font-size:.95rem; margin-top:4px; }
+.opt .price { font-family:var(--font-display); font-weight:800; font-size:1.8rem; margin:14px 0 4px; }
+.opt ul { list-style:none; margin:8px 0 20px; display:flex; flex-direction:column; gap:8px; flex:1; }
+.opt li { display:flex; gap:9px; font-size:.94rem; }
+.opt .ck { color:var(--coral); font-weight:800; }
+.opt .badge { position:absolute; top:14px; left:14px; }
+
+/* personalize form */
+.perso { background:var(--cream-2); }
+.perso-inner { display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:start; }
+.field { margin-bottom:18px; }
+.field label { font-family:var(--font-display); font-weight:600; font-size:.95rem; display:block; margin-bottom:7px; }
+.field input, .field textarea, .field select {
+  width:100%; border:1px solid var(--line); border-radius:14px; padding:13px 16px;
+  font-family:inherit; font-size:1rem; background:#fff; color:var(--ink); resize:vertical;
+}
+.field input:focus, .field textarea:focus, .field select:focus { outline:none; border-color:var(--coral); box-shadow:0 0 0 3px rgba(242,97,63,.14); }
+.swatches { display:flex; gap:10px; }
+.swatch { width:42px; height:42px; border-radius:12px; cursor:pointer; border:3px solid transparent; }
+.swatch[aria-checked="true"] { border-color:var(--ink); }
+
+/* occasions */
+.occ { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top:30px; }
+
+/* footer */
+.foot-grid { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:36px; }
+.foot-col h5 { font-family:var(--font-display); font-weight:700; font-size:1rem; margin-bottom:14px; }
+.foot-col a { display:block; padding:5px 0; font-size:.95rem; }
+.foot-bottom { display:flex; justify-content:space-between; margin-top:48px; padding-top:22px; border-top:1px solid rgba(255,247,234,.16); font-size:.86rem; color:rgba(255,247,234,.6); flex-wrap:wrap; gap:14px; }
+
+@media (max-width:980px){
+  .of-hero-inner,.perso-inner{grid-template-columns:1fr;}
+  .steps,.opts{grid-template-columns:1fr;}
+  .foot-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" data-logo data-logo-text aria-label="Feeling Good Box"></a>
+    <div class="nav-links">
+      <a href="la-box.html">La box</a>
+      <a href="abonnement.html">Abonnement</a>
+      <a href="pour-qui.html">Pour qui&nbsp;?</a>
+      <a href="offrir.html">Offrir</a>
+      <a href="notre-histoire.html">Notre histoire</a>
+    </div>
+    <div class="nav-right">
+      <button class="icon-btn" aria-label="Favoris">♡</button>
+      <button class="icon-btn" aria-label="Panier">🛍</button>
+      <a class="btn btn-primary" href="#options">Offrir une box</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="of-hero">
+  <div class="blob"></div>
+  <div class="wrap of-hero-inner">
+    <div>
+      <span class="pill pill-coral pill-dot">Offrir</span>
+      <h1 class="display mt-s">Un câlin qui s'envoie par <span class="sun-text">la poste</span>.</h1>
+      <p class="lead mt-s">
+        Offrir une Feeling Good Box, c'est dire « je pense à toi » avec délicatesse — sans avoir à trouver
+        les mots parfaits. Tu choisis, tu personnalises, on emballe avec soin et on livre directement.
+      </p>
+      <div class="flex gap-s mt-m" style="flex-wrap:wrap;">
+        <a class="btn btn-primary btn-lg" href="#options">Choisir un cadeau →</a>
+        <a class="btn btn-ghost btn-lg" href="#perso">Personnaliser le mot</a>
+      </div>
+    </div>
+    <!-- GIFT CARD PREVIEW -->
+    <div class="giftcard reveal">
+      <span class="gc-ribbon pill pill-sun">★ Aperçu</span>
+      <image-slot id="gift-cover" src="img/case-proche.svg" placeholder="visuel cadeau"></image-slot>
+      <div class="gc-body">
+        <div class="gc-from">Pour Léa,</div>
+        <div class="gc-msg" id="preview-msg">Prends soin de toi, tu le mérites tellement. Je pense fort à toi.</div>
+        <div class="gc-sign" id="preview-sign">— Avec tout mon amour, Maman</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- HOW -->
+<section class="section-pad" style="padding-top:28px;">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow">Comment offrir</span>
+      <h2 class="display mt-s" style="font-size:clamp(2rem,4vw,3rem);">Trois petits gestes, beaucoup d'émotion</h2>
+    </div>
+    <div class="steps">
+      <div class="card gstep reveal"><div class="n">1</div><b>Tu choisis</b><p>Une box unique, un abonnement de 3 mois, ou une carte au montant libre.</p></div>
+      <div class="card gstep reveal"><div class="n">2</div><b>Tu personnalises</b><p>Un mot manuscrit, la date d'envoi, et la box est à son nom.</p></div>
+      <div class="card gstep reveal"><div class="n">3</div><b>On s'occupe du reste</b><p>Emballage soigné, livraison directe chez la personne. Magie.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- OPTIONS -->
+<section id="options" class="section-pad" style="background:var(--cream-2);">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow">Les formules cadeau</span>
+      <h2 class="display mt-s" style="font-size:clamp(2rem,4vw,3rem);">Qu'est-ce qui lui ferait plaisir ?</h2>
+    </div>
+    <div class="opts">
+      <div class="card opt reveal">
+        <div class="pic"><image-slot id="gift-box" src="img/box-flatlay.svg" placeholder="box"></image-slot></div>
+        <div class="ob">
+          <h3>La box cadeau</h3>
+          <div class="sub">Une box, une belle surprise</div>
+          <div class="price">39€</div>
+          <ul>
+            <li><span class="ck">✓</span> L'édition du mois</li>
+            <li><span class="ck">✓</span> Mot personnalisé inclus</li>
+            <li><span class="ck">✓</span> Emballage cadeau offert</li>
+          </ul>
+          <a class="btn btn-ghost" href="#perso" style="justify-content:center;">Choisir</a>
+        </div>
+      </div>
+
+      <div class="card opt reveal">
+        <span class="badge pill pill-sun">★ Le plus offert</span>
+        <div class="pic"><image-slot id="gift-3mois" src="img/case-soi.svg" placeholder="3 mois"></image-slot></div>
+        <div class="ob">
+          <h3>3 mois de douceur</h3>
+          <div class="sub">Le cadeau qui revient</div>
+          <div class="price">87€</div>
+          <ul>
+            <li><span class="ck">✓</span> 3 box, 3 surprises</li>
+            <li><span class="ck">✓</span> Sans reconduction automatique</li>
+            <li><span class="ck">✓</span> Mot + emballage offerts</li>
+          </ul>
+          <a class="btn btn-primary" href="#perso" style="justify-content:center;">Choisir</a>
+        </div>
+      </div>
+
+      <div class="card opt reveal">
+        <div class="pic"><image-slot id="gift-carte" src="img/case-proche.svg" placeholder="carte"></image-slot></div>
+        <div class="ob">
+          <h3>Carte cadeau</h3>
+          <div class="sub">Tu hésites ? Laisse-la choisir</div>
+          <div class="price">Montant libre</div>
+          <ul>
+            <li><span class="ck">✓</span> De 20€ à 200€</li>
+            <li><span class="ck">✓</span> Envoi par email ou imprimée</li>
+            <li><span class="ck">✓</span> Valable 1 an</li>
+          </ul>
+          <a class="btn btn-ghost" href="#perso" style="justify-content:center;">Choisir</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PERSONALIZE -->
+<section id="perso" class="perso section-pad">
+  <div class="wrap">
+    <div class="center reveal" style="margin-bottom:40px;">
+      <span class="eyebrow">Personnaliser</span>
+      <h2 class="display mt-s" style="font-size:clamp(2rem,4vw,3rem);">Ajoute ta touche</h2>
+    </div>
+    <div class="perso-inner">
+      <div class="reveal">
+        <div class="field">
+          <label for="f-to">À qui ?</label>
+          <input id="f-to" type="text" value="Léa" oninput="updateCard()" />
+        </div>
+        <div class="field">
+          <label for="f-msg">Ton message</label>
+          <textarea id="f-msg" rows="3" oninput="updateCard()">Prends soin de toi, tu le mérites tellement. Je pense fort à toi.</textarea>
+        </div>
+        <div class="field">
+          <label for="f-from">Signé</label>
+          <input id="f-from" type="text" value="Avec tout mon amour, Maman" oninput="updateCard()" />
+        </div>
+        <div class="field">
+          <label>Visuel de la carte</label>
+          <div class="swatches" id="swatches">
+            <div class="swatch" style="background:#F2613F;" data-img="img/case-proche.svg" aria-checked="true" onclick="pickSwatch(this)" title="Cœur"></div>
+            <div class="swatch" style="background:#FFC23D;" data-img="img/case-postpartum.svg" aria-checked="false" onclick="pickSwatch(this)" title="Soleil"></div>
+            <div class="swatch" style="background:#B98A8E;" data-img="img/case-deuil.svg" aria-checked="false" onclick="pickSwatch(this)" title="Étoiles"></div>
+            <div class="swatch" style="background:#E8C79A;" data-img="img/box-flatlay.svg" aria-checked="false" onclick="pickSwatch(this)" title="La box"></div>
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-date">Date d'envoi</label>
+          <input id="f-date" type="date" />
+        </div>
+        <a class="btn btn-primary btn-lg" href="#" style="margin-top:6px;">Ajouter au panier →</a>
+      </div>
+
+      <!-- live preview -->
+      <div class="reveal" style="position:sticky; top:90px;">
+        <div class="giftcard">
+          <span class="gc-ribbon pill pill-sun">Aperçu en direct</span>
+          <image-slot id="perso-cover" src="img/case-proche.svg" placeholder="visuel"></image-slot>
+          <div class="gc-body">
+            <div class="gc-from" id="pc-to">Pour Léa,</div>
+            <div class="gc-msg" id="pc-msg">Prends soin de toi, tu le mérites tellement. Je pense fort à toi.</div>
+            <div class="gc-sign" id="pc-from">— Avec tout mon amour, Maman</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OCCASIONS -->
+<section class="section-pad center">
+  <div class="wrap reveal">
+    <span class="eyebrow">Pour quelle occasion ?</span>
+    <h2 class="display mt-s" style="font-size:clamp(1.8rem,3.5vw,2.6rem);">Il y a toujours une bonne raison</h2>
+    <div class="occ">
+      <span class="pill">💔 Une rupture</span>
+      <span class="pill">🕊️ Un deuil</span>
+      <span class="pill">🤱 Une naissance</span>
+      <span class="pill">🎂 Un anniversaire</span>
+      <span class="pill">🌥️ Un coup dur</span>
+      <span class="pill">💐 Un merci</span>
+      <span class="pill">☀️ Juste comme ça</span>
+    </div>
+    <p style="color:var(--ink-soft); margin-top:24px;">Besoin d'aide pour choisir ? <a href="pour-qui.html" style="color:var(--coral); font-weight:700; text-decoration:underline;">Découvre pour qui est la box →</a></p>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="section-pad" style="background:var(--grad-warm); text-align:center;">
+  <div class="wrap reveal">
+    <div class="script" style="color:var(--coral); font-size:1.7rem;">Fais-lui ce plaisir.</div>
+    <h2 class="display" style="font-size:clamp(2.2rem,4.5vw,3.6rem);">Offre un peu de soleil.</h2>
+    <div style="display:flex; gap:16px; justify-content:center; margin-top:30px; flex-wrap:wrap;">
+      <a class="btn btn-primary btn-lg" href="#options">Offrir une box</a>
+      <a class="btn btn-ghost btn-lg" href="abonnement.html">Offrir un abonnement</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <div data-logo data-logo-text style="--terra:var(--cream);"></div>
+        <p class="script" style="color:var(--sun); font-size:1.5rem; margin-top:14px;">Reprendre goût.<br>Reprendre vie.</p>
+      </div>
+      <div class="foot-col"><h5>La boutique</h5><a href="la-box.html">Box du mois</a><a href="abonnement.html">Abonnement</a><a href="offrir.html">Cartes cadeaux</a></div>
+      <div class="foot-col"><h5>Le concept</h5><a href="pour-qui.html">Pour qui ?</a><a href="notre-histoire.html">Notre histoire</a><a href="#">Le journal</a></div>
+      <div class="foot-col"><h5>Aide</h5><a href="faq.html">FAQ</a><a href="#">Livraison</a><a href="#">Contact</a></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="year">2026</span> Feeling Good Box — Fait avec ❤ en France</span>
+      <span>CGV · Mentions légales · Confidentialité</span>
+    </div>
+  </div>
+</footer>
+
+<script src="image-slot.js"></script>
+<script src="fgb.js"></script>
+<script>
+function updateCard(){
+  const to = document.getElementById('f-to').value.trim();
+  const msg = document.getElementById('f-msg').value.trim();
+  const from = document.getElementById('f-from').value.trim();
+  document.getElementById('pc-to').textContent = to ? ('Pour ' + to + ',') : '';
+  document.getElementById('pc-msg').textContent = msg;
+  document.getElementById('pc-from').textContent = from ? ('— ' + from) : '';
+}
+function pickSwatch(el){
+  document.querySelectorAll('#swatches .swatch').forEach(s => s.setAttribute('aria-checked','false'));
+  el.setAttribute('aria-checked','true');
+  const cover = document.getElementById('perso-cover');
+  if (cover) cover.setAttribute('src', el.dataset.img);
+}
+</script>
+</body>
+</html>

@@ -1,115 +1,502 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css"> 
-    <title>Feeling Good Box - Boostez votre moral</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Feeling Good Box — Reprendre goût. Reprendre vie.</title>
+<link rel="stylesheet" href="fgb.css" />
+<style>
+/* ============ HOMEPAGE-SPECIFIC ============ */
+
+/* ---- HERO shared ---- */
+.hero { position: relative; overflow: hidden; padding-top: 40px; }
+.hero-bg-blob {
+  position: absolute; z-index: 0; border-radius: 50%;
+  filter: blur(8px); opacity: .55; pointer-events: none;
+}
+.blob-1 { width: 520px; height: 520px; background: radial-gradient(circle, #FFE6A8, transparent 70%); top: -160px; right: -120px; }
+.blob-2 { width: 420px; height: 420px; background: radial-gradient(circle, #FFD0BC, transparent 70%); bottom: -180px; left: -120px; }
+
+/* ---- HERO: Manifesto ---- */
+.hero-manifesto { position: relative; z-index: 1; padding: 56px 0 80px; }
+.manifesto-title { font-size: clamp(3.2rem, 9vw, 7.4rem); }
+.manifesto-row { display: flex; flex-wrap: wrap; align-items: center; gap: 26px; margin-top: 30px; }
+.manifesto-sun {
+  width: 132px; height: 132px; border-radius: 50%; flex: none;
+  background: var(--grad-sun); display: grid; place-items: center;
+  box-shadow: 0 20px 44px rgba(255,158,44,.4);
+  animation: floaty 5s ease-in-out infinite;
+}
+.manifesto-sun svg { width: 78px; height: 78px; }
+@keyframes floaty { 0%,100%{ transform: translateY(0) rotate(-2deg);} 50%{ transform: translateY(-12px) rotate(2deg);} }
+.manifesto-ctas { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; align-items: center; }
+.manifesto-body { display: grid; grid-template-columns: 1fr 0.82fr; gap: 48px; align-items: center; margin-top: 36px; }
+.manifesto-copy .lead { max-width: 480px; }
+.manifesto-art { position: relative; }
+.manifesto-art image-slot { width: 100%; height: 392px; border-radius: 28px; box-shadow: var(--shadow-md); }
+
+/* ---- HERO: Editorial ---- */
+.hero-editorial { position: relative; z-index: 1; padding: 30px 0 80px;
+  display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: center; }
+.editorial-title { font-size: clamp(2.8rem, 6vw, 5rem); margin-top: 18px; }
+.editorial-ctas { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; }
+.editorial-media { position: relative; }
+.editorial-media image-slot { width: 100%; height: 500px; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); }
+.float-chip {
+  position: absolute; background: #fff; border-radius: 18px; padding: 12px 16px;
+  box-shadow: var(--shadow-md); display: flex; align-items: center; gap: 11px; font-weight: 700;
+  animation: floaty 6s ease-in-out infinite;
+}
+.float-chip .emoji { width: 36px; height: 36px; border-radius: 11px; display: grid; place-items: center; }
+.chip-tl { top: 24px; left: -26px; }
+.chip-br { bottom: 40px; right: -22px; animation-delay: 1.2s; }
+.chip-ml { top: 46%; left: -38px; animation-delay: .6s; }
+
+.trust-row { display: flex; flex-wrap: wrap; gap: 26px; margin-top: 40px; align-items: center; }
+.trust-item { display: flex; align-items: center; gap: 9px; font-weight: 600; color: var(--ink-soft); font-size: .95rem; }
+.trust-item .tdot { width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center; background: var(--cream-2); }
+.avatars { display: flex; }
+.avatars image-slot, .avatars .av { width: 38px; height: 38px; border-radius: 50%; border: 2px solid var(--cream); margin-left: -10px; }
+.avatars .av:first-child { margin-left: 0; }
+
+/* ---- Marquee band ---- */
+.band { background: var(--ink); color: var(--cream); padding: 20px 0; }
+.band .marquee-item { color: var(--cream); }
+.band .marquee-star { color: var(--sun); }
+
+/* ---- Concept / 6 rituels ---- */
+.rituels-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 52px; }
+.rituel { padding: 30px 26px; }
+.rituel .ic { width: 60px; height: 60px; border-radius: 17px; display: grid; place-items: center; margin-bottom: 18px; }
+.rituel h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.32rem; }
+.rituel p { color: var(--ink-soft); margin-top: 8px; font-size: 1rem; }
+.rituel .tag { font-family: var(--font-script); font-size: 1.18rem; color: var(--terra); margin-top: 12px; display: block; }
+
+/* ---- Pour qui ---- */
+.pourqui { background: var(--cream-2); }
+.cases-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 46px; }
+.case {
+  position: relative; border-radius: var(--radius); overflow: hidden;
+  min-height: 220px; display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 24px; color: #fff; box-shadow: var(--shadow-sm); isolation: isolate;
+  transition: transform .2s, box-shadow .2s;
+}
+.case:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+.case::after { content:''; position:absolute; inset:0; z-index:-1; background: linear-gradient(180deg, transparent 30%, rgba(58,39,30,.62) 100%); }
+.case image-slot { position:absolute; inset:0; z-index:-2; width:100%; height:100%; border-radius:0; }
+.case h4 { font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; }
+.case span { font-size: .92rem; opacity: .9; }
+
+/* ---- Timeline teaser ---- */
+.tl-teaser { display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px; align-items: center; }
+.tl-steps { display: flex; flex-direction: column; gap: 14px; margin-top: 8px; }
+.tl-step { display: flex; gap: 16px; align-items: center; background: #fff; border-radius: 16px; padding: 14px 18px; box-shadow: var(--shadow-sm); }
+.tl-step .num { font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; width: 46px; height: 46px; border-radius: 13px; display: grid; place-items: center; color:#fff; flex:none; }
+.tl-step b { display:block; font-size: 1.05rem; }
+.tl-step .q { font-family: var(--font-script); color: var(--terra); font-size: 1.12rem; }
+
+/* ---- Pricing ---- */
+.pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 50px; max-width: 860px; margin-left:auto; margin-right:auto; }
+.price-card { padding: 38px 34px; position: relative; }
+.price-card.feature { background: var(--ink); color: var(--cream); border: none; }
+.price-card .kicker { font-weight: 700; letter-spacing: .14em; text-transform: uppercase; font-size: .76rem; color: var(--coral); }
+.price-card.feature .kicker { color: var(--sun); }
+.price-card h3 { font-family: var(--font-display); font-weight: 800; font-size: 1.7rem; margin-top: 6px; }
+.price-amount { font-family: var(--font-display); font-weight: 800; font-size: 3rem; margin: 14px 0 4px; }
+.price-amount small { font-size: 1rem; font-weight: 600; opacity: .65; }
+.price-list { list-style: none; margin: 20px 0 26px; display: flex; flex-direction: column; gap: 11px; }
+.price-list li { display: flex; gap: 10px; align-items: flex-start; font-size: .98rem; }
+.price-list .ck { color: var(--coral); font-weight: 800; }
+.price-card.feature .price-list .ck { color: var(--sun); }
+.ribbon { position: absolute; top: 22px; right: 22px; }
+
+/* ---- Testimonial ---- */
+.testi { background: var(--grad-warm); }
+.testi-inner { display: grid; grid-template-columns: 280px 1fr; gap: 50px; align-items: center; }
+.testi image-slot { width: 280px; height: 320px; border-radius: var(--radius-lg); box-shadow: var(--shadow-md); }
+.testi blockquote { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.6rem, 3vw, 2.5rem); line-height: 1.18; letter-spacing: -.01em; }
+.testi cite { display: block; margin-top: 22px; font-style: normal; font-weight: 700; color: var(--terra); }
+.testi cite span { color: var(--ink-soft); font-weight: 500; }
+
+/* ---- Final CTA ---- */
+.final { background: var(--ink); color: var(--cream); text-align: center; overflow: hidden; position: relative; }
+.final h2 { font-family: var(--font-display); font-weight: 800; font-size: clamp(2.4rem, 5vw, 4rem); line-height: 1.02; }
+.final .script { color: var(--sun); font-size: clamp(1.8rem,3vw,2.6rem); }
+.final-ctas { display: flex; gap: 16px; justify-content: center; margin-top: 34px; flex-wrap: wrap; }
+.final .ray-deco { position:absolute; width: 360px; height: 360px; border-radius:50%; background: radial-gradient(circle, rgba(255,194,61,.22), transparent 70%); }
+
+/* ---- Footer extra ---- */
+.foot-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 36px; }
+.foot-col h5 { font-family: var(--font-display); font-weight: 700; font-size: 1rem; margin-bottom: 14px; }
+.foot-col a { display: block; padding: 5px 0; font-size: .95rem; }
+.foot-bottom { display: flex; justify-content: space-between; align-items: center; margin-top: 48px; padding-top: 22px; border-top: 1px solid rgba(255,247,234,.16); font-size: .86rem; color: rgba(255,247,234,.6); flex-wrap: wrap; gap: 14px; }
+.newsletter { display: flex; gap: 10px; margin-top: 16px; }
+.newsletter input { flex: 1; border-radius: 999px; border: 1px solid rgba(255,247,234,.24); background: rgba(255,247,234,.08); color: var(--cream); padding: 12px 18px; font-family: inherit; font-size: .95rem; }
+.newsletter input::placeholder { color: rgba(255,247,234,.5); }
+
+@media (max-width: 980px) {
+  .hero-editorial, .tl-teaser, .testi-inner { grid-template-columns: 1fr; }
+  .rituels-grid, .cases-grid { grid-template-columns: 1fr 1fr; }
+  .pricing-grid, .foot-grid { grid-template-columns: 1fr; }
+  .editorial-media image-slot { height: 360px; }
+  .testi image-slot { width: 100%; }
+}
+@media (max-width: 580px) {
+  .rituels-grid, .cases-grid { grid-template-columns: 1fr; }
+  .manifesto-ctas, .editorial-ctas { flex-direction: column; align-items: stretch; }
+}
+</style>
 </head>
-<body>
+<body data-hero="manifesto" data-palette="solaire">
 
-    <nav class="bandeau-haut">
-        <button type="button" class="bouton-burger" id="bouton-burger">☰</button>
+<!-- ================= NAV ================= -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" data-logo data-logo-text aria-label="Feeling Good Box"></a>
+    <div class="nav-links">
+      <a href="la-box.html">La box</a>
+      <a href="abonnement.html">Abonnement</a>
+      <a href="pour-qui.html">Pour qui&nbsp;?</a>
+      <a href="offrir.html">Offrir</a>
+      <a href="notre-histoire.html">Notre histoire</a>
+    </div>
+    <div class="nav-right">
+      <button class="icon-btn" aria-label="Favoris">♡</button>
+      <button class="icon-btn" aria-label="Panier">🛍</button>
+      <a class="btn btn-primary" href="la-box.html">Découvrir la box</a>
+    </div>
+  </div>
+</nav>
 
-        <div class="menu-gauche" id="menu-gauche">
-            <a href="index.html">Notre Concept</a>
-            <a href="#abonnement">Abonnement</a>
-            <a href="#box-unitaire">Box Unitaire</a>
-            <a href="faq.html">FAQ</a>
-            <a href="#">Contact</a>
-        </div>
-        
-        <div class="nom-centre">
-            <h1>Feeling Good Box</h1>
-        </div>
-        <div class="droite-navigation">
-            <a href="#" class="icone-compte">👤 Mon Compte</a>
-            <a href="#">🛒 Panier (<span id="compteur-panier">0</span>)</a>
-        </div>
-    </nav>
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="hero-bg-blob blob-1"></div>
+  <div class="hero-bg-blob blob-2"></div>
+  <div class="wrap">
 
-    <header>
-        <img src="logo.png" alt="Feeling Good Box Logo" width="220">
-        <p>Don’t just move on. Level up.</p>
-    </header>
-
-    <main>
-        <section class="concept">
-            <h2>Chaque mois, votre dose de bonheur à domicile</h2>
-            <p>Une box unique conçue pour vous redonner le sourire et booster votre quotidien.</p>
-            
-            <h3>Ce que contient votre box :</h3>
-            <ul>
-                <li>✨ <strong>Un objet déco</strong> pour réenchanter votre intérieur</li>
-                <li>🍪 <strong>Une pause gourmande</strong> pour réconforter vos papilles</li>
-                <li>🎨 <strong>Une activité manuelle</strong> pour libérer votre créativité</li>
-                <li>🌿 <strong>Un produit self-care</strong> pour prendre soin de vous</li>
-                <li>💬 <strong>Une citation inspirante</strong> par semaine</li>
-                <li>🎯 <strong>Un petit défi</strong> par semaine + 🚀 <strong>Un gros défi mensuel</strong> pour évoluer</li>
-            </ul>
-        </section>
-
-        <hr>
-
-        <section class="formules">
-            <h2>Choisissez votre formule</h2>
-            
-            <div class="formules-container"> 
-            
-                <div id="box-unitaire" class="carte-produit">
-                    <div class="image-box-placeholder">
-                        <img src="box-unique.png" alt="La Box Unique" onerror="this.src='https://placehold.co/300x200/b56547/ffffff?text=Photo+Box+Unique'">
-                    </div>
-                    <h3>La Box Unique</h3>
-                    <p>Idéal pour tester ou pour offrir un shoot de positivité à un proche.</p>
-                    <p class="prix"><strong>29,90 €</strong></p>
-                    <button type="button">Commander cette box</button>
-                </div>
-
-                <div id="abonnement" class="carte-produit">
-                    <div class="image-box-placeholder">
-                        <img src="box-abonnement.png" alt="L'Abonnement Sourire" onerror="this.src='https://placehold.co/300x200/b56547/ffffff?text=Photo+Abonnement'">
-                    </div>
-                    <h3>L'Abonnement Sourire</h3>
-                    <p>Votre rendez-vous bien-être mensuel, directement dans votre boîte aux lettres.</p>
-                    <p class="prix"><strong>24,90 € / mois</strong></p>
-                    <button type="button">S'abonner maintenant</button>
-                </div>
-
+    <!-- MANIFESTO -->
+    <div class="hero-manifesto">
+      <span class="pill pill-coral pill-dot">Box bien-être · fabriquée en France</span>
+      <h1 class="display manifesto-title mt-s">
+        Reprendre <span class="sun-text">goût</span>.<br>
+        Reprendre <span class="sun-text">vie</span>.
+      </h1>
+      <div class="manifesto-body">
+        <div class="manifesto-copy">
+          <p class="lead">
+            Chaque mois, une box pour se réapprendre à se faire plaisir — un soin, un objet, un atelier,
+            une douceur, des mots et des petits défis qui font du bien.
+          </p>
+          <div class="manifesto-ctas">
+            <a class="btn btn-primary btn-lg" href="la-box.html">Découvrir la box →</a>
+            <a class="btn btn-ghost btn-lg" href="#concept">Comment ça marche</a>
+          </div>
+          <div class="trust-item" style="margin-top:24px;">
+            <div class="avatars">
+              <image-slot id="hero-av1" src="img/avatar-1.svg" class="av" shape="circle" placeholder=""></image-slot>
+              <image-slot id="hero-av2" src="img/avatar-2.svg" class="av" shape="circle" placeholder=""></image-slot>
+              <image-slot id="hero-av3" src="img/avatar-3.svg" class="av" shape="circle" placeholder=""></image-slot>
             </div>
-        </section>
+            <span>+15 000 boxes envoyées ❤</span>
+          </div>
+        </div>
+        <div class="manifesto-art">
+          <image-slot id="hero-scene" src="img/hero.svg" shape="rounded" radius="28" placeholder="illustration"></image-slot>
+        </div>
+      </div>
+    </div>
 
-        <hr>
+    <!-- EDITORIAL -->
+    <div class="hero-editorial">
+      <div>
+        <span class="pill pill-coral pill-dot">Box bien-être · fabriquée en France</span>
+        <h1 class="display editorial-title">
+          Reprendre <span class="sun-text">goût</span>.<br>Reprendre vie.
+        </h1>
+        <p class="lead mt-s" style="max-width: 460px;">
+          Une box mensuelle pensée pour celles et ceux qui traversent un moment difficile —
+          ou qui ont juste envie de reprendre soin d'eux. Six gestes simples, livrés chez vous.
+        </p>
+        <div class="editorial-ctas">
+          <a class="btn btn-primary btn-lg" href="la-box.html">Découvrir la box →</a>
+          <a class="btn btn-ghost btn-lg" href="#offrir">L'offrir à quelqu'un</a>
+        </div>
+        <div class="trust-row">
+          <div class="trust-item"><span class="tdot">🇫🇷</span> Artisans français</div>
+          <div class="trust-item"><span class="tdot">♻️</span> Zéro plastique</div>
+          <div class="trust-item"><span class="tdot">↩️</span> Sans engagement</div>
+        </div>
+      </div>
+      <div class="editorial-media">
+        <image-slot id="hero-main" src="img/hero.svg" shape="rounded" radius="34" placeholder="Photo lifestyle — mains qui ouvrent une box, lumière douce"></image-slot>
+        <div class="float-chip chip-tl"><span class="emoji" style="background:#FFE6A8;">☀️</span> Soin du mois</div>
+        <div class="float-chip chip-br"><span class="emoji" style="background:rgba(242,97,63,.16);">🍯</span> Pause gourmande</div>
+        <div class="float-chip chip-ml"><span class="emoji" style="background:rgba(46,158,120,.16);">✶</span> 1 défi / semaine</div>
+      </div>
+    </div>
 
-        <section class="comment-ca-marche">
-            <h2>Le bonheur en 3 étapes simples</h2>
-            <div class="etapes-container">
-                <div class="etape">
-                    <div class="numero">1</div>
-                    <h3>Vous commandez</h3>
-                    <p>Choisissez la formule unique pour tester ou l'abonnement pour installer la positivité dans votre durée.</p>
-                </div>
-                <div class="etape">
-                    <div class="numero">2</div>
-                    <h3>On prépare avec amour</h3>
-                    <p>Chaque mois, nous composons une box surprise thématique avec nos meilleurs produits self-care.</p>
-                </div>
-                <div class="etape">
-                    <div class="numero">3</div>
-                    <h3>Vous rayonnez !</h3>
-                    <p>Ouvrez votre box, découvrez vos surprises et relevez vos défis de la semaine pour booster votre moral.</p>
-                </div>
-            </div>
-        </section>
+  </div>
+</header>
 
-        
-    </main>
+<!-- ================= BAND ================= -->
+<div class="band marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="marquee-item">Admirer le ciel <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">Téléphoner à un ami <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">Prendre un apéro seul·e <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">Se masser les épaules <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">Cuisiner pour soi <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">Marcher sans but <span class="marquee-star">✦</span></span>
+    <!-- duplicate for seamless loop -->
+    <span class="marquee-item">Admirer le ciel <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">Téléphoner à un ami <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">Prendre un apéro seul·e <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">Se masser les épaules <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">Cuisiner pour soi <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">Marcher sans but <span class="marquee-star">✦</span></span>
+  </div>
+</div>
 
-    <footer>
-        <p>© 2026 Feeling Good Box - Prenez soin de votre esprit.</p>
-    </footer>
+<!-- ================= CONCEPT / 6 RITUELS ================= -->
+<section id="concept" class="section-pad">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow">Ce qu'il y a dedans</span>
+      <h2 class="display mt-s" style="font-size: clamp(2.2rem,4.5vw,3.4rem);">Six rituels pour se retrouver</h2>
+      <p class="lead" style="max-width: 560px; margin: 14px auto 0;">
+        Pas une cure miracle. Juste six petites portes vers le plaisir, à ouvrir à ton rythme.
+      </p>
+    </div>
+    <div class="rituels-grid">
+      <article class="card card-hover rituel reveal">
+        <div class="ic" style="background:#FFE6A8;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#B97A5C" stroke-width="1.8" stroke-linecap="round"><path d="M12 3c3 4 5 6.5 5 9a5 5 0 0 1-10 0c0-2.5 2-5 5-9z"/></svg>
+        </div>
+        <h3>Soin bien-être</h3>
+        <p>Une huile, un baume, un masque — curé par une artisane française.</p>
+        <span class="tag">prendre soin de son corps</span>
+      </article>
+      <article class="card card-hover rituel reveal">
+        <div class="ic" style="background:rgba(46,158,120,.16);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2E9E78" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21V9l3-6 3 6v12"/><path d="M6 21h12"/></svg>
+        </div>
+        <h3>Objet déco</h3>
+        <p>Une petite chose belle qui change l'air de ton chez-toi.</p>
+        <span class="tag">un coin rien qu'à toi</span>
+      </article>
+      <article class="card card-hover rituel reveal">
+        <div class="ic" style="background:rgba(242,97,63,.16);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F2613F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.5 15.5M14.5 14 20 20M8 8l4 4"/></svg>
+        </div>
+        <h3>Atelier manuel</h3>
+        <p>Broderie, peinture, cyanotype… Reprendre contact avec ses mains.</p>
+        <span class="tag">créer de ses doigts</span>
+      </article>
+      <article class="card card-hover rituel reveal">
+        <div class="ic" style="background:#FFD0BC;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E0492A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h13v4a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M17 10h2.5a2.5 2.5 0 0 1 0 5H17"/><path d="M8 5c0-1 1-1 1-2M12 5c0-1 1-1 1-2"/></svg>
+        </div>
+        <h3>Pause gourmande</h3>
+        <p>Caramels, infusion, chocolat… À déguster lentement, vraiment.</p>
+        <span class="tag">se régaler sans culpabiliser</span>
+      </article>
+      <article class="card card-hover rituel reveal">
+        <div class="ic" style="background:#FFE6A8;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#B97A5C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h4v6c0 2-1 3-3 4M14 7h4v6c0 2-1 3-3 4"/></svg>
+        </div>
+        <h3>Cartes citations</h3>
+        <p>Des mots à coller au frigo, au miroir, dans la poche.</p>
+        <span class="tag">une pensée pour la journée</span>
+      </article>
+      <article class="card card-hover rituel reveal">
+        <div class="ic" style="background:rgba(46,158,120,.16);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2E9E78" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></svg>
+        </div>
+        <h3>Défis du mois</h3>
+        <p>4 petits défis + 1 grand. « Admire le ciel. » « Appelle un ami. »</p>
+        <span class="tag">oser se faire du bien</span>
+      </article>
+    </div>
+  </div>
+</section>
 
-    <script src="script.js"></script>
+<!-- ================= POUR QUI ================= -->
+<section id="pourqui" class="pourqui section-pad">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow">Pour qui ?</span>
+      <h2 class="display mt-s" style="font-size: clamp(2.2rem,4.5vw,3.4rem);">Pour soi, ou pour quelqu'un qu'on aime</h2>
+      <p class="lead" style="max-width: 580px; margin: 14px auto 0;">
+        Une rupture, un deuil, un coup de mou, une nouvelle vie qui commence — ou juste l'envie
+        de dire « je pense à toi ».
+      </p>
+    </div>
+    <div class="cases-grid">
+      <a class="case reveal" href="pour-qui.html#rupture">
+        <image-slot id="case-rupture" src="img/case-rupture.svg" placeholder="rupture"></image-slot>
+        <h4>Après une rupture</h4>
+        <span>Se reconstruire, en douceur</span>
+      </a>
+      <a class="case reveal" href="pour-qui.html#deuil">
+        <image-slot id="case-deuil" src="img/case-deuil.svg" placeholder="deuil"></image-slot>
+        <h4>Traverser un deuil</h4>
+        <span>Être là, sans les mots</span>
+      </a>
+      <a class="case reveal" href="pour-qui.html#postpartum">
+        <image-slot id="case-postpartum" src="img/case-postpartum.svg" placeholder="post-partum"></image-slot>
+        <h4>Jeune maman</h4>
+        <span>Se retrouver après bébé</span>
+      </a>
+      <a class="case reveal" href="pour-qui.html#coupdemou">
+        <image-slot id="case-coupdemou" src="img/case-coupdemou.svg" placeholder="coup de mou"></image-slot>
+        <h4>Un coup de mou</h4>
+        <span>Remettre de la lumière</span>
+      </a>
+      <a class="case reveal" href="pour-qui.html#soi">
+        <image-slot id="case-soi" src="img/case-soi.svg" placeholder="pour soi"></image-slot>
+        <h4>Juste pour soi</h4>
+        <span>Parce qu'on le mérite</span>
+      </a>
+      <a class="case reveal" href="pour-qui.html#proche">
+        <image-slot id="case-proche" src="img/case-proche.svg" placeholder="un proche"></image-slot>
+        <h4>Un proche fragile</h4>
+        <span>Offrir une attention</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TIMELINE TEASER ================= -->
+<section class="section-pad">
+  <div class="wrap tl-teaser">
+    <div class="reveal">
+      <span class="eyebrow">Le rythme</span>
+      <h2 class="display mt-s" style="font-size: clamp(2rem,4vw,3rem);">On ne te livre pas une box.<br>On te livre un mois.</h2>
+      <p class="lead mt-s">
+        Chaque semaine, un nouveau geste à découvrir. Un défi doux pour avancer. Et à la fin du mois,
+        un grand défi pour fêter le chemin parcouru.
+      </p>
+      <a class="btn btn-sun btn-lg mt-m" href="la-box.html">Voir un mois complet →</a>
+    </div>
+    <div class="tl-steps reveal">
+      <div class="tl-step"><div class="num" style="background:var(--sun-deep);">1</div><div><b>Le soin de soi</b><span class="q">« Prends un long bain, sans écran. »</span></div></div>
+      <div class="tl-step"><div class="num" style="background:var(--terra);">2</div><div><b>Le geste créatif</b><span class="q">« Termine ton atelier, pose-le sur l'étagère. »</span></div></div>
+      <div class="tl-step"><div class="num" style="background:var(--leaf);">3</div><div><b>Le lien</b><span class="q">« Téléphone à quelqu'un que tu n'as pas vu. »</span></div></div>
+      <div class="tl-step"><div class="num" style="background:var(--coral);">4</div><div><b>La gourmandise lente</b><span class="q">« Prends un apéro seul·e, au calme. »</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRICING / ABO ================= -->
+<section id="abo" class="section-pad" style="background: var(--cream-2);">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow">Deux façons de se faire du bien</span>
+      <h2 class="display mt-s" style="font-size: clamp(2.2rem,4.5vw,3.4rem);">À l'unité ou en abonnement</h2>
+    </div>
+    <div class="pricing-grid">
+      <div class="card price-card reveal">
+        <div class="kicker">Sans engagement</div>
+        <h3>La box du mois</h3>
+        <div class="price-amount">39€</div>
+        <div style="color:var(--ink-soft); font-size:.95rem;">livraison incluse</div>
+        <ul class="price-list">
+          <li><span class="ck">✓</span> L'édition du mois en cours</li>
+          <li><span class="ck">✓</span> 6 rituels + cartes défis</li>
+          <li><span class="ck">✓</span> Parfait pour tester ou offrir</li>
+        </ul>
+        <a class="btn btn-ghost" href="la-box.html" style="width:100%; justify-content:center;">Commander une box</a>
+      </div>
+      <div class="card price-card feature reveal">
+        <span class="ribbon pill pill-sun">★ Le plus choisi · −15%</span>
+        <div class="kicker">Abonnement mensuel</div>
+        <h3>La box, chaque mois</h3>
+        <div class="price-amount">33€ <small>/ mois</small></div>
+        <div style="color:rgba(255,247,234,.7); font-size:.95rem;">annulable à tout moment</div>
+        <ul class="price-list">
+          <li><span class="ck">✓</span> Une nouvelle box surprise chaque mois</li>
+          <li><span class="ck">✓</span> −15% à vie + cadeau de bienvenue</li>
+          <li><span class="ck">✓</span> Accès à la communauté & aux défis en ligne</li>
+          <li><span class="ck">✓</span> Tu sautes ou décales un mois quand tu veux</li>
+        </ul>
+        <a class="btn btn-primary" href="abonnement.html" style="width:100%; justify-content:center;">M'abonner</a>
+      </div>
+    </div>
+    <p class="center mt-m" id="offrir" style="color:var(--ink-soft);">
+      Envie d'offrir ? <a href="offrir.html" style="color:var(--coral); font-weight:700; text-decoration:underline;">Découvre nos cartes cadeaux →</a>
+    </p>
+  </div>
+</section>
+
+<!-- ================= TESTIMONIAL ================= -->
+<section class="testi section-pad">
+  <div class="wrap testi-inner">
+    <image-slot id="testi-portrait" src="img/portrait.svg" class="reveal" placeholder="Portrait cliente, lumière douce"></image-slot>
+    <div class="reveal">
+      <div class="script" style="color:var(--coral); font-size:1.6rem;">Elles ont rouvert la leur</div>
+      <blockquote>« Cette box m'a donné une raison de m'attendre, chaque mois. Un petit rendez-vous avec moi-même. »</blockquote>
+      <cite>Camille, 34 ans <span>· après une séparation · Lyon</span></cite>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FINAL CTA ================= -->
+<section class="final section-pad">
+  <div class="ray-deco" style="top:-120px; left:-80px;"></div>
+  <div class="ray-deco" style="bottom:-140px; right:-60px;"></div>
+  <div class="wrap reveal" style="position:relative; z-index:1;">
+    <div class="script">Et si on rouvrait...</div>
+    <h2>...une box de plaisirs ?</h2>
+    <div class="final-ctas">
+      <a class="btn btn-sun btn-lg" href="la-box.html">Découvrir la box · 39€</a>
+      <a class="btn btn-lg" href="abonnement.html" style="background:rgba(255,247,234,.12); color:var(--cream); border:2px solid rgba(255,247,234,.3);">M'abonner · 33€/mois</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <div data-logo data-logo-text style="--terra:var(--cream);"></div>
+        <p class="script" style="color:var(--sun); font-size:1.5rem; margin-top:14px;">Reprendre goût.<br>Reprendre vie.</p>
+        <form class="newsletter" onsubmit="return false;">
+          <input type="email" placeholder="Ton email pour 10% offerts" aria-label="email" />
+          <button class="btn btn-primary" type="submit">OK</button>
+        </form>
+      </div>
+      <div class="foot-col">
+        <h5>La boutique</h5>
+        <a href="la-box.html">Box du mois</a>
+        <a href="abonnement.html">Abonnement</a>
+        <a href="offrir.html">Cartes cadeaux</a>
+        <a href="#">Éditions spéciales</a>
+      </div>
+      <div class="foot-col">
+        <h5>Le concept</h5>
+        <a href="pour-qui.html">Pour qui ?</a>
+        <a href="notre-histoire.html">Notre histoire</a>
+        <a href="#">Le journal</a>
+        <a href="#">Nos artisans</a>
+      </div>
+      <div class="foot-col">
+        <h5>Aide</h5>
+        <a href="faq.html">FAQ</a>
+        <a href="#">Livraison</a>
+        <a href="#">Contact</a>
+        <a href="#">@feelinggoodbox</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="year">2026</span> Feeling Good Box — Fait avec ❤ en France</span>
+      <span>CGV · Mentions légales · Confidentialité</span>
+    </div>
+  </div>
+</footer>
+
+<script src="image-slot.js"></script>
+<script src="fgb.js"></script>
 
 </body>
 </html>

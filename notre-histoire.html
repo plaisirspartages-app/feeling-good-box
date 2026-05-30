@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Notre histoire — Feeling Good Box</title>
+<link rel="stylesheet" href="fgb.css" />
+<style>
+/* ===== NOTRE HISTOIRE ===== */
+.st-hero { padding:60px 0 40px; position:relative; overflow:hidden; text-align:center; }
+.st-hero .blob { position:absolute; width:520px; height:520px; border-radius:50%; filter:blur(10px); opacity:.45; background:radial-gradient(circle,#FFE6A8,transparent 70%); top:-200px; left:50%; transform:translateX(-50%); z-index:0;}
+.st-hero-inner { position:relative; z-index:1; max-width:820px; margin:0 auto; }
+.st-hero h1 { font-size:clamp(2.6rem,6vw,5rem); }
+
+/* narrative beats */
+.beat { display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; padding:50px 0; }
+.beat.flip .beat-media { order:2; }
+.beat-media image-slot { width:100%; height:420px; border-radius:var(--radius-lg); box-shadow:var(--shadow-md); }
+.beat-body .step-lbl { font-family:var(--font-script); font-size:1.5rem; color:var(--coral); }
+.beat-body h2 { font-family:var(--font-display); font-weight:800; font-size:clamp(1.7rem,3.2vw,2.4rem); margin-top:4px; line-height:1.08; }
+.beat-body p { color:var(--ink-soft); margin-top:14px; font-size:1.06rem; }
+.beat-body p + p { margin-top:12px; }
+
+/* pull quote */
+.pull { background:var(--ink); color:var(--cream); text-align:center; }
+.pull blockquote { font-family:var(--font-display); font-weight:700; font-size:clamp(1.8rem,4vw,3rem); line-height:1.15; max-width:900px; margin:0 auto; letter-spacing:-.01em; }
+.pull blockquote .hl { color:var(--sun); }
+.pull .src { margin-top:26px; display:inline-flex; align-items:center; gap:14px; }
+.pull .src image-slot { width:56px; height:56px; border-radius:50%; }
+.pull .src b { font-family:var(--font-body); font-weight:700; }
+.pull .src span { color:rgba(255,247,234,.7); }
+
+/* manifesto */
+.mani { max-width:900px; margin:0 auto; }
+.mani-item { display:grid; grid-template-columns:70px 1fr; gap:22px; padding:24px 0; border-top:1px solid var(--line); align-items:start; }
+.mani-item:first-of-type { border-top:none; }
+.mani-item .n { font-family:var(--font-script); font-size:2.4rem; color:var(--coral); line-height:1; }
+.mani-item h3 { font-family:var(--font-display); font-weight:700; font-size:1.4rem; }
+.mani-item p { color:var(--ink-soft); margin-top:6px; font-size:1.04rem; }
+
+/* values */
+.vals { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:48px; }
+.val { padding:30px 26px; }
+.val .ic { width:58px; height:58px; border-radius:16px; display:grid; place-items:center; font-size:1.6rem; margin-bottom:16px; }
+.val h3 { font-family:var(--font-display); font-weight:700; font-size:1.25rem; }
+.val p { color:var(--ink-soft); margin-top:8px; }
+
+/* artisans */
+.artis-inner { display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; }
+.artis-inner image-slot { width:100%; height:440px; border-radius:var(--radius-lg); box-shadow:var(--shadow-md); }
+.stats { display:flex; gap:36px; margin-top:26px; flex-wrap:wrap; }
+.stat b { font-family:var(--font-display); font-weight:800; font-size:2.2rem; color:var(--coral); display:block; line-height:1; }
+.stat span { color:var(--ink-soft); font-size:.95rem; }
+
+/* signature */
+.sign { text-align:center; }
+.sign .sig { font-family:var(--font-script); font-size:2.4rem; color:var(--ink); margin-top:10px; }
+
+/* footer */
+.foot-grid { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:36px; }
+.foot-col h5 { font-family:var(--font-display); font-weight:700; font-size:1rem; margin-bottom:14px; }
+.foot-col a { display:block; padding:5px 0; font-size:.95rem; }
+.foot-bottom { display:flex; justify-content:space-between; margin-top:48px; padding-top:22px; border-top:1px solid rgba(255,247,234,.16); font-size:.86rem; color:rgba(255,247,234,.6); flex-wrap:wrap; gap:14px; }
+
+@media (max-width:980px){
+  .beat{grid-template-columns:1fr; gap:28px; padding:34px 0;}
+  .beat.flip .beat-media{order:0;}
+  .beat-media image-slot{height:300px;}
+  .vals{grid-template-columns:1fr;}
+  .artis-inner{grid-template-columns:1fr;}
+  .foot-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" data-logo data-logo-text aria-label="Feeling Good Box"></a>
+    <div class="nav-links">
+      <a href="la-box.html">La box</a>
+      <a href="abonnement.html">Abonnement</a>
+      <a href="pour-qui.html">Pour qui&nbsp;?</a>
+      <a href="offrir.html">Offrir</a>
+      <a href="notre-histoire.html">Notre histoire</a>
+    </div>
+    <div class="nav-right">
+      <button class="icon-btn" aria-label="Favoris">♡</button>
+      <button class="icon-btn" aria-label="Panier">🛍</button>
+      <a class="btn btn-primary" href="la-box.html">Découvrir la box</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="st-hero">
+  <div class="blob"></div>
+  <div class="wrap st-hero-inner">
+    <span class="pill pill-coral pill-dot">Notre histoire</span>
+    <h1 class="display mt-s">Tout a commencé par un carton, <span class="sun-text">pour une amie</span>.</h1>
+    <p class="lead mt-s" style="max-width:640px; margin-left:auto; margin-right:auto;">
+      Feeling Good Box n'est pas née dans un bureau marketing. Elle est née d'un coup de fil un soir d'hiver,
+      d'une amie qui n'allait pas bien, et d'un besoin tout simple : lui rappeler la douceur.
+    </p>
+  </div>
+</header>
+
+<!-- NARRATIVE -->
+<section class="section-pad" style="padding-top:24px;">
+  <div class="wrap">
+
+    <div class="beat reveal">
+      <div class="beat-media">
+        <image-slot id="st-origin" src="img/case-deuil.svg" placeholder="le soir d'hiver"></image-slot>
+      </div>
+      <div class="beat-body">
+        <div class="step-lbl">Le point de départ</div>
+        <h2>Un hiver, une amie au bout du fil.</h2>
+        <p>En 2023, mon amie Sarah traverse une séparation. Au téléphone, sa voix est éteinte. Je ne sais pas quoi
+          dire — alors je fais ce que je sais faire : je lui prépare un carton. Une bougie, son thé préféré,
+          un carnet, un mot griffonné, quelques carrés de chocolat.</p>
+        <p>Trois jours plus tard, elle m'envoie une photo : la bougie allumée, le thé fumant. « J'ai rouvert ton
+          carton chaque soir cette semaine. Ça m'a tenue. »</p>
+      </div>
+    </div>
+
+    <div class="beat flip reveal">
+      <div class="beat-media">
+        <image-slot id="st-declic" src="img/hero.svg" placeholder="le déclic"></image-slot>
+      </div>
+      <div class="beat-body">
+        <div class="step-lbl">Le déclic</div>
+        <h2>Et si la douceur pouvait s'envoyer&nbsp;?</h2>
+        <p>Ce carton, je l'avais fait sans y penser. Mais sa réponse m'a bouleversée. J'ai réalisé que ce dont on
+          a besoin, dans les moments creux, ce n'est pas d'un grand geste — c'est d'une succession de tout petits.</p>
+        <p>Un soin pour le corps. Un objet pour le regard. Quelque chose à faire de ses mains. Une gourmandise.
+          Des mots. Et un défi minuscule pour rouvrir une porte. Six gestes pour réapprendre à se faire plaisir.</p>
+      </div>
+    </div>
+
+    <div class="beat reveal">
+      <div class="beat-media">
+        <image-slot id="st-today" src="img/box-flatlay.svg" placeholder="aujourd'hui"></image-slot>
+      </div>
+      <div class="beat-body">
+        <div class="step-lbl">Aujourd'hui</div>
+        <h2>15 000 cartons plus tard.</h2>
+        <p>Feeling Good Box, c'est désormais une petite équipe et un réseau d'artisans français qui composent,
+          chaque mois, la box que j'aurais aimé pouvoir commander ce soir d'hiver.</p>
+        <p>On l'offre à une amie en peine, à une jeune maman épuisée, à un parent qui s'oublie — ou à soi-même,
+          parce que c'est la plus belle des raisons.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PULL QUOTE -->
+<section class="pull section-pad">
+  <div class="wrap reveal">
+    <blockquote>« On ne se relève pas en serrant les dents. On se relève en <span class="hl">réapprenant à savourer</span> les petites choses. »</blockquote>
+    <div class="src">
+      <image-slot id="founder-av" src="img/portrait.svg" shape="circle" placeholder=""></image-slot>
+      <div style="text-align:left;">
+        <b>Margaux</b><br><span>Fondatrice de Feeling Good Box</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="section-pad">
+  <div class="wrap">
+    <div class="center reveal" style="margin-bottom:40px;">
+      <span class="eyebrow">Ce en quoi on croit</span>
+      <h2 class="display mt-s" style="font-size:clamp(2rem,4vw,3rem);">Notre manifeste</h2>
+    </div>
+    <div class="mani reveal">
+      <div class="mani-item"><div class="n">01</div><div><h3>On ne « passe pas à autre chose ».</h3><p>On apprend, tout doucement, à se faire plaisir à nouveau. Le mieux-être ne se force pas, il se réapprivoise.</p></div></div>
+      <div class="mani-item"><div class="n">02</div><div><h3>Le bien-être n'est pas un luxe.</h3><p>C'est admirer le ciel. Téléphoner à un ami. Prendre un apéro seul·e. Des gestes gratuits, à portée de tous.</p></div></div>
+      <div class="mani-item"><div class="n">03</div><div><h3>Une box, six gestes, mille raisons.</h3><p>Soin, déco, atelier, gourmandise, mots, défis. Six portes vers le plaisir, à ouvrir à son rythme.</p></div></div>
+      <div class="mani-item"><div class="n">04</div><div><h3>De la tendresse, jamais de pitié.</h3><p>On s'adresse à toi comme à une amie forte qui traverse un creux — pas comme à quelqu'un qu'on plaint.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="section-pad" style="background:var(--cream-2);">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow">Nos engagements</span>
+      <h2 class="display mt-s" style="font-size:clamp(2rem,4vw,3rem);">Faire du bien, vraiment</h2>
+    </div>
+    <div class="vals">
+      <div class="card val reveal"><div class="ic" style="background:#FFE6A8;">🇫🇷</div><h3>Artisanat français</h3><p>Chaque produit vient d'un atelier d'ici, choisi pour son âme autant que pour sa qualité.</p></div>
+      <div class="card val reveal"><div class="ic" style="background:rgba(46,158,120,.16);">♻️</div><h3>Zéro plastique</h3><p>Carton kraft recyclé, calage en papier, encres végétales. Une box belle et légère pour la planète.</p></div>
+      <div class="card val reveal"><div class="ic" style="background:rgba(242,97,63,.16);">💛</div><h3>Une part reversée</h3><p>1€ par box soutient des associations d'accompagnement psychologique. Le bien-être pour tous.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ARTISANS -->
+<section class="section-pad">
+  <div class="wrap artis-inner">
+    <image-slot id="st-artisans" class="reveal" src="img/box-flatlay.svg" placeholder="Nos artisans au travail"></image-slot>
+    <div class="reveal">
+      <span class="eyebrow">Comment on compose la box</span>
+      <h2 class="display mt-s" style="font-size:clamp(1.8rem,3.5vw,2.6rem);">Chaque mois, un nouveau soin du détail</h2>
+      <p class="lead mt-s" style="font-size:1.05rem;">
+        On choisit un thème, on rencontre les artisans, on goûte, on teste, on écrit les défis à la main.
+        Rien n'entre dans la box sans avoir d'abord fait du bien à l'un·e d'entre nous.
+      </p>
+      <div class="stats">
+        <div class="stat"><b>6</b><span>artisans par box</span></div>
+        <div class="stat"><b>~75€</b><span>de valeur réelle</span></div>
+        <div class="stat"><b>15k+</b><span>boxes envoyées</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SIGNATURE -->
+<section class="section-pad sign" style="background:var(--grad-warm);">
+  <div class="wrap reveal" style="max-width:720px; margin:0 auto;">
+    <div class="script" style="color:var(--coral); font-size:1.6rem;">Merci d'être là.</div>
+    <p class="lead mt-s">
+      Que tu sois ici pour toi ou pour quelqu'un que tu aimes, j'espère que cette box te rappellera ce que,
+      parfois, on oublie : tu mérites qu'on prenne soin de toi.
+    </p>
+    <div class="sig">Margaux</div>
+    <div style="display:flex; gap:16px; justify-content:center; margin-top:30px; flex-wrap:wrap;">
+      <a class="btn btn-primary btn-lg" href="la-box.html">Découvrir la box</a>
+      <a class="btn btn-ghost btn-lg" href="offrir.html">Offrir un moment</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <div data-logo data-logo-text style="--terra:var(--cream);"></div>
+        <p class="script" style="color:var(--sun); font-size:1.5rem; margin-top:14px;">Reprendre goût.<br>Reprendre vie.</p>
+      </div>
+      <div class="foot-col"><h5>La boutique</h5><a href="la-box.html">Box du mois</a><a href="abonnement.html">Abonnement</a><a href="offrir.html">Cartes cadeaux</a></div>
+      <div class="foot-col"><h5>Le concept</h5><a href="pour-qui.html">Pour qui ?</a><a href="notre-histoire.html">Notre histoire</a><a href="#">Le journal</a></div>
+      <div class="foot-col"><h5>Aide</h5><a href="faq.html">FAQ</a><a href="#">Livraison</a><a href="#">Contact</a></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="year">2026</span> Feeling Good Box — Fait avec ❤ en France</span>
+      <span>CGV · Mentions légales · Confidentialité</span>
+    </div>
+  </div>
+</footer>
+
+<script src="image-slot.js"></script>
+<script src="fgb.js"></script>
+</body>
+</html>

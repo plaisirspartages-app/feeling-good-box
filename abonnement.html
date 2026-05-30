@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Abonnement — Feeling Good Box</title>
+<link rel="stylesheet" href="fgb.css" />
+<style>
+/* ===== ABONNEMENT ===== */
+.abo-hero { padding: 56px 0 56px; position: relative; overflow: hidden; }
+.abo-hero .blob { position:absolute; width:480px; height:480px; border-radius:50%; filter:blur(10px); opacity:.5; background:radial-gradient(circle,#FFE6A8,transparent 70%); top:-180px; right:-120px; z-index:0;}
+.abo-hero-inner { position:relative; z-index:1; max-width:760px; }
+.abo-hero h1 { font-size: clamp(2.8rem,6vw,5rem); }
+
+/* plans */
+.plans { display:grid; grid-template-columns: repeat(3,1fr); gap:22px; margin-top:54px; align-items:stretch; }
+.plan { padding:34px 30px; display:flex; flex-direction:column; position:relative; }
+.plan.feature { background:var(--ink); color:var(--cream); border:none; transform:translateY(-10px); }
+.plan .kicker { font-weight:700; letter-spacing:.14em; text-transform:uppercase; font-size:.74rem; color:var(--coral); }
+.plan.feature .kicker { color:var(--sun); }
+.plan h3 { font-family:var(--font-display); font-weight:800; font-size:1.5rem; margin-top:6px; }
+.plan .amt { font-family:var(--font-display); font-weight:800; font-size:2.8rem; margin:14px 0 2px; line-height:1; }
+.plan .amt small { font-size:.95rem; font-weight:600; opacity:.6; }
+.plan .billed { font-size:.9rem; color:var(--ink-soft); }
+.plan.feature .billed { color:rgba(255,247,234,.7); }
+.plan ul { list-style:none; margin:22px 0 26px; display:flex; flex-direction:column; gap:11px; flex:1; }
+.plan li { display:flex; gap:10px; font-size:.97rem; }
+.plan .ck { color:var(--coral); font-weight:800; }
+.plan.feature .ck { color:var(--sun); }
+.plan .ribbon { position:absolute; top:-14px; left:50%; transform:translateX(-50%); white-space:nowrap; }
+
+/* steps */
+.steps { display:grid; grid-template-columns: repeat(4,1fr); gap:20px; margin-top:50px; }
+.step { text-align:center; }
+.step .n { width:60px; height:60px; border-radius:50%; background:var(--grad-sun); color:#fff; font-family:var(--font-display); font-weight:800; font-size:1.5rem; display:grid; place-items:center; margin:0 auto 16px; box-shadow:0 10px 24px rgba(255,158,44,.34);}
+.step b { font-family:var(--font-display); font-size:1.12rem; display:block; }
+.step p { color:var(--ink-soft); margin-top:6px; font-size:.95rem; }
+
+/* flexibility band */
+.flex-band { background:var(--cream-2); }
+.flex-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:44px; }
+.flex-card { padding:28px; }
+.flex-card .ic { width:54px; height:54px; border-radius:15px; display:grid; place-items:center; font-size:1.5rem; margin-bottom:14px; }
+.flex-card b { font-family:var(--font-display); font-size:1.18rem; display:block; }
+.flex-card p { color:var(--ink-soft); margin-top:6px; }
+
+/* perks */
+.perks-inner { display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; }
+.perks-inner image-slot { width:100%; height:420px; border-radius:var(--radius-lg); box-shadow:var(--shadow-md); }
+.perk-list { list-style:none; margin-top:24px; display:flex; flex-direction:column; gap:18px; }
+.perk-list li { display:flex; gap:16px; align-items:flex-start; }
+.perk-list .d { width:44px; height:44px; border-radius:13px; flex:none; display:grid; place-items:center; font-size:1.3rem; }
+.perk-list b { font-family:var(--font-display); font-size:1.1rem; }
+.perk-list span { color:var(--ink-soft); font-size:.96rem; }
+
+/* faq */
+.faq { max-width:760px; margin:0 auto; }
+.faq details { background:#fff; border:1px solid var(--line); border-radius:16px; padding:4px 22px; margin-bottom:12px; }
+.faq summary { font-family:var(--font-display); font-weight:600; font-size:1.1rem; padding:16px 0; cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center; }
+.faq summary::-webkit-details-marker { display:none; }
+.faq summary::after { content:'+'; font-size:1.6rem; color:var(--coral); font-weight:400; line-height:1; }
+.faq details[open] summary::after { content:'–'; }
+.faq p { color:var(--ink-soft); padding:0 0 18px; }
+
+/* footer */
+.foot-grid { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:36px; }
+.foot-col h5 { font-family:var(--font-display); font-weight:700; font-size:1rem; margin-bottom:14px; }
+.foot-col a { display:block; padding:5px 0; font-size:.95rem; }
+.foot-bottom { display:flex; justify-content:space-between; margin-top:48px; padding-top:22px; border-top:1px solid rgba(255,247,234,.16); font-size:.86rem; color:rgba(255,247,234,.6); flex-wrap:wrap; gap:14px; }
+
+@media (max-width:980px){
+  .plans{grid-template-columns:1fr;} .plan.feature{transform:none;}
+  .steps,.flex-grid{grid-template-columns:1fr 1fr;}
+  .perks-inner{grid-template-columns:1fr;} .foot-grid{grid-template-columns:1fr;}
+}
+@media (max-width:580px){ .steps,.flex-grid{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" data-logo data-logo-text aria-label="Feeling Good Box"></a>
+    <div class="nav-links">
+      <a href="la-box.html">La box</a>
+      <a href="abonnement.html">Abonnement</a>
+      <a href="pour-qui.html">Pour qui&nbsp;?</a>
+      <a href="offrir.html">Offrir</a>
+      <a href="notre-histoire.html">Notre histoire</a>
+    </div>
+    <div class="nav-right">
+      <button class="icon-btn" aria-label="Favoris">♡</button>
+      <button class="icon-btn" aria-label="Panier">🛍</button>
+      <a class="btn btn-primary" href="#plans">S'abonner</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="abo-hero">
+  <div class="blob"></div>
+  <div class="wrap abo-hero-inner">
+    <span class="pill pill-coral pill-dot">L'abonnement · −15% à vie</span>
+    <h1 class="display mt-s">Un rendez-vous avec <span class="sun-text">toi-même</span>, chaque mois.</h1>
+    <p class="lead mt-s">
+      L'abonnement, c'est s'offrir la certitude qu'un petit moment de douceur arrive — sans avoir à y penser.
+      Plus avantageux, plus de surprises, et 100&nbsp;% libre : tu sautes, décales ou arrêtes quand tu veux.
+    </p>
+    <div class="flex gap-s mt-m" style="flex-wrap:wrap;">
+      <a class="btn btn-primary btn-lg" href="#plans">Choisir ma formule →</a>
+      <a class="btn btn-ghost btn-lg" href="la-box.html">Voir le contenu d'une box</a>
+    </div>
+  </div>
+</header>
+
+<!-- PLANS -->
+<section id="plans" class="section-pad" style="padding-top:32px;">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow">Les formules</span>
+      <h2 class="display mt-s" style="font-size:clamp(2rem,4vw,3rem);">Choisis ton rythme</h2>
+    </div>
+    <div class="plans">
+      <div class="card plan reveal">
+        <div class="kicker">Sans engagement</div>
+        <h3>Mensuelle</h3>
+        <div class="amt">33€ <small>/mois</small></div>
+        <div class="billed">facturé chaque mois</div>
+        <ul>
+          <li><span class="ck">✓</span> Une box surprise chaque mois</li>
+          <li><span class="ck">✓</span> −15% vs achat à l'unité</li>
+          <li><span class="ck">✓</span> Cadeau de bienvenue</li>
+          <li><span class="ck">✓</span> Annulable à tout moment</li>
+        </ul>
+        <a class="btn btn-ghost" href="#" style="justify-content:center;">M'abonner</a>
+      </div>
+
+      <div class="card plan feature reveal">
+        <span class="ribbon pill pill-sun">★ Le plus choisi</span>
+        <div class="kicker">Le bon compromis</div>
+        <h3>Trimestrielle</h3>
+        <div class="amt">29€ <small>/mois</small></div>
+        <div class="billed">soit 87€ tous les 3 mois</div>
+        <ul>
+          <li><span class="ck">✓</span> Tout de la mensuelle</li>
+          <li><span class="ck">✓</span> Économise 12€ / trimestre</li>
+          <li><span class="ck">✓</span> Une édition spéciale offerte / an</li>
+          <li><span class="ck">✓</span> Accès aux défis en ligne</li>
+        </ul>
+        <a class="btn btn-primary" href="#" style="justify-content:center;">M'abonner</a>
+      </div>
+
+      <div class="card plan reveal">
+        <div class="kicker">Le plus avantageux</div>
+        <h3>Annuelle</h3>
+        <div class="amt">27€ <small>/mois</small></div>
+        <div class="billed">soit 324€ / an</div>
+        <ul>
+          <li><span class="ck">✓</span> Tout de la trimestrielle</li>
+          <li><span class="ck">✓</span> 2 mois quasi offerts</li>
+          <li><span class="ck">✓</span> Box anniversaire collector</li>
+          <li><span class="ck">✓</span> Frais de port offerts à vie</li>
+        </ul>
+        <a class="btn btn-ghost" href="#" style="justify-content:center;">M'abonner</a>
+      </div>
+    </div>
+    <p class="center mt-m" style="color:var(--ink-soft);">
+      Envie d'essayer d'abord ? <a href="la-box.html" style="color:var(--coral); font-weight:700; text-decoration:underline;">Commande une box à l'unité (39€) →</a>
+    </p>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section-pad" style="background:var(--cream-2);">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow">Comment ça marche</span>
+      <h2 class="display mt-s" style="font-size:clamp(2rem,4vw,3rem);">Simple comme un rayon de soleil</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="n">1</div><b>Tu choisis</b><p>Ta formule et le jour de livraison qui te va.</p></div>
+      <div class="step reveal"><div class="n">2</div><b>On prépare</b><p>Une box pensée avec soin, par 6 artisans français.</p></div>
+      <div class="step reveal"><div class="n">3</div><b>Tu reçois</b><p>Chez toi ou en point relais, en 3 à 5 jours.</p></div>
+      <div class="step reveal"><div class="n">4</div><b>Tu savoures</b><p>Un mois de rituels, à ton rythme. Et ça recommence.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FLEXIBILITY -->
+<section class="flex-band section-pad" style="background:var(--cream);">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow">Zéro pression</span>
+      <h2 class="display mt-s" style="font-size:clamp(2rem,4vw,3rem);">Un abonnement aussi doux que la box</h2>
+    </div>
+    <div class="flex-grid">
+      <div class="card flex-card reveal"><div class="ic" style="background:#FFE6A8;">⏸️</div><b>Saute un mois</b><p>Pas le moral, trop de boxes ? Mets en pause en un clic.</p></div>
+      <div class="card flex-card reveal"><div class="ic" style="background:rgba(46,158,120,.16);">📅</div><b>Décale la livraison</b><p>Choisis la date qui colle à ton mois, à ta vie.</p></div>
+      <div class="card flex-card reveal"><div class="ic" style="background:rgba(242,97,63,.16);">↩️</div><b>Arrête quand tu veux</b><p>Aucune justification, aucun frais caché. Promis.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PERKS -->
+<section class="section-pad">
+  <div class="wrap perks-inner">
+    <image-slot id="abo-perks" class="reveal" src="img/box-flatlay.svg" placeholder="Photo abonnée heureuse"></image-slot>
+    <div class="reveal">
+      <span class="eyebrow">Réservé aux abonné·es</span>
+      <h2 class="display mt-s" style="font-size:clamp(1.8rem,3.5vw,2.6rem);">Bien plus qu'une box</h2>
+      <ul class="perk-list">
+        <li><div class="d" style="background:#FFE6A8;">💛</div><div><b>−15% à vie</b><br><span>Le meilleur prix, dès la première box.</span></div></li>
+        <li><div class="d" style="background:rgba(242,97,63,.16);">🎁</div><div><b>Cadeau de bienvenue</b><br><span>Une petite attention dès ton inscription.</span></div></li>
+        <li><div class="d" style="background:rgba(46,158,120,.16);">✶</div><div><b>Les défis en ligne</b><br><span>Une communauté bienveillante qui relève les défis avec toi.</span></div></li>
+        <li><div class="d" style="background:#FFD0BC;">🌟</div><div><b>Éditions spéciales en avant-première</b><br><span>Tu y as accès avant tout le monde.</span></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section-pad" style="background:var(--cream-2);">
+  <div class="wrap">
+    <div class="center reveal" style="margin-bottom:40px;">
+      <span class="eyebrow">Questions fréquentes</span>
+      <h2 class="display mt-s" style="font-size:clamp(2rem,4vw,3rem);">On répond à tout</h2>
+    </div>
+    <div class="faq reveal">
+      <details><summary>Puis-je offrir un abonnement ?</summary><p>Oui ! Rends-toi sur la page <a href="offrir.html" style="color:var(--coral);font-weight:600;">Offrir</a> : tu choisis la durée (1, 3 ou 12 mois), tu ajoutes un mot personnalisé, et on s'occupe du reste.</p></details>
+      <details><summary>Que contient la box chaque mois ?</summary><p>Toujours 6 rituels — un soin, un objet déco, un atelier manuel, une pause gourmande, des cartes citations et des défis — mais le contenu change à chaque édition. <a href="la-box.html" style="color:var(--coral);font-weight:600;">Voir un exemple.</a></p></details>
+      <details><summary>Quand suis-je débité·e ?</summary><p>Le jour de votre inscription, puis à chaque renouvellement (mensuel, trimestriel ou annuel). Vous recevez un rappel avant chaque prélèvement.</p></details>
+      <details><summary>Et si je veux arrêter ?</summary><p>Vous résiliez en un clic depuis votre espace, sans frais ni justification. L'abonnement s'arrête à la fin de la période en cours.</p></details>
+      <details><summary>Livrez-vous hors de France ?</summary><p>Oui, en Belgique, au Luxembourg et en Suisse. Les frais de port sont calculés au moment de la commande (offerts pour la formule annuelle).</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="section-pad" style="background:var(--grad-warm); text-align:center;">
+  <div class="wrap reveal">
+    <div class="script" style="color:var(--coral); font-size:1.7rem;">Alors,</div>
+    <h2 class="display" style="font-size:clamp(2.2rem,4.5vw,3.6rem);">on commence ce mois-ci ?</h2>
+    <div style="display:flex; gap:16px; justify-content:center; margin-top:30px; flex-wrap:wrap;">
+      <a class="btn btn-primary btn-lg" href="#plans">Choisir ma formule</a>
+      <a class="btn btn-ghost btn-lg" href="offrir.html">L'offrir à quelqu'un</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <div data-logo data-logo-text style="--terra:var(--cream);"></div>
+        <p class="script" style="color:var(--sun); font-size:1.5rem; margin-top:14px;">Reprendre goût.<br>Reprendre vie.</p>
+      </div>
+      <div class="foot-col"><h5>La boutique</h5><a href="la-box.html">Box du mois</a><a href="abonnement.html">Abonnement</a><a href="offrir.html">Cartes cadeaux</a></div>
+      <div class="foot-col"><h5>Le concept</h5><a href="pour-qui.html">Pour qui ?</a><a href="notre-histoire.html">Notre histoire</a><a href="#">Le journal</a></div>
+      <div class="foot-col"><h5>Aide</h5><a href="faq.html">FAQ</a><a href="#">Livraison</a><a href="#">Contact</a></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="year">2026</span> Feeling Good Box — Fait avec ❤ en France</span>
+      <span>CGV · Mentions légales · Confidentialité</span>
+    </div>
+  </div>
+</footer>
+
+<script src="image-slot.js"></script>
+<script src="fgb.js"></script>
+</body>
+</html>
