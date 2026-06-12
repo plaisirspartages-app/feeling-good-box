@@ -38,13 +38,40 @@ window.FGB_LOGO = `
 </svg>`;
 
 window.FGB_LOGOTEXT = `<div class="logo-text">Feeling<br>Good Box</div>`;
+window.FGB_LOGOTEXT_LINE = `<div class="logo-text logo-text--line">Feeling Good Box</div>`;
 
 function fgbHydrateLogos() {
   document.querySelectorAll('[data-logo]').forEach((el) => {
+    const oneLine = el.hasAttribute('data-logo-line');
     const withText = el.hasAttribute('data-logo-text');
     el.classList.add('logo');
-    el.innerHTML = window.FGB_LOGO + (withText ? window.FGB_LOGOTEXT : '');
+    let text = '';
+    if (oneLine) text = window.FGB_LOGOTEXT_LINE;
+    else if (withText) text = window.FGB_LOGOTEXT;
+    el.innerHTML = window.FGB_LOGO + text;
   });
+}
+
+/* ---- Burger menu ---- */
+function fgbBurger() {
+  const burger = document.getElementById('navBurger');
+  const menu = document.getElementById('navMenu');
+  const backdrop = document.getElementById('navBackdrop');
+  if (!burger || !menu) return;
+  const close = () => {
+    burger.setAttribute('aria-expanded', 'false');
+    menu.classList.remove('open');
+    if (backdrop) backdrop.classList.remove('open');
+  };
+  const toggle = (e) => {
+    e.stopPropagation();
+    const open = menu.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (backdrop) backdrop.classList.toggle('open', open);
+  };
+  burger.addEventListener('click', toggle);
+  if (backdrop) backdrop.addEventListener('click', close);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
 }
 
 /* ---- Scroll reveal ---- */
@@ -63,6 +90,7 @@ function fgbReveal() {
 
 document.addEventListener('DOMContentLoaded', () => {
   fgbHydrateLogos();
+  fgbBurger();
   fgbReveal();
   const y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
 });

@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mon compte — Feeling Good Box</title>
+<link rel="stylesheet" href="fgb.css" />
+<style>
+/* ===== MON COMPTE ===== */
+.acc-section { padding: 68px 0 110px; min-height: calc(100vh - 64px); }
+.acc-bg-blob { position:absolute; width:560px; height:560px; border-radius:50%; filter:blur(12px); opacity:.4; background:radial-gradient(circle,#FFE6A8,transparent 70%); top:-260px; left:50%; transform:translateX(-50%); z-index:0; pointer-events:none; }
+
+.acc-wrap { position:relative; z-index:1; max-width: 540px; margin: 0 auto; }
+.acc-head { text-align:center; margin-bottom: 30px; }
+.acc-head h1 { font-family:var(--font-display); font-weight:800; font-size:clamp(2rem,4.5vw,2.8rem); letter-spacing:-.02em; }
+.acc-head p { color:var(--ink-soft); margin-top:10px; font-size:1.05rem; }
+
+.acc-card { padding: 38px 36px; }
+.acc-card + .acc-card { margin-top: 18px; }
+
+/* form */
+.field { display:flex; flex-direction:column; gap:8px; margin-bottom:18px; text-align:left; }
+.field label { font-weight:700; font-size:.92rem; color:var(--ink); }
+.field input {
+  font-family:var(--font-body); font-size:1.02rem; color:var(--ink);
+  background:var(--cream); border:2px solid var(--line); border-radius:14px;
+  padding:14px 16px; transition:border-color .15s, background .15s;
+}
+.field input:focus { outline:none; border-color:var(--coral); background:#fff; }
+.field input::placeholder { color:var(--ink-faint); }
+.field input:disabled { opacity:.7; cursor:not-allowed; }
+
+.consent { display:flex; gap:11px; align-items:flex-start; margin:6px 0 22px; text-align:left; }
+.consent input { width:20px; height:20px; margin-top:2px; flex:none; accent-color:var(--coral); cursor:pointer; }
+.consent label { font-size:.9rem; color:var(--ink-soft); line-height:1.5; }
+.consent a { color:var(--coral); font-weight:700; text-decoration:underline; text-underline-offset:2px; }
+
+.acc-note { font-size:.86rem; color:var(--ink-faint); text-align:center; margin-top:18px; line-height:1.5; }
+.acc-note svg { vertical-align:-2px; margin-right:5px; }
+
+/* confirmation */
+.confirm { text-align:center; }
+.confirm .mail-ic { width:74px; height:74px; border-radius:50%; background:var(--cream-2); display:grid; place-items:center; margin:0 auto 22px; }
+.confirm h2 { font-family:var(--font-display); font-weight:800; font-size:1.55rem; }
+.confirm p { color:var(--ink-soft); margin-top:12px; font-size:1.02rem; }
+.confirm .sent-to { font-weight:700; color:var(--ink); }
+.confirm-actions { display:flex; flex-direction:column; gap:10px; margin-top:26px; }
+.linkbtn { background:none; color:var(--coral); font-weight:700; font-size:.95rem; padding:6px; }
+.linkbtn:hover { color:var(--coral-deep); text-decoration:underline; text-underline-offset:3px; }
+
+/* dashboard */
+.dash-hi { display:flex; align-items:center; gap:16px; margin-bottom:8px; }
+.dash-avatar { width:58px; height:58px; border-radius:50%; background:var(--grad-sun); display:grid; place-items:center; color:#fff; font-family:var(--font-display); font-weight:800; font-size:1.5rem; flex:none; }
+.dash-block { margin-top:4px; }
+.dash-block .blabel { font-family:var(--font-body); font-weight:700; font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--coral); margin-bottom:14px; }
+.info-row { display:flex; justify-content:space-between; align-items:center; gap:16px; padding:14px 0; border-top:1px solid var(--line); }
+.info-row:first-of-type { border-top:none; }
+.info-row .k { color:var(--ink-faint); font-size:.9rem; }
+.info-row .v { font-weight:600; }
+.info-row .v.edit-input { display:none; }
+.info-row.editing .v.static { display:none; }
+.info-row.editing .v.edit-input { display:block; }
+.info-row .v.edit-input input { font-family:var(--font-body); font-size:1rem; background:var(--cream); border:2px solid var(--coral); border-radius:10px; padding:7px 11px; text-align:right; color:var(--ink); }
+
+/* empty orders */
+.empty-orders { text-align:center; padding:30px 10px; }
+.empty-orders .ic { font-size:2rem; margin-bottom:10px; }
+.empty-orders p { color:var(--ink-soft); }
+.empty-orders .btn { margin-top:18px; }
+
+/* abo status */
+.abo-status { display:flex; align-items:center; gap:14px; padding:18px; background:var(--cream-2); border-radius:16px; }
+.abo-status .dot { width:42px; height:42px; border-radius:12px; background:var(--sun); display:grid; place-items:center; flex:none; }
+.abo-status b { font-family:var(--font-display); font-weight:700; font-size:1.05rem; }
+.abo-status span { color:var(--ink-soft); font-size:.92rem; }
+
+.dash-foot { display:flex; flex-wrap:wrap; gap:18px; justify-content:center; margin-top:26px; }
+.dash-foot button { font-weight:700; font-size:.95rem; }
+.btn-logout { color:var(--ink-soft); }
+.btn-logout:hover { color:var(--ink); text-decoration:underline; text-underline-offset:3px; }
+.btn-danger { color:var(--coral-deep); }
+.btn-danger:hover { text-decoration:underline; text-underline-offset:3px; }
+
+.is-hidden { display:none !important; }
+
+/* footer (same system) */
+.foot-grid { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:36px; }
+.foot-col h5 { font-family:var(--font-display); font-weight:700; font-size:1rem; margin-bottom:14px; }
+.foot-col a { display:block; padding:5px 0; font-size:.95rem; }
+.foot-bottom { display:flex; justify-content:space-between; margin-top:48px; padding-top:22px; border-top:1px solid rgba(255,247,234,.16); font-size:.86rem; color:rgba(255,247,234,.6); flex-wrap:wrap; gap:14px; }
+
+@media (max-width:880px){
+  .acc-card { padding: 30px 22px; }
+  .foot-grid { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <button class="burger" id="navBurger" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="index.html" class="nav-logo" data-logo data-logo-line aria-label="Feeling Good Box"></a>
+    <div class="nav-right">
+      <a class="icon-btn" href="mon-compte.html" aria-label="Mon compte" title="Mon compte"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-6 8-6s8 2 8 6"/></svg></a>
+      <a class="icon-btn" href="#" aria-label="Panier" title="Panier"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></a>
+    </div>
+  </div>
+  <div class="nav-backdrop" id="navBackdrop"></div>
+  <div class="nav-menu" id="navMenu">
+    <a href="les-boxes.html">Les boxes</a>
+    <a href="abonnement.html">Abonnement <span class="soon">à venir</span></a>
+    <a href="pour-qui.html">Pour qui&nbsp;?</a>
+    <a href="offrir.html">Offrir</a>
+    <a href="notre-histoire.html">Notre histoire</a>
+    <a href="faq.html">FAQ</a>
+  </div>
+</nav>
+
+<main class="acc-section">
+  <div class="acc-bg-blob"></div>
+  <div class="wrap acc-wrap">
+
+    <!-- ============ ÉTAT 1 — CONNEXION (lien magique) ============ -->
+    <div id="stepLogin">
+      <div class="acc-head">
+        <span class="pill pill-coral pill-dot">Mon compte</span>
+        <h1 class="mt-s">Content de te revoir</h1>
+        <p>Pas de mot de passe à retenir. Entre ton email,<br>on t'envoie un lien de connexion sécurisé.</p>
+      </div>
+
+      <div class="card acc-card">
+        <form id="loginForm" novalidate>
+          <div class="field">
+            <label for="email">Ton adresse email</label>
+            <input type="email" id="email" name="email" placeholder="prenom@email.fr" autocomplete="email" required />
+          </div>
+          <div class="consent">
+            <input type="checkbox" id="consent" required />
+            <label for="consent">J'accepte que mon email soit utilisé pour gérer mon compte, conformément à la <a href="#">politique de confidentialité</a>.</label>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg" style="width:100%; justify-content:center;">Recevoir mon lien</button>
+        </form>
+        <p class="acc-note">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Connexion sans mot de passe. On ne stocke que ton email.
+        </p>
+      </div>
+    </div>
+
+    <!-- ============ ÉTAT 2 — EMAIL ENVOYÉ ============ -->
+    <div id="stepSent" class="is-hidden">
+      <div class="card acc-card confirm">
+        <div class="mail-ic">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#F2613F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+        </div>
+        <h2>Regarde tes emails</h2>
+        <p>Si un compte existe, un lien de connexion vient d'être envoyé à <span class="sent-to" id="sentEmail">ton adresse</span>. Il est valable 15 minutes.</p>
+        <div class="confirm-actions">
+          <button class="btn btn-sun" id="demoOpen" style="justify-content:center;">J'ai cliqué sur le lien <span style="opacity:.8; font-weight:600;">· démo</span></button>
+          <button class="linkbtn" id="resendLink">Renvoyer le lien</button>
+          <button class="linkbtn" id="changeEmail">Changer d'adresse email</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ÉTAT 3 — CONNECTÉ ============ -->
+    <div id="stepDash" class="is-hidden">
+      <div class="acc-head" style="text-align:left;">
+        <div class="dash-hi">
+          <div class="dash-avatar" id="dashInitial">L</div>
+          <div>
+            <h1 style="font-size:clamp(1.7rem,4vw,2.3rem);">Bonjour <span id="dashName">Lucie</span></h1>
+            <p style="margin-top:2px;">Ravie de te retrouver ici.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mes infos -->
+      <div class="card acc-card dash-block">
+        <div class="blabel">Mes informations</div>
+        <div class="info-row" data-field="name">
+          <span class="k">Prénom</span>
+          <span class="v static" id="vName">Lucie</span>
+          <span class="v edit-input"><input type="text" id="inName" value="Lucie" /></span>
+        </div>
+        <div class="info-row" data-field="email">
+          <span class="k">Email</span>
+          <span class="v static" id="vEmail">lucie@email.fr</span>
+          <span class="v edit-input"><input type="email" id="inEmail" value="lucie@email.fr" /></span>
+        </div>
+        <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:18px;">
+          <button class="btn btn-ghost" id="editBtn" style="padding:10px 22px; font-size:.95rem;">Modifier</button>
+          <button class="btn btn-primary is-hidden" id="saveBtn" style="padding:12px 24px; font-size:.95rem;">Enregistrer</button>
+        </div>
+      </div>
+
+      <!-- Mes commandes -->
+      <div class="card acc-card dash-block">
+        <div class="blabel">Mes commandes</div>
+        <div class="empty-orders">
+          <div class="ic">🎁</div>
+          <p>Tu n'as pas encore de commande.<br>Ta première box t'attend.</p>
+          <a class="btn btn-primary" href="les-boxes.html">Découvrir les boxes</a>
+        </div>
+      </div>
+
+      <!-- Abonnement -->
+      <div class="card acc-card dash-block">
+        <div class="blabel">Mon abonnement</div>
+        <div class="abo-status">
+          <div class="dot">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3A271E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          </div>
+          <div>
+            <b>À venir</b><br>
+            <span>L'abonnement mensuel arrive bientôt. Tu seras prévenu dès l'ouverture.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer actions -->
+      <div class="dash-foot">
+        <button class="btn-logout" id="logoutBtn">Se déconnecter</button>
+        <button class="btn-danger" id="deleteBtn">Supprimer mon compte</button>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <div data-logo data-logo-text style="--terra:var(--cream);"></div>
+        <p class="script" style="color:var(--sun); font-size:1.5rem; margin-top:14px;">Reprendre goût.<br>Reprendre vie.</p>
+      </div>
+      <div class="foot-col"><h5>La boutique</h5><a href="les-boxes.html">Les boxes</a><a href="abonnement.html">Abonnement</a><a href="offrir.html">Cartes cadeaux</a></div>
+      <div class="foot-col"><h5>Le concept</h5><a href="pour-qui.html">Pour qui ?</a><a href="notre-histoire.html">Notre histoire</a></div>
+      <div class="foot-col"><h5>Aide</h5><a href="faq.html">FAQ</a><a href="#">Livraison</a><a href="#">Contact</a></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="year">2026</span> Feeling Good Box — Fait avec ❤</span>
+      <span>CGV · Mentions légales · Confidentialité</span>
+    </div>
+  </div>
+</footer>
+
+<script src="image-slot.js"></script>
+<script src="fgb.js"></script>
+<script>
+(function () {
+  var stepLogin = document.getElementById('stepLogin');
+  var stepSent  = document.getElementById('stepSent');
+  var stepDash  = document.getElementById('stepDash');
+
+  function show(el) {
+    [stepLogin, stepSent, stepDash].forEach(function (s) { s.classList.add('is-hidden'); });
+    el.classList.remove('is-hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ---- Login form (magic link request) ----
+  var form = document.getElementById('loginForm');
+  var emailInput = document.getElementById('email');
+  var consent = document.getElementById('consent');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var val = (emailInput.value || '').trim();
+    if (!val || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(val)) {
+      emailInput.focus();
+      emailInput.style.borderColor = 'var(--coral)';
+      return;
+    }
+    if (!consent.checked) { consent.focus(); return; }
+    document.getElementById('sentEmail').textContent = val;
+    // prefill dashboard email + initial from the address
+    var dashEmail = document.getElementById('vEmail');
+    var inEmail = document.getElementById('inEmail');
+    if (dashEmail) dashEmail.textContent = val;
+    if (inEmail) inEmail.value = val;
+    show(stepSent);
+  });
+
+  // ---- Confirmation actions ----
+  document.getElementById('demoOpen').addEventListener('click', function () { show(stepDash); });
+  document.getElementById('resendLink').addEventListener('click', function () {
+    this.textContent = 'Lien renvoyé ✓';
+    var self = this;
+    setTimeout(function () { self.textContent = 'Renvoyer le lien'; }, 2200);
+  });
+  document.getElementById('changeEmail').addEventListener('click', function () { show(stepLogin); });
+
+  // ---- Dashboard: edit infos ----
+  var editBtn = document.getElementById('editBtn');
+  var saveBtn = document.getElementById('saveBtn');
+  var rows = document.querySelectorAll('.info-row');
+
+  editBtn.addEventListener('click', function () {
+    rows.forEach(function (r) { r.classList.add('editing'); });
+    editBtn.classList.add('is-hidden');
+    saveBtn.classList.remove('is-hidden');
+  });
+  saveBtn.addEventListener('click', function () {
+    var name = document.getElementById('inName').value.trim() || 'Lucie';
+    var email = document.getElementById('inEmail').value.trim();
+    document.getElementById('vName').textContent = name;
+    document.getElementById('dashName').textContent = name;
+    document.getElementById('dashInitial').textContent = name.charAt(0).toUpperCase();
+    if (email) document.getElementById('vEmail').textContent = email;
+    rows.forEach(function (r) { r.classList.remove('editing'); });
+    saveBtn.classList.add('is-hidden');
+    editBtn.classList.remove('is-hidden');
+  });
+
+  // ---- Logout / delete ----
+  document.getElementById('logoutBtn').addEventListener('click', function () {
+    emailInput.value = '';
+    consent.checked = false;
+    show(stepLogin);
+  });
+  document.getElementById('deleteBtn').addEventListener('click', function () {
+    if (window.confirm('Supprimer définitivement ton compte ? Cette action est irréversible et efface toutes tes données.')) {
+      emailInput.value = '';
+      consent.checked = false;
+      show(stepLogin);
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

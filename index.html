@@ -152,19 +152,23 @@
 <!-- ================= NAV ================= -->
 <nav class="nav">
   <div class="nav-inner">
-    <a href="index.html" data-logo data-logo-text aria-label="Feeling Good Box"></a>
-    <div class="nav-links">
-      <a href="la-box.html">La box</a>
-      <a href="abonnement.html">Abonnement</a>
-      <a href="pour-qui.html">Pour qui&nbsp;?</a>
-      <a href="offrir.html">Offrir</a>
-      <a href="notre-histoire.html">Notre histoire</a>
-    </div>
+    <button class="burger" id="navBurger" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="index.html" class="nav-logo" data-logo data-logo-line aria-label="Feeling Good Box"></a>
     <div class="nav-right">
-      <button class="icon-btn" aria-label="Favoris">♡</button>
-      <button class="icon-btn" aria-label="Panier">🛍</button>
-      <a class="btn btn-primary" href="la-box.html">Découvrir la box</a>
+      <a class="icon-btn" href="mon-compte.html" aria-label="Mon compte" title="Mon compte"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-6 8-6s8 2 8 6"/></svg></a>
+      <a class="icon-btn" href="#" aria-label="Panier" title="Panier"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></a>
     </div>
+  </div>
+  <div class="nav-backdrop" id="navBackdrop"></div>
+  <div class="nav-menu" id="navMenu">
+    <a href="les-boxes.html">Les boxes</a>
+    <a href="abonnement.html">Abonnement <span class="soon">à venir</span></a>
+    <a href="pour-qui.html">Pour qui&nbsp;?</a>
+    <a href="offrir.html">Offrir</a>
+    <a href="notre-histoire.html">Notre histoire</a>
+    <a href="faq.html">FAQ</a>
   </div>
 </nav>
 
@@ -176,28 +180,16 @@
 
     <!-- MANIFESTO -->
     <div class="hero-manifesto">
-      <span class="pill pill-coral pill-dot">Box bien-être · fabriquée en France</span>
       <h1 class="display manifesto-title mt-s">
         Reprendre <span class="sun-text">goût</span>.<br>
         Reprendre <span class="sun-text">vie</span>.
       </h1>
       <div class="manifesto-body">
         <div class="manifesto-copy">
-          <p class="lead">
-            Chaque mois, une box pour se réapprendre à se faire plaisir — un soin, un objet, un atelier,
-            une douceur, des mots et des petits défis qui font du bien.
-          </p>
+          <p class="lead">Chaque mois, une box pour réapprendre à se faire plaisir — un soin, un objet, un atelier, une douceur, des mots et des petits défis qui font du bien.</p>
           <div class="manifesto-ctas">
             <a class="btn btn-primary btn-lg" href="la-box.html">Découvrir la box →</a>
             <a class="btn btn-ghost btn-lg" href="#concept">Comment ça marche</a>
-          </div>
-          <div class="trust-item" style="margin-top:24px;">
-            <div class="avatars">
-              <image-slot id="hero-av1" src="img/avatar-1.svg" class="av" shape="circle" placeholder=""></image-slot>
-              <image-slot id="hero-av2" src="img/avatar-2.svg" class="av" shape="circle" placeholder=""></image-slot>
-              <image-slot id="hero-av3" src="img/avatar-3.svg" class="av" shape="circle" placeholder=""></image-slot>
-            </div>
-            <span>+15 000 boxes envoyées ❤</span>
           </div>
         </div>
         <div class="manifesto-art">
@@ -209,7 +201,6 @@
     <!-- EDITORIAL -->
     <div class="hero-editorial">
       <div>
-        <span class="pill pill-coral pill-dot">Box bien-être · fabriquée en France</span>
         <h1 class="display editorial-title">
           Reprendre <span class="sun-text">goût</span>.<br>Reprendre vie.
         </h1>
@@ -273,15 +264,15 @@
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#B97A5C" stroke-width="1.8" stroke-linecap="round"><path d="M12 3c3 4 5 6.5 5 9a5 5 0 0 1-10 0c0-2.5 2-5 5-9z"/></svg>
         </div>
         <h3>Soin bien-être</h3>
-        <p>Une huile, un baume, un masque — curé par une artisane française.</p>
+        <p>Une huile, un baume, un masque... pour prendre soin de soi.</p>
         <span class="tag">prendre soin de son corps</span>
       </article>
       <article class="card card-hover rituel reveal">
         <div class="ic" style="background:rgba(46,158,120,.16);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2E9E78" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21V9l3-6 3 6v12"/><path d="M6 21h12"/></svg>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2E9E78" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6l-1 4c2 1.2 3 3.2 3 5.5A5.5 5.5 0 0 1 7 12.5c0-2.3 1-4.3 3-5.5z"/></svg>
         </div>
         <h3>Objet déco</h3>
-        <p>Une petite chose belle qui change l'air de ton chez-toi.</p>
+        <p>Une petite chose belle qui change l'ambiance de chez-toi.</p>
         <span class="tag">un coin rien qu'à toi</span>
       </article>
       <article class="card card-hover rituel reveal">
@@ -289,7 +280,7 @@
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F2613F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.5 15.5M14.5 14 20 20M8 8l4 4"/></svg>
         </div>
         <h3>Atelier manuel</h3>
-        <p>Broderie, peinture, cyanotype… Reprendre contact avec ses mains.</p>
+        <p>Broderie, peinture, plâtre… Reprendre contact avec ses mains.</p>
         <span class="tag">créer de ses doigts</span>
       </article>
       <article class="card card-hover rituel reveal">
@@ -305,7 +296,7 @@
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#B97A5C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h4v6c0 2-1 3-3 4M14 7h4v6c0 2-1 3-3 4"/></svg>
         </div>
         <h3>Cartes citations</h3>
-        <p>Des mots à coller au frigo, au miroir, dans la poche.</p>
+        <p>Des mots à coller au frigo, au miroir ou à glisser au fond de la poche.</p>
         <span class="tag">une pensée pour la journée</span>
       </article>
       <article class="card card-hover rituel reveal">
@@ -408,18 +399,11 @@
         <a class="btn btn-ghost" href="la-box.html" style="width:100%; justify-content:center;">Commander une box</a>
       </div>
       <div class="card price-card feature reveal">
-        <span class="ribbon pill pill-sun">★ Le plus choisi · −15%</span>
+        <span class="ribbon pill pill-sun">À venir</span>
         <div class="kicker">Abonnement mensuel</div>
         <h3>La box, chaque mois</h3>
-        <div class="price-amount">33€ <small>/ mois</small></div>
-        <div style="color:rgba(255,247,234,.7); font-size:.95rem;">annulable à tout moment</div>
-        <ul class="price-list">
-          <li><span class="ck">✓</span> Une nouvelle box surprise chaque mois</li>
-          <li><span class="ck">✓</span> −15% à vie + cadeau de bienvenue</li>
-          <li><span class="ck">✓</span> Accès à la communauté & aux défis en ligne</li>
-          <li><span class="ck">✓</span> Tu sautes ou décales un mois quand tu veux</li>
-        </ul>
-        <a class="btn btn-primary" href="abonnement.html" style="width:100%; justify-content:center;">M'abonner</a>
+        <p style="color:rgba(255,247,234,.8); font-size:1.02rem; margin:18px 0 26px; line-height:1.5;">Bientôt disponible. Laisse-nous ton email pour être prévenu dès l'ouverture.</p>
+        <a class="btn btn-primary" href="abonnement.html" style="width:100%; justify-content:center;">Être prévenu</a>
       </div>
     </div>
     <p class="center mt-m" id="offrir" style="color:var(--ink-soft);">
@@ -433,7 +417,7 @@
   <div class="wrap testi-inner">
     <image-slot id="testi-portrait" src="img/portrait.svg" class="reveal" placeholder="Portrait cliente, lumière douce"></image-slot>
     <div class="reveal">
-      <div class="script" style="color:var(--coral); font-size:1.6rem;">Elles ont rouvert la leur</div>
+      <div class="script" style="color:var(--coral); font-size:1.6rem;">Ils ont ouvert la leur</div>
       <blockquote>« Cette box m'a donné une raison de m'attendre, chaque mois. Un petit rendez-vous avec moi-même. »</blockquote>
       <cite>Camille, 34 ans <span>· après une séparation · Lyon</span></cite>
     </div>
@@ -445,11 +429,11 @@
   <div class="ray-deco" style="top:-120px; left:-80px;"></div>
   <div class="ray-deco" style="bottom:-140px; right:-60px;"></div>
   <div class="wrap reveal" style="position:relative; z-index:1;">
-    <div class="script">Et si on rouvrait...</div>
+    <div class="script">Et si on ouvrait...</div>
     <h2>...une box de plaisirs ?</h2>
     <div class="final-ctas">
       <a class="btn btn-sun btn-lg" href="la-box.html">Découvrir la box · 39€</a>
-      <a class="btn btn-lg" href="abonnement.html" style="background:rgba(255,247,234,.12); color:var(--cream); border:2px solid rgba(255,247,234,.3);">M'abonner · 33€/mois</a>
+      <a class="btn btn-lg" href="abonnement.html" style="background:rgba(255,247,234,.12); color:var(--cream); border:2px solid rgba(255,247,234,.3);">Abonnement · à venir</a>
     </div>
   </div>
 </section>
@@ -461,23 +445,18 @@
       <div class="foot-col">
         <div data-logo data-logo-text style="--terra:var(--cream);"></div>
         <p class="script" style="color:var(--sun); font-size:1.5rem; margin-top:14px;">Reprendre goût.<br>Reprendre vie.</p>
-        <form class="newsletter" onsubmit="return false;">
-          <input type="email" placeholder="Ton email pour 10% offerts" aria-label="email" />
-          <button class="btn btn-primary" type="submit">OK</button>
-        </form>
       </div>
       <div class="foot-col">
         <h5>La boutique</h5>
-        <a href="la-box.html">Box du mois</a>
+        <a href="les-boxes.html">Les boxes</a>
         <a href="abonnement.html">Abonnement</a>
         <a href="offrir.html">Cartes cadeaux</a>
-        <a href="#">Éditions spéciales</a>
       </div>
       <div class="foot-col">
         <h5>Le concept</h5>
         <a href="pour-qui.html">Pour qui ?</a>
         <a href="notre-histoire.html">Notre histoire</a>
-        <a href="#">Le journal</a>
+        
         <a href="#">Nos artisans</a>
       </div>
       <div class="foot-col">
@@ -485,11 +464,10 @@
         <a href="faq.html">FAQ</a>
         <a href="#">Livraison</a>
         <a href="#">Contact</a>
-        <a href="#">@feelinggoodbox</a>
       </div>
     </div>
     <div class="foot-bottom">
-      <span>© <span id="year">2026</span> Feeling Good Box — Fait avec ❤ en France</span>
+      <span>© <span id="year">2026</span> Feeling Good Box — Fait avec ❤</span>
       <span>CGV · Mentions légales · Confidentialité</span>
     </div>
   </div>

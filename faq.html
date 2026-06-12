@@ -87,19 +87,23 @@ details.qa .ans li { margin-bottom:6px; }
 
 <nav class="nav">
   <div class="nav-inner">
-    <a href="index.html" data-logo data-logo-text aria-label="Feeling Good Box"></a>
-    <div class="nav-links">
-      <a href="la-box.html">La box</a>
-      <a href="abonnement.html">Abonnement</a>
-      <a href="pour-qui.html">Pour qui&nbsp;?</a>
-      <a href="offrir.html">Offrir</a>
-      <a href="notre-histoire.html">Notre histoire</a>
-    </div>
+    <button class="burger" id="navBurger" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="index.html" class="nav-logo" data-logo data-logo-line aria-label="Feeling Good Box"></a>
     <div class="nav-right">
-      <button class="icon-btn" aria-label="Favoris">♡</button>
-      <button class="icon-btn" aria-label="Panier">🛍</button>
-      <a class="btn btn-primary" href="la-box.html">Découvrir la box</a>
+      <a class="icon-btn" href="mon-compte.html" aria-label="Mon compte" title="Mon compte"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-6 8-6s8 2 8 6"/></svg></a>
+      <a class="icon-btn" href="#" aria-label="Panier" title="Panier"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></a>
     </div>
+  </div>
+  <div class="nav-backdrop" id="navBackdrop"></div>
+  <div class="nav-menu" id="navMenu">
+    <a href="les-boxes.html">Les boxes</a>
+    <a href="abonnement.html">Abonnement <span class="soon">à venir</span></a>
+    <a href="pour-qui.html">Pour qui&nbsp;?</a>
+    <a href="offrir.html">Offrir</a>
+    <a href="notre-histoire.html">Notre histoire</a>
+    <a href="faq.html">FAQ</a>
   </div>
 </nav>
 
@@ -149,22 +153,21 @@ details.qa .ans li { margin-bottom:6px; }
 
         <details class="qa"><summary>Que contient exactement une box ?</summary><div class="ans">Chaque box réunit <b>six rituels</b> : un soin bien-être, un objet déco, un atelier manuel, une pause gourmande, des cartes citations et des défis (4 petits + 1 grand par mois). Le contenu change à chaque édition. <a href="la-box.html">Voir un exemple détaillé.</a></div></details>
         <details class="qa"><summary>Le contenu est-il le même chaque mois ?</summary><div class="ans">Non ! La structure reste (6 rituels), mais chaque mois a son thème, ses artisans et ses surprises. C'est tout l'intérêt : on ne s'attend jamais à ce qu'on va recevoir.</div></details>
-        <details class="qa"><summary>Quelle est la valeur réelle d'une box ?</summary><div class="ans">Le contenu représente environ <b>75€ de valeur</b>, pour un prix de 39€ à l'unité (et dès 27€/mois en abonnement annuel). On tient à ce que chaque box vaille bien plus que son prix.</div></details>
+        <details class="qa"><summary>Quelle est la valeur réelle d'une box ?</summary><div class="ans">Le contenu représente environ <b>75€ de valeur</b>, pour un prix de 39€ à l'unité (l'abonnement, encore plus avantageux, arrive bientôt). On tient à ce que chaque box vaille bien plus que son prix.</div></details>
         <details class="qa"><summary>Les produits sont-ils adaptés si j'ai des allergies ?</summary><div class="ans">Chaque box liste précisément les ingrédients des soins et gourmandises. Si tu as une allergie connue (gluten, fruits à coque, parfum…), écris-nous avant l'envoi : on peut adapter certains éléments.</div></details>
-        <details class="qa"><summary>Puis-je savoir à l'avance ce qu'il y aura dedans ?</summary><div class="ans">On préfère garder la surprise — c'est le cœur du plaisir. Mais on dévoile le <b>thème du mois</b> sur la page <a href="la-box.html">La box</a> et sur notre Instagram quelques jours avant l'envoi.</div></details>
+        <details class="qa"><summary>Puis-je savoir à l'avance ce qu'il y aura dedans ?</summary><div class="ans">On préfère garder la surprise — c'est le cœur du plaisir. Mais on dévoile le <b>thème du mois</b> sur la page <a href="les-boxes.html">Les boxes</a> et sur notre Instagram quelques jours avant l'envoi.</div></details>
         <details class="qa"><summary>La box convient-elle aux hommes ?</summary><div class="ans">Absolument. Reprendre goût aux petites choses n'a pas de genre. Les soins, ateliers et défis sont pensés pour tout le monde.</div></details>
       </div>
 
       <!-- ABONNEMENT -->
       <div class="faq-group" id="g-abo" data-cat="abo">
         <h2><span class="gi" style="background:rgba(46,158,120,.16);">🔁</span> Abonnement</h2>
-        <p class="gsub">Souple, sans engagement, à ton rythme.</p>
+        <p class="gsub">Bientôt disponible — voici comment ça marchera.</p>
 
-        <details class="qa"><summary>Quelles formules d'abonnement proposez-vous ?</summary><div class="ans">Trois : <b>Mensuelle</b> (33€/mois), <b>Trimestrielle</b> (29€/mois) et <b>Annuelle</b> (27€/mois). Plus l'engagement est long, plus le tarif baisse. <a href="abonnement.html">Comparer les formules.</a></div></details>
-        <details class="qa"><summary>Puis-je mettre mon abonnement en pause ?</summary><div class="ans">Oui, en un clic depuis ton espace. Tu peux <b>sauter un mois</b> ou <b>décaler une livraison</b> autant de fois que tu veux, sans frais.</div></details>
-        <details class="qa"><summary>Comment résilier ?</summary><div class="ans">Depuis ton espace personnel, rubrique « Mon abonnement », bouton « Résilier ». Aucun frais, aucune justification. L'abonnement s'arrête à la fin de la période en cours.</div></details>
-        <details class="qa"><summary>Quand vais-je être prélevé·e ?</summary><div class="ans">Le jour de ton inscription, puis à chaque renouvellement. Tu reçois toujours un <b>email de rappel</b> avant chaque prélèvement.</div></details>
-        <details class="qa"><summary>Quand ma première box arrive-t-elle ?</summary><div class="ans">Si tu t'abonnes avant le 15 du mois, tu reçois la box du mois en cours. Après le 15, tu démarres avec celle du mois suivant (et on t'envoie un petit cadeau de bienvenue en attendant).</div></details>
+        <details class="qa" open><summary>L'abonnement est-il déjà disponible ?</summary><div class="ans">Pas encore — il arrive <b>très bientôt</b> ! 🌱 Laisse ton email sur la <a href="abonnement.html">page Abonnement</a> et tu seras prévenu dès l'ouverture (avec une petite surprise de lancement).</div></details>
+        <details class="qa"><summary>Quelles formules sont prévues ?</summary><div class="ans">On prépare trois rythmes — mensuel, trimestriel et annuel — avec un tarif de plus en plus avantageux selon la durée. Les détails seront dévoilés à l'ouverture.</div></details>
+        <details class="qa"><summary>Sera-t-il sans engagement ?</summary><div class="ans">Oui, c'est la promesse : tu pourras <b>sauter un mois</b>, <b>décaler une livraison</b> ou <b>arrêter</b> quand tu veux, en un clic et sans frais.</div></details>
+        <details class="qa"><summary>En attendant, comment recevoir une box ?</summary><div class="ans">Tu peux déjà commander une <a href="les-boxes.html">box à l'unité</a> ou l'<a href="offrir.html">offrir</a> à quelqu'un. L'abonnement viendra ensuite la rendre encore plus douce (et plus avantageuse).</div></details>
       </div>
 
       <!-- LIVRAISON -->
@@ -184,11 +187,11 @@ details.qa .ans li { margin-bottom:6px; }
         <h2><span class="gi" style="background:#FFD0BC;">🎁</span> Cadeaux</h2>
         <p class="gsub">Offrir un moment, en toute simplicité.</p>
 
-        <details class="qa"><summary>Comment offrir une box ?</summary><div class="ans">Rends-toi sur la page <a href="offrir.html">Offrir</a> : tu choisis la formule (box unique, 3 mois ou carte cadeau), tu ajoutes un mot personnalisé et la date d'envoi. On emballe et on livre directement à la personne.</div></details>
+        <details class="qa"><summary>Comment offrir une box ?</summary><div class="ans">Rends-toi sur la page <a href="offrir.html">Offrir</a> : tu choisis la formule (box unique ou carte cadeau), tu ajoutes un mot personnalisé et la date d'envoi. On emballe et on livre directement à la personne.</div></details>
         <details class="qa"><summary>Le prix est-il visible par la personne qui reçoit ?</summary><div class="ans">Non, jamais. Aucun montant ni facture n'est glissé dans une box cadeau — seulement ton message.</div></details>
         <details class="qa"><summary>Puis-je choisir la date de livraison du cadeau ?</summary><div class="ans">Oui ! Parfait pour un anniversaire ou une date spéciale. Tu indiques la date souhaitée et on s'arrange pour que la box arrive pile au bon moment.</div></details>
         <details class="qa"><summary>Comment fonctionne la carte cadeau ?</summary><div class="ans">Tu choisis un montant libre (de 20€ à 200€), envoyé par email ou en version imprimable. La personne l'utilise quand elle veut, sur tout le site. Validité : <b>1 an</b>.</div></details>
-        <details class="qa"><summary>Un abonnement offert se renouvelle-t-il tout seul ?</summary><div class="ans">Non. Un abonnement cadeau (3 ou 12 mois) <b>s'arrête automatiquement</b> à la fin — aucune mauvaise surprise pour la personne qui le reçoit.</div></details>
+        <details class="qa"><summary>Peut-on offrir un abonnement ?</summary><div class="ans">L'abonnement (et donc l'abonnement cadeau) <b>arrive bientôt</b>. En attendant, tu peux offrir une <a href="les-boxes.html">box</a> ou une <b>carte cadeau</b> au montant libre, valable 1 an.</div></details>
       </div>
 
       <!-- PAIEMENT -->
@@ -207,8 +210,7 @@ details.qa .ans li { margin-bottom:6px; }
         <h2><span class="gi" style="background:rgba(46,158,120,.16);">💛</span> Le reste</h2>
         <p class="gsub">Nos engagements et le reste.</p>
 
-        <details class="qa"><summary>Vos produits sont-ils écoresponsables ?</summary><div class="ans">Oui : carton kraft recyclé, calage papier, encres végétales, <b>zéro plastique</b>. Et 1€ par box est reversé à des associations d'accompagnement psychologique.</div></details>
-        <details class="qa"><summary>D'où viennent les produits ?</summary><div class="ans">De <b>6 artisans français</b> par box, choisis avec soin. On raconte leur histoire dans notre <a href="notre-histoire.html">page Notre histoire</a> et sur le Journal.</div></details>
+        <details class="qa"><summary>Comment sont choisis les produits ?</summary><div class="ans">Chaque produit est <b>testé et sélectionné avec soin</b>, pour le plaisir et le réconfort qu'il apporte. On compose chaque box autour d'un thème, avec six rituels complémentaires.</div></details>
         <details class="qa"><summary>Puis-je retourner une box ?</summary><div class="ans">Pour des raisons d'hygiène (soins, gourmandises), les box ouvertes ne sont pas reprises. Mais si quelque chose ne va pas, écris-nous : on trouve toujours une solution.</div></details>
         <details class="qa"><summary>Comment vous contacter ?</summary><div class="ans">Par email à <a href="#contact">bonjour@feelinggoodbox.fr</a> ou via le formulaire ci-dessous. On répond sous 24–48h, avec le sourire.</div></details>
       </div>
@@ -233,7 +235,6 @@ details.qa .ans li { margin-bottom:6px; }
       <p>Une équipe humaine te répond sous 24 à 48h. Pas de robot, pas de jargon — juste de l'aide, avec le sourire.</p>
       <div class="contact-ctas">
         <a class="btn btn-sun btn-lg" href="mailto:bonjour@feelinggoodbox.fr">Nous écrire</a>
-        <a class="btn btn-lg" href="#" style="background:rgba(255,247,234,.12); color:var(--cream); border:2px solid rgba(255,247,234,.3);">Chat en direct</a>
       </div>
     </div>
   </div>
@@ -247,12 +248,12 @@ details.qa .ans li { margin-bottom:6px; }
         <div data-logo data-logo-text style="--terra:var(--cream);"></div>
         <p class="script" style="color:var(--sun); font-size:1.5rem; margin-top:14px;">Reprendre goût.<br>Reprendre vie.</p>
       </div>
-      <div class="foot-col"><h5>La boutique</h5><a href="la-box.html">Box du mois</a><a href="abonnement.html">Abonnement</a><a href="offrir.html">Cartes cadeaux</a></div>
-      <div class="foot-col"><h5>Le concept</h5><a href="pour-qui.html">Pour qui ?</a><a href="notre-histoire.html">Notre histoire</a><a href="#">Le journal</a></div>
+      <div class="foot-col"><h5>La boutique</h5><a href="les-boxes.html">Les boxes</a><a href="abonnement.html">Abonnement</a><a href="offrir.html">Cartes cadeaux</a></div>
+      <div class="foot-col"><h5>Le concept</h5><a href="pour-qui.html">Pour qui ?</a><a href="notre-histoire.html">Notre histoire</a></div>
       <div class="foot-col"><h5>Aide</h5><a href="faq.html">FAQ</a><a href="#">Livraison</a><a href="#contact">Contact</a></div>
     </div>
     <div class="foot-bottom">
-      <span>© <span id="year">2026</span> Feeling Good Box — Fait avec ❤ en France</span>
+      <span>© <span id="year">2026</span> Feeling Good Box — Fait avec ❤</span>
       <span>CGV · Mentions légales · Confidentialité</span>
     </div>
   </div>

@@ -76,19 +76,23 @@
 
 <nav class="nav">
   <div class="nav-inner">
-    <a href="index.html" data-logo data-logo-text aria-label="Feeling Good Box"></a>
-    <div class="nav-links">
-      <a href="la-box.html">La box</a>
-      <a href="abonnement.html">Abonnement</a>
-      <a href="pour-qui.html">Pour qui&nbsp;?</a>
-      <a href="offrir.html">Offrir</a>
-      <a href="notre-histoire.html">Notre histoire</a>
-    </div>
+    <button class="burger" id="navBurger" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="index.html" class="nav-logo" data-logo data-logo-line aria-label="Feeling Good Box"></a>
     <div class="nav-right">
-      <button class="icon-btn" aria-label="Favoris">♡</button>
-      <button class="icon-btn" aria-label="Panier">🛍</button>
-      <a class="btn btn-primary" href="la-box.html">Découvrir la box</a>
+      <a class="icon-btn" href="mon-compte.html" aria-label="Mon compte" title="Mon compte"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-6 8-6s8 2 8 6"/></svg></a>
+      <a class="icon-btn" href="#" aria-label="Panier" title="Panier"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></a>
     </div>
+  </div>
+  <div class="nav-backdrop" id="navBackdrop"></div>
+  <div class="nav-menu" id="navMenu">
+    <a href="les-boxes.html">Les boxes</a>
+    <a href="abonnement.html">Abonnement <span class="soon">à venir</span></a>
+    <a href="pour-qui.html">Pour qui&nbsp;?</a>
+    <a href="offrir.html">Offrir</a>
+    <a href="notre-histoire.html">Notre histoire</a>
+    <a href="faq.html">FAQ</a>
   </div>
 </nav>
 
@@ -144,8 +148,8 @@
       </div>
       <div class="beat-body">
         <div class="step-lbl">Aujourd'hui</div>
-        <h2>15 000 cartons plus tard.</h2>
-        <p>Feeling Good Box, c'est désormais une petite équipe et un réseau d'artisans français qui composent,
+        <h2>La box que j'aurais aimé recevoir.</h2>
+        <p>Feeling Good Box, c'est aujourd'hui une petite équipe qui compose,
           chaque mois, la box que j'aurais aimé pouvoir commander ce soir d'hiver.</p>
         <p>On l'offre à une amie en peine, à une jeune maman épuisée, à un parent qui s'oublie — ou à soi-même,
           parce que c'est la plus belle des raisons.</p>
@@ -162,7 +166,7 @@
     <div class="src">
       <image-slot id="founder-av" src="img/portrait.svg" shape="circle" placeholder=""></image-slot>
       <div style="text-align:left;">
-        <b>Margaux</b><br><span>Fondatrice de Feeling Good Box</span>
+        <b>Lucie</b><br><span>Fondatrice de Feeling Good Box</span>
       </div>
     </div>
   </div>
@@ -192,9 +196,9 @@
       <h2 class="display mt-s" style="font-size:clamp(2rem,4vw,3rem);">Faire du bien, vraiment</h2>
     </div>
     <div class="vals">
-      <div class="card val reveal"><div class="ic" style="background:#FFE6A8;">🇫🇷</div><h3>Artisanat français</h3><p>Chaque produit vient d'un atelier d'ici, choisi pour son âme autant que pour sa qualité.</p></div>
-      <div class="card val reveal"><div class="ic" style="background:rgba(46,158,120,.16);">♻️</div><h3>Zéro plastique</h3><p>Carton kraft recyclé, calage en papier, encres végétales. Une box belle et légère pour la planète.</p></div>
-      <div class="card val reveal"><div class="ic" style="background:rgba(242,97,63,.16);">💛</div><h3>Une part reversée</h3><p>1€ par box soutient des associations d'accompagnement psychologique. Le bien-être pour tous.</p></div>
+      <div class="card val reveal"><div class="ic" style="background:#FFE6A8;">💛</div><h3>Choisi avec soin</h3><p>Chaque produit est testé et sélectionné pour le plaisir et le réconfort qu'il apporte.</p></div>
+      <div class="card val reveal"><div class="ic" style="background:rgba(46,158,120,.16);">🎁</div><h3>Une surprise chaque mois</h3><p>Un nouveau thème, six rituels, jamais deux box identiques. La curiosité fait partie du soin.</p></div>
+      <div class="card val reveal"><div class="ic" style="background:rgba(242,97,63,.16);">🌿</div><h3>À ton rythme</h3><p>Aucune pression. La box est là pour te faire du bien, quand et comme tu en as besoin.</p></div>
     </div>
   </div>
 </section>
@@ -211,9 +215,9 @@
         Rien n'entre dans la box sans avoir d'abord fait du bien à l'un·e d'entre nous.
       </p>
       <div class="stats">
-        <div class="stat"><b>6</b><span>artisans par box</span></div>
+        <div class="stat"><b>6</b><span>rituels par box</span></div>
         <div class="stat"><b>~75€</b><span>de valeur réelle</span></div>
-        <div class="stat"><b>15k+</b><span>boxes envoyées</span></div>
+        <div class="stat"><b>1</b><span>thème chaque mois</span></div>
       </div>
     </div>
   </div>
@@ -227,7 +231,7 @@
       Que tu sois ici pour toi ou pour quelqu'un que tu aimes, j'espère que cette box te rappellera ce que,
       parfois, on oublie : tu mérites qu'on prenne soin de toi.
     </p>
-    <div class="sig">Margaux</div>
+    <div class="sig">Lucie</div>
     <div style="display:flex; gap:16px; justify-content:center; margin-top:30px; flex-wrap:wrap;">
       <a class="btn btn-primary btn-lg" href="la-box.html">Découvrir la box</a>
       <a class="btn btn-ghost btn-lg" href="offrir.html">Offrir un moment</a>
@@ -243,12 +247,12 @@
         <div data-logo data-logo-text style="--terra:var(--cream);"></div>
         <p class="script" style="color:var(--sun); font-size:1.5rem; margin-top:14px;">Reprendre goût.<br>Reprendre vie.</p>
       </div>
-      <div class="foot-col"><h5>La boutique</h5><a href="la-box.html">Box du mois</a><a href="abonnement.html">Abonnement</a><a href="offrir.html">Cartes cadeaux</a></div>
-      <div class="foot-col"><h5>Le concept</h5><a href="pour-qui.html">Pour qui ?</a><a href="notre-histoire.html">Notre histoire</a><a href="#">Le journal</a></div>
+      <div class="foot-col"><h5>La boutique</h5><a href="les-boxes.html">Les boxes</a><a href="abonnement.html">Abonnement</a><a href="offrir.html">Cartes cadeaux</a></div>
+      <div class="foot-col"><h5>Le concept</h5><a href="pour-qui.html">Pour qui ?</a><a href="notre-histoire.html">Notre histoire</a></div>
       <div class="foot-col"><h5>Aide</h5><a href="faq.html">FAQ</a><a href="#">Livraison</a><a href="#">Contact</a></div>
     </div>
     <div class="foot-bottom">
-      <span>© <span id="year">2026</span> Feeling Good Box — Fait avec ❤ en France</span>
+      <span>© <span id="year">2026</span> Feeling Good Box — Fait avec ❤</span>
       <span>CGV · Mentions légales · Confidentialité</span>
     </div>
   </div>

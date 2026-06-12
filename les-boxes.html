@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Les boxes — Feeling Good Box</title>
+<link rel="stylesheet" href="fgb.css" />
+<style>
+/* ===== LES BOXES ===== */
+.bx-hero { padding:56px 0 40px; position:relative; overflow:hidden; text-align:center; }
+.bx-hero .blob { position:absolute; width:520px; height:520px; border-radius:50%; filter:blur(10px); opacity:.45; background:radial-gradient(circle,#FFE6A8,transparent 70%); top:-200px; left:50%; transform:translateX(-50%); z-index:0;}
+.bx-hero-inner { position:relative; z-index:1; max-width:720px; margin:0 auto; }
+.bx-hero h1 { font-size:clamp(2.6rem,6vw,4.8rem); }
+
+/* box article */
+.boxrow { display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; padding:46px 0; }
+.boxrow.flip .box-media { order:2; }
+.box-media { position:relative; }
+.box-media image-slot { width:100%; height:440px; border-radius:var(--radius-lg); box-shadow:var(--shadow-md); }
+.box-media .floattag { position:absolute; top:-14px; left:24px; }
+.box-body .vibe { font-family:var(--font-script); font-size:1.4rem; color:var(--coral); }
+.box-body h2 { font-family:var(--font-display); font-weight:800; font-size:clamp(1.9rem,3.6vw,2.8rem); margin-top:4px; line-height:1.04; }
+.box-body .sub { font-family:var(--font-display); font-weight:600; font-size:1.1rem; color:var(--terra); margin-top:8px; }
+.box-body p { color:var(--ink-soft); margin-top:16px; font-size:1.08rem; line-height:1.6; }
+.box-incl { list-style:none; margin:22px 0 0; display:flex; flex-direction:column; gap:12px; }
+.box-incl li { display:flex; gap:13px; align-items:flex-start; }
+.box-incl .ic { width:40px; height:40px; border-radius:12px; flex:none; display:grid; place-items:center; font-size:1.2rem; }
+.box-incl b { font-family:var(--font-display); font-size:1rem; }
+.box-incl span { color:var(--ink-soft); font-size:.95rem; }
+.box-foot { display:flex; align-items:center; gap:18px; margin-top:26px; flex-wrap:wrap; }
+.box-price { font-family:var(--font-display); font-weight:800; font-size:1.9rem; }
+.box-price small { font-size:.9rem; font-weight:600; opacity:.6; }
+.boxrow + .boxrow { border-top:1px solid var(--line); }
+
+/* coming soon grid */
+.soon-head { text-align:center; margin:0 auto; max-width:640px; }
+.soon-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:22px; margin-top:42px; }
+.soonbox { overflow:hidden; display:flex; flex-direction:column; }
+.soonbox-top { height:128px; position:relative; display:grid; place-items:center; }
+.soonbox-emoji { font-size:3rem; filter:drop-shadow(0 6px 10px rgba(58,39,30,.18)); }
+.soonbox-badge { position:absolute; top:14px; left:14px; background:rgba(255,255,255,.92); color:var(--ink); box-shadow:var(--shadow-sm); }
+.soonbox-body { padding:24px 26px; flex:1; display:flex; flex-direction:column; }
+.soonbox-body h3 { font-family:var(--font-display); font-weight:800; font-size:1.4rem; }
+.soonbox-body .vibe { font-family:var(--font-script); font-size:1.2rem; color:var(--coral); margin-top:2px; }
+.soonbox-body p { color:var(--ink-soft); margin-top:12px; font-size:.97rem; line-height:1.55; flex:1; }
+.soonbox-notify { margin-top:16px; font-weight:700; color:var(--coral); font-size:.95rem; align-self:flex-start; }
+.soonbox-notify:hover { text-decoration:underline; }
+
+/* compare strip */
+.compare { background:var(--cream-2); }
+.compare-inner { text-align:center; max-width:680px; margin:0 auto; }
+
+/* footer */
+.foot-grid { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:36px; }
+.foot-col h5 { font-family:var(--font-display); font-weight:700; font-size:1rem; margin-bottom:14px; }
+.foot-col a { display:block; padding:5px 0; font-size:.95rem; }
+.foot-bottom { display:flex; justify-content:space-between; margin-top:48px; padding-top:22px; border-top:1px solid rgba(255,247,234,.16); font-size:.86rem; color:rgba(255,247,234,.6); flex-wrap:wrap; gap:14px; }
+
+@media (max-width:980px){
+  .boxrow{grid-template-columns:1fr; gap:30px; padding:34px 0;}
+  .boxrow.flip .box-media{order:0;}
+  .box-media image-slot{height:320px;}
+  .soon-grid{grid-template-columns:1fr;}
+  .foot-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <button class="burger" id="navBurger" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="index.html" class="nav-logo" data-logo data-logo-line aria-label="Feeling Good Box"></a>
+    <div class="nav-right">
+      <a class="icon-btn" href="mon-compte.html" aria-label="Mon compte" title="Mon compte"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-6 8-6s8 2 8 6"/></svg></a>
+      <a class="icon-btn" href="#" aria-label="Panier" title="Panier"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></a>
+    </div>
+  </div>
+  <div class="nav-backdrop" id="navBackdrop"></div>
+  <div class="nav-menu" id="navMenu">
+    <a href="les-boxes.html">Les boxes</a>
+    <a href="abonnement.html">Abonnement <span class="soon">à venir</span></a>
+    <a href="pour-qui.html">Pour qui&nbsp;?</a>
+    <a href="offrir.html">Offrir</a>
+    <a href="notre-histoire.html">Notre histoire</a>
+    <a href="faq.html">FAQ</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="bx-hero">
+  <div class="blob"></div>
+  <div class="wrap bx-hero-inner">
+    <span class="pill pill-coral pill-dot">Nos boxes</span>
+    <h1 class="display mt-s">Une box pour chaque <span class="sun-text">humeur</span>.</h1>
+    <p class="lead mt-s">
+      Selon là où tu en es, on imagine des parenthèses sur-mesure : pour ralentir, se cocooner,
+      rallumer l'étincelle ou croquer la vie. Deux box sont déjà là — et la collection s'agrandit.
+    </p>
+  </div>
+</header>
+
+<!-- BOXES -->
+<section id="boxes" class="section-pad" style="padding-top:24px;">
+  <div class="wrap">
+
+    <!-- BOX 1 — DOUCEUR -->
+    <article class="boxrow reveal" id="douceur">
+      <div class="box-media">
+        <image-slot id="bx-douceur" src="img/box-douceur.svg" placeholder="Box Douceur"></image-slot>
+        <span class="floattag pill pill-sun">Douceur & Renouveau</span>
+      </div>
+      <div class="box-body">
+        <div class="vibe">Un dimanche pluvieux sous un plaid…</div>
+        <h2>Plus belle la vie</h2>
+        <div class="sub">La Box Complice · Douceur & Renouveau</div>
+        <p>Parce qu'il y a des jours où la priorité absolue est de ralentir, de respirer et de se foutre la paix.
+          Cette box est une parenthèse de douceur pensée pour apaiser l'esprit et rallumer doucement la lumière.</p>
+        <ul class="box-incl">
+          <li><div class="ic" style="background:#FFE6A8;">🤫</div><div><b>De quoi réenchanter ton cocon</b><br><span>Une touche qui change l'air de la pièce… on n'en dit pas plus.</span></div></li>
+          <li><div class="ic" style="background:rgba(169,143,194,.2);">🎨</div><div><b>Une parenthèse créative et poétique</b><br><span>Pour libérer tes émotions, sans chercher la perfection.</span></div></li>
+          <li><div class="ic" style="background:rgba(46,158,120,.16);">🌿</div><div><b>Des rituels secrets à découvrir</b><br><span>Pour réapprendre à savourer le moment présent.</span></div></li>
+        </ul>
+        <span class="pill pill-coral" style="margin-top:18px;">🔒 Le contenu reste une surprise</span>
+        <div class="box-foot">
+          <div class="box-price">39€ <small>la box</small></div>
+          <a class="btn btn-primary" href="offrir.html">Offrir cette box</a>
+          <a class="btn btn-ghost" href="abonnement.html">Abonnement · à venir</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- BOX 2 — ÉNERGIE -->
+    <article class="boxrow flip reveal" id="energie">
+      <div class="box-media">
+        <image-slot id="bx-energie" src="img/box-energie.svg" placeholder="Box Énergie"></image-slot>
+        <span class="floattag pill pill-sun">Énergie & Plaisir</span>
+      </div>
+      <div class="box-body">
+        <div class="vibe">Une musique qui bouge dans le salon…</div>
+        <h2>Des paillettes dans ta vie</h2>
+        <div class="sub">La Box Audacieuse · Énergie & Plaisir retrouvé</div>
+        <p>Le moment est venu de secouer la poussière, de relever la tête et de remettre de la magie
+          (et des paillettes) dans ton quotidien. Cette box est un shot d'empouvoirement et de peps pour
+          te réapproprier ton corps, ton plaisir et ton étincelle.</p>
+        <ul class="box-incl">
+          <li><div class="ic" style="background:rgba(236,111,160,.18);">✨</div><div><b>Un moment créatif qui fait briller</b><br><span>À réaliser toi-même, juste pour le plaisir.</span></div></li>
+          <li><div class="ic" style="background:rgba(242,97,63,.16);">💋</div><div><b>Un secret rien qu'à toi</b><br><span>Pour célébrer ta sensualité, en toute liberté.</span></div></li>
+          <li><div class="ic" style="background:#FFE6A8;">🔥</div><div><b>Des défis audacieux</b><br><span>Pour croquer la vie à pleines dents.</span></div></li>
+        </ul>
+        <span class="pill pill-coral" style="margin-top:18px;">🔒 Le contenu reste une surprise</span>
+        <div class="box-foot">
+          <div class="box-price">39€ <small>la box</small></div>
+          <a class="btn btn-primary" href="offrir.html">Offrir cette box</a>
+          <a class="btn btn-ghost" href="abonnement.html">Abonnement · à venir</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- COMING SOON COLLECTION -->
+<section class="section-pad" style="padding-top:8px;">
+  <div class="wrap">
+    <div class="soon-head reveal">
+      <span class="eyebrow">Bientôt</span>
+      <h2 class="display mt-s" style="font-size:clamp(2rem,4vw,3rem);">La collection s'agrandit</h2>
+      <p class="lead mt-s">Quatre nouvelles humeurs en préparation. Chacune sa parenthèse, son thème, ses surprises — on garde le contenu secret jusqu'au grand jour.</p>
+    </div>
+    <div class="soon-grid">
+
+      <article class="card soonbox reveal">
+        <div class="soonbox-top" style="background:linear-gradient(135deg,#FFD96B 0%,#FF9E2C 60%,#F2613F 100%);">
+          <span class="soonbox-badge pill">🔒 À venir</span>
+          <div class="soonbox-emoji">🎈</div>
+        </div>
+        <div class="soonbox-body">
+          <h3>Âme d'enfant</h3>
+          <div class="vibe">Rire pour rien, s'émerveiller encore.</div>
+          <p>Une box qui réveille l'enfant en toi : le plaisir du jeu, les souvenirs précieux et la joie simple de créer de ses mains.</p>
+          <a class="soonbox-notify" href="abonnement.html">Me prévenir au lancement →</a>
+        </div>
+      </article>
+
+      <article class="card soonbox reveal">
+        <div class="soonbox-top" style="background:linear-gradient(135deg,#6E5B7E 0%,#A98FC2 55%,#FFC6C0 100%);">
+          <span class="soonbox-badge pill">🔒 À venir</span>
+          <div class="soonbox-emoji">🚀</div>
+        </div>
+        <div class="soonbox-body">
+          <h3>Vers l'infini et l'au-delà</h3>
+          <div class="vibe">Voir plus grand, rêver plus loin.</div>
+          <p>Une parenthèse pour prendre de la hauteur, faire grandir tes envies et t'envelopper de douceur en regardant les étoiles.</p>
+          <a class="soonbox-notify" href="abonnement.html">Me prévenir au lancement →</a>
+        </div>
+      </article>
+
+      <article class="card soonbox reveal">
+        <div class="soonbox-top" style="background:linear-gradient(135deg,#C9A88A 0%,#B97A5C 55%,#2E9E78 125%);">
+          <span class="soonbox-badge pill">🔒 À venir</span>
+          <div class="soonbox-emoji">🏺</div>
+        </div>
+        <div class="soonbox-body">
+          <h3>Gettin' dirty</h3>
+          <div class="vibe">Mettre les mains dans la matière.</div>
+          <p>Une box terre à terre — au sens propre — pour se reconnecter à son corps, ralentir et savourer le plaisir de faire.</p>
+          <a class="soonbox-notify" href="abonnement.html">Me prévenir au lancement →</a>
+        </div>
+      </article>
+
+      <article class="card soonbox reveal">
+        <div class="soonbox-top" style="background:linear-gradient(135deg,#FFE08A 0%,#FFC23D 55%,#E0922A 100%);">
+          <span class="soonbox-badge pill">🔒 À venir</span>
+          <div class="soonbox-emoji">💫</div>
+        </div>
+        <div class="soonbox-body">
+          <h3>Que la force soit avec toi</h3>
+          <div class="vibe">Réveiller la force en toi.</div>
+          <p>Une box pour transformer tes fêlures en or, prendre soin de toi et révéler la puissance tranquille qui sommeille en toi.</p>
+          <a class="soonbox-notify" href="abonnement.html">Me prévenir au lancement →</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- COMPARE / HELP -->
+<section class="compare section-pad">
+  <div class="wrap compare-inner reveal">
+    <span class="eyebrow">Tu hésites ?</span>
+    <h2 class="display mt-s" style="font-size:clamp(1.8rem,3.5vw,2.6rem);">Laquelle est faite pour toi ?</h2>
+    <p class="lead mt-s">
+      Envie de te poser et de souffler ? Pars sur <a href="#douceur" style="color:var(--coral); font-weight:700; text-decoration:underline;">Plus belle la vie</a>.
+      Envie de te secouer et de rallumer la flamme ? File vers <a href="#energie" style="color:var(--coral); font-weight:700; text-decoration:underline;">Des paillettes dans ta vie</a>.
+      Et au fond, pourquoi choisir ?
+    </p>
+    <div style="display:flex; gap:14px; justify-content:center; margin-top:28px; flex-wrap:wrap;">
+      <a class="btn btn-sun btn-lg" href="abonnement.html">Recevoir une box chaque mois</a>
+      <a class="btn btn-ghost btn-lg" href="offrir.html">Offrir une box</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <div data-logo data-logo-text style="--terra:var(--cream);"></div>
+        <p class="script" style="color:var(--sun); font-size:1.5rem; margin-top:14px;">Reprendre goût.<br>Reprendre vie.</p>
+      </div>
+      <div class="foot-col"><h5>La boutique</h5><a href="les-boxes.html">Les boxes</a><a href="abonnement.html">Abonnement</a><a href="offrir.html">Cartes cadeaux</a></div>
+      <div class="foot-col"><h5>Le concept</h5><a href="pour-qui.html">Pour qui ?</a><a href="notre-histoire.html">Notre histoire</a></div>
+      <div class="foot-col"><h5>Aide</h5><a href="faq.html">FAQ</a><a href="#">Livraison</a><a href="#">Contact</a></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="year">2026</span> Feeling Good Box — Fait avec ❤</span>
+      <span>CGV · Mentions légales · Confidentialité</span>
+    </div>
+  </div>
+</footer>
+
+<script src="image-slot.js"></script>
+<script src="fgb.js"></script>
+</body>
+</html>
