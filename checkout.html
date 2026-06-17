@@ -115,12 +115,16 @@
 
       // CORRECTION SYNTAXE : line_items avec un underscore (_) et non en camelCase
       stripe.redirectToCheckout({
-        lineItems: lineItemsForStripe, // Conserve lineItems pour la compatibilité client-side stricte v3
+        lineItems: lineItemsForStripe,
         mode: 'payment',
-        successUrl: window.location.origin + '/succes.html', 
+        
+        // window.location.href contient l'adresse exacte de la page actuelle.
+        // En remplaçant 'checkout.html' par 'succes.html', l'adresse sera parfaite partout !
+        successUrl: window.location.href.replace('checkout.html', 'succes.html'), 
         cancelUrl: window.location.href,
+        
         shippingAddressCollection: {
-          allowedCountries: ['FR'],
+          allowedCountries: ['FR'], 
         }
       }).then(function (result) {
         if (result.error) {
