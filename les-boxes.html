@@ -126,7 +126,7 @@
         <span class="pill pill-coral" style="margin-top:18px;">🔒 Le contenu reste une surprise</span>
         <div class="box-foot">
           <div class="box-price">39€ <small>la box</small></div>
-          <a class="btn btn-primary" href="offrir.html">Offrir cette box</a>
+          <a class="btn btn-primary" href="#" data-box-id="plus-belle-la-vie" data-stripe-price-id="prod_UiO5ehBiMahx0l" data-box-price="39.00" data-box-name="Plus belle la vie">Acheter cette box</a>
           <a class="btn btn-ghost" href="abonnement.html">Abonnement · à venir</a>
         </div>
       </div>
@@ -153,7 +153,7 @@
         <span class="pill pill-coral" style="margin-top:18px;">🔒 Le contenu reste une surprise</span>
         <div class="box-foot">
           <div class="box-price">39€ <small>la box</small></div>
-          <a class="btn btn-primary" href="offrir.html">Offrir cette box</a>
+          <a class="btn btn-primary" href="#" data-box-id="des-paillettes-dans-ta-vie" data-stripe-price-id="prod_UiO5ehBiMahx0l" data-box-price="39.00" data-box-name="Des paillettes dans ta vie">Acheter cette box</a>
           <a class="btn btn-ghost" href="abonnement.html">Abonnement · à venir</a>
         </div>
       </div>
@@ -263,6 +263,26 @@
     </div>
   </div>
 </footer>
+
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-drawer-header">
+    <h2>Mon Panier</h2>
+    <button class="cart-drawer-close" id="cartClose" aria-label="Fermer le panier">✕</button>
+  </div>
+  
+  <div class="cart-drawer-body" id="cartDrawerBody"></div>
+
+  <div class="cart-drawer-footer">
+    <div class="cart-total">
+      <span>Total :</span>
+      <span id="cartTotalAmount">0€</span>
+    </div>
+    <a href="checkout.html" id="cartCheckoutBtn" class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 15px;">
+  Valider ma commande →
+</a>
+  </div>
+</div>
+<div class="cart-overlay" id="cartOverlay"></div>
 
 <script src="image-slot.js"></script>
 <script src="fgb.js"></script>

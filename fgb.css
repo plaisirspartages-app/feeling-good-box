@@ -260,3 +260,84 @@ image-slot {
   --terra: #C16E76;
   --grad-sun: linear-gradient(120deg, var(--sun) 0%, var(--coral) 100%);
 }
+
+
+/* ===== PANIER COULISSANT ===== */
+.cart-drawer {
+  position: fixed; 
+  top: 0; 
+  right: -450px; 
+  width: 100%; 
+  max-width: 420px; 
+  height: 100%;
+  background: #ffffff !important;       /* Fond blanc pur forcé */
+  background-color: #ffffff !important; /* Double sécurité */
+  z-index: 999999 !important;           /* Passe au-dessus de tout l'univers */
+  box-shadow: var(--shadow-lg);
+  display: flex; 
+  flex-direction: column; 
+  transition: right 0.3s ease-in-out;
+}
+.cart-drawer.open { right: 0; }
+
+/* On force le fond blanc sur chaque zone interne pour bloquer la transparence */
+.cart-drawer-header {
+  padding: 24px; 
+  border-bottom: 1px solid var(--line);
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center;
+  background: #ffffff !important; /* Évite la transparence du haut */
+}
+.cart-drawer-header h2 { font-family: var(--font-display); font-size: 1.5rem; }
+.cart-drawer-close { background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--ink-soft); }
+
+.cart-drawer-body { 
+  padding: 24px; 
+  flex: 1; 
+  overflow-y: auto; 
+  display: flex; 
+  flex-direction: column; 
+  gap: 16px;
+  background: #ffffff !important; /* Évite la transparence du milieu */
+}
+
+/* Style d'un article dans le panier */
+.cart-item { 
+  display: flex; 
+  gap: 16px; 
+  align-items: center; 
+  padding-bottom: 16px; 
+  border-bottom: 1px solid var(--line);
+  background: #ffffff !important; 
+}
+.cart-item-details { flex: 1; }
+.cart-item-title { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; }
+.cart-item-price { color: var(--coral); font-weight: 700; margin-top: 4px; }
+.cart-item-remove { 
+  background: none; border: none; color: var(--coral); cursor: pointer; 
+  font-size: 0.9rem; text-decoration: underline; padding: 0; display: inline-block; margin-top: 6px;
+}
+.cart-item-remove:hover { color: var(--coral-deep); }
+
+/* Le bas du panier utilise la couleur crème de Claude, mais on la force pour qu'elle soit opaque */
+.cart-drawer-footer { 
+  padding: 24px; 
+  border-top: 1px solid var(--line); 
+  background: #FDEFD9 !important; /* Force la couleur crème var(--cream-2) de Claude de façon 100% opaque */
+}
+.cart-total { display: flex; justify-content: space-between; font-family: var(--font-display); font-weight: 800; font-size: 1.3rem; }
+
+.cart-overlay {
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%;
+  background: rgba(58, 39, 30, 0.6) !important; /* Augmentation de l'opacité du fond de la page pour mieux détacher le panier */
+  z-index: 999998 !important;
+  display: none; 
+  opacity: 0; 
+  transition: opacity 0.3s ease;
+}
+.cart-overlay.open { display: block; opacity: 1; }

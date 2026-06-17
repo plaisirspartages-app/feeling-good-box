@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Paiement sécurisé — Feeling Good Box</title>
+<link rel="stylesheet" href="fgb.css" />
+<style>
+  .co-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; margin-top: 40px; align-items: start; }
+  .co-section { background: #fff; padding: 32px; border-radius: var(--radius); border: 1px solid var(--line); margin-bottom: 24px; }
+  .co-section h3 { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 20px; color: var(--ink); }
+  
+  /* Récap de commande */
+  .summary-box { background: var(--cream-2); position: sticky; top: 40px; }
+  .summary-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 1rem; }
+  .summary-row.total { border-bottom: none; font-family: var(--font-display); font-weight: 800; font-size: 1.4rem; padding-top: 16px; }
+</style>
+
+<!-- CHARGEMENT DE LA BIBLIOTHÈQUE STRIPE OFFICIELLE -->
+<script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div style="width:44px;"></div>
+    <a href="index.html" class="nav-logo" data-logo data-logo-line aria-label="Feeling Good Box"></a>
+    <div style="width:44px;"></div>
+  </div>
+</nav>
+
+<main class="wrap section-pad" style="padding-top: 40px;">
+  <h1 class="display" style="font-size: 2.5rem; text-align: center;">Finaliser ma <span class="sun-text">commande</span></h1>
+  
+  <div class="co-grid">
+    <!-- CÔTÉ GAUCHE : PAIEMENT -->
+    <div>
+      <div class="co-section">
+        <h3>1. Informations de livraison</h3>
+        <p style="color: var(--ink-soft); font-size: 0.95rem; margin-bottom: 16px;">
+          💡 Vos coordonnées de livraison vous seront demandées en toute sécurité sur l'interface sécurisée de Stripe à l'étape suivante.
+        </p>
+      </div>
+
+      <div class="co-section">
+        <h3>2. Paiement sécurisé</h3>
+        <p style="color: var(--ink-soft); font-size: 0.95rem; margin-bottom: 16px;">🔐 Les transactions sont cryptées et sécurisées par Stripe.</p>
+        
+        <button id="pay-button" class="btn btn-primary btn-lg" style="width: 100%; justify-content: center; text-align: center; border: none; cursor: pointer;">
+          Payer par Carte Bancaire
+        </button>
+      </div>
+    </div>
+
+    <!-- CÔTÉ DROIT : RÉCAPITULATIF DE COMMANDE -->
+    <div class="co-section summary-box">
+      <h3>Résumé de la commande</h3>
+      <div id="checkout-items-list">
+        <!-- Rempli en JS -->
+      </div>
+      <div class="summary-row" style="margin-top: 16px;">
+        <span>Livraison (Colissimo)</span>
+        <span style="font-weight: 600;">Gratuite</span>
+      </div>
+      <div class="summary-row total">
+        <span>Total à régler :</span>
+        <span id="checkout-total-amount">0€</span>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="fgb.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Initialisation de Stripe avec ta clé publique de test
+    const stripe = Stripe('pk_test_51TixEJFO9eM1bfAyuTSQRL5RgkUZVWZzDQf1R5PZGEJWGohALqeUUgTbvb89JF8XUR0oTaaaA7F9QRl920Q0yG5H00FJBa1BhL');
+
+    const cart = JSON.parse(localStorage.getItem('fgb_cart')) || [];
+    const listEl = document.getElementById('checkout-items-list');
+    const totalEl = document.getElementById('checkout-total-amount');
+    
+    if (cart.length === 0) {
+      window.location.href = "les-boxes.html";
+      return;
+    }
+
+    let html = "";
+    let total = 0;
+    
+    cart.forEach(item => {
+      total += item.price * item.quantity;
+      html += `
+        <div class="summary-row">
+          <span><b>${item.name}</b> (x${item.quantity})</span>
+          <span>${item.price * item.quantity}€</span>
+        </div>
+      `;
+    });
+    
+    listEl.innerHTML = html;
+    totalEl.textContent = total + "€";
+
+    // Gestion du clic de paiement dynamique
+    document.getElementById('pay-button').addEventListener('click', () => {
+      
+      const lineItemsForStripe = cart.map(item => {
+        return {
+          // On passe le prix Stripe. Note : présentement tu as codé en dur un seul prix,
+          // plus tard on utilisera item.stripePriceId pour gérer le multi-articles !
+          price: 'price_1TixJeFO9eM1bfAy0TrRISNV', 
+          quantity: parseInt(item.quantity, 10)
+        };
+      });
+
+      // CORRECTION SYNTAXE : line_items avec un underscore (_) et non en camelCase
+      stripe.redirectToCheckout({
+        lineItems: lineItemsForStripe, // Conserve lineItems pour la compatibilité client-side stricte v3
+        mode: 'payment',
+        successUrl: window.location.origin + '/succes.html', 
+        cancelUrl: window.location.href,
+        shippingAddressCollection: {
+          allowedCountries: ['FR'],
+        }
+      }).then(function (result) {
+        if (result.error) {
+          alert(result.error.message);
+        }
+      }).catch(function (err) {
+        console.error("Erreur de redirection Stripe :", err);
+      });
+    });
+  });
+</script>
+</body>
+</html>
