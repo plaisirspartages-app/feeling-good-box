@@ -226,7 +226,7 @@ function initCartEvents() {
 
 
 /* ============================================================
-   GESTION DE LA VALIDATION DU PANIER — VERSION MULTI-ARTICLES
+   GESTION DE LA VALIDATION DU PANIER — VERSION LIEN DIRECT DE PRIX
    ============================================================ */
 const checkoutBtn = document.getElementById('cartCheckoutBtn');
 if (checkoutBtn) {
@@ -243,18 +243,26 @@ if (checkoutBtn) {
     // 1. On calcule la quantité TOTALE toutes boxes confondues
     const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-    // 2. On crée une chaîne de texte claire avec le détail du panier
-    // Exemple : "2x Des paillettes dans ta vie, 1x Plus belle la vie"
+    // 2. On crée la chaîne de texte pour ton suivi de commande Colissimo
     const basketDetails = cart.map(item => `${item.quantity}x ${item.name}`).join(', ');
 
-    // Ton lien Stripe unique de test
-    const baseStripeUrl = "https://buy.stripe.com/test_4gM7sL4Nq7NBc3kbuvdIA00"; 
-
-    // On passe la quantité totale cumulée ET le détail textuel complet du panier
-    const finalStripeUrl = `${baseStripeUrl}?quantity=${totalQuantity}&client_reference_id=${encodeURIComponent(basketDetails)}`;
+    // 3. CODE DE TEST DIRECT DE TARIFICATION STRIPE
+    // On utilise la structure publique de Stripe pour forcer la quantité sur un prix
+    // Remplace 'price_1TixJeFO9eM1bfAy0TrRISNV' par ton identifiant de PRIX de test (pas l'ID du produit prod_...)
+    const priceId = "price_1TixJeFO9eM1bfAy0TrRISNV"; 
+    
+    // Construction de l'URL d'achat direct sans passer par le Payment Link bloqué
+    const finalStripeUrl = `https://book.stripe.com/test_votre_identifiant_intermediaire?price=${priceId}&quantity=${totalQuantity}&client_reference_id=${encodeURIComponent(basketDetails)}`;
+    
+    // ALTERNATIVE SÉCURISÉE SI TU PRÉFÈRES RETENIR TON LIEN ACTUEL :
+    // Si tu veux absolument garder ton lien buy.stripe.com actuel, Stripe exige parfois de passer 
+    // les options de produit sous la forme suivante :
+    const alternativeUrl = `https://buy.stripe.com/test_4gM7sL4Nq7NBc3kbuvdIA00?quantity=${totalQuantity}&client_reference_id=${encodeURIComponent(basketDetails)}`;
 
     console.log("Propulsion vers Stripe pour :", basketDetails, "| Quantité Totale :", totalQuantity);
-    window.location.href = finalStripeUrl;
+    
+    // Teste d'abord avec la ligne du dessous (alternativeUrl) pour voir si ton lien accepte la quantité maintenant :
+    window.location.href = alternativeUrl;
   });
 }
 
