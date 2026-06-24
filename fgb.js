@@ -141,11 +141,11 @@ function updateCartUI() {
   }
 }
 
-// Ajouter au panier ET ouvrir le volet (Corrigé !)
+// Ajouter au panier ET ouvrir le volet
 function addToCart(boxId, boxName, boxPrice, stripePriceId) {
   let cart = getCart();
   
-  const existingItem = cart.find(item => item.stripePriceId === stripePriceId);
+  const existingItem = cart.find(item => item.id === boxId);
   
   if (existingItem) {
     existingItem.quantity += 1;
@@ -176,14 +176,13 @@ window.removeFromCart = function(index) {
   saveCart(cart);
 }
 
-// Réintégration de la fonction manquante initCartEvents() !
+// Écouteur de clics pour l'ajout au panier et la gestion du volet
 function initCartEvents() {
   const drawer = document.getElementById('cartDrawer');
   const overlay = document.getElementById('cartOverlay');
   const closeBtn = document.getElementById('cartClose');
   const navCartBtn = document.getElementById('navCartBtn');
 
-  // Écouteur de clics pour ajouter au panier
   document.querySelectorAll('[data-box-id]').forEach(button => {
     button.addEventListener('click', (e) => {
       e.preventDefault(); 
@@ -192,13 +191,12 @@ function initCartEvents() {
       const boxPrice = button.getAttribute('data-box-price');
       const stripePriceId = button.getAttribute('data-stripe-price-id');
       
-      if (boxId && boxName && boxPrice && stripePriceId) {
+      if (boxId && boxName && boxPrice) {
         addToCart(boxId, boxName, boxPrice, stripePriceId);
       }
     });
   });
 
-  // Fermetures du panier
   const closeDrawer = () => {
     if (drawer) drawer.classList.remove('open');
     if (overlay) overlay.classList.remove('open');
@@ -207,7 +205,6 @@ function initCartEvents() {
   if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
   if (overlay) overlay.addEventListener('click', closeDrawer);
 
-  // Ouverture manuelle depuis l'icône du menu
   if (navCartBtn) {
     navCartBtn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -219,31 +216,28 @@ function initCartEvents() {
   }
 }
 
+
 /* ============================================================
    GESTION DE LA VALIDATION DU PANIER — LIEN UNIQUE STRIPE 39€
    ============================================================ */
 const checkoutBtn = document.getElementById('cartCheckoutBtn');
 if (checkoutBtn) {
   checkoutBtn.addEventListener('click', (e) => {
-    e.preventDefault(); // Bloque la redirection brute
+    e.preventDefault(); 
     
     const cart = getCart();
 
-    // Sécurité : Panier vide
     if (cart.length === 0) {
       alert("Oups ! Ton panier est vide. Choisis une box avant de valider ! 🌤️");
       return;
     }
 
-    // Récupération des infos du premier article (toutes tes boxes coûtent 39€)
     const itemToPay = cart[0];
     const quantity = itemToPay.quantity;
-    const boxName = itemToPay.name; // "Plus belle la vie" ou "Des paillettes dans ta vie"
+    const boxName = itemToPay.name; 
 
-    // Remplacer "votre_code_ici" par la fin de ton lien réel (ex: buy.stripe.com/6oE14kaM7...)
     const baseStripeUrl = "https://buy.stripe.com/test_4gM7sL4Nq7NBc3kbuvdIA00"; 
 
-    // Construction de la redirection dynamique vers Stripe avec la quantité et la box choisie
     const finalStripeUrl = `${baseStripeUrl}?quantity=${quantity}&client_reference_id=${encodeURIComponent(boxName)}`;
 
     console.log("Propulsion vers Stripe pour :", boxName, "| Quantité :", quantity);
@@ -322,25 +316,6 @@ function initGiftPage() {
     alert(`Votre cadeau personnalisé pour ${giftTo} a bien été configuré !`);
   });
 }
-
-// Gestion du clic sur "Valider ma commande →"
-  const checkoutBtn = document.getElementById('cartCheckoutBtn');
-  if (checkoutBtn) {
-    checkoutBtn.addEventListener('click', (e) => {
-      const cart = getCart();
-
-      // Sécurité : Si le panier est vide, on empêche d'aller plus loin
-      if (cart.length === 0) {
-        e.preventDefault(); // Bloque la redirection vers offrir.html
-        alert("Oups ! Ton panier est vide. Choisis une box avant de valider ! 🌤️");
-        return;
-      }
-
-      // Si le panier contient quelque chose, on laisse le comportement naturel 
-      // (Le navigateur va ouvrir la page offrir.html configurée dans le href)
-      console.log("Validation du panier en cours... Redirection vers la personnalisation.");
-    });
-  }
 
 
 /* ============================================================
