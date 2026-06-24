@@ -49,7 +49,6 @@ function fgbHydrateLogos() {
 
 /* ---- Burger menu ---- */
 function fgbBurger() {
-  // On cherche par classe ou par ID pour être sûr de le trouver
   const burger = document.getElementById('navBurger') || document.querySelector('.burger');
   const menu = document.getElementById('navMenu') || document.querySelector('.nav-menu');
   const backdrop = document.getElementById('navBackdrop') || document.querySelector('.nav-backdrop');
@@ -226,7 +225,7 @@ function initCartEvents() {
 
 
 /* ============================================================
-   GESTION DE LA VALIDATION DU PANIER — VERSION LIEN DIRECT DE PRIX
+   GESTION DE LA VALIDATION DU PANIER — VERSION NOUVEAU LIEN STRIPE
    ============================================================ */
 const checkoutBtn = document.getElementById('cartCheckoutBtn');
 if (checkoutBtn) {
@@ -240,29 +239,20 @@ if (checkoutBtn) {
       return;
     }
 
-    // 1. On calcule la quantité TOTALE toutes boxes confondues
+    // 1. Calcul de la quantité cumulée totale
     const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-    // 2. On crée la chaîne de texte pour ton suivi de commande Colissimo
+    // 2. Formatage de la chaîne descriptive des boîtes choisies
     const basketDetails = cart.map(item => `${item.quantity}x ${item.name}`).join(', ');
 
-    // 3. CODE DE TEST DIRECT DE TARIFICATION STRIPE
-    // On utilise la structure publique de Stripe pour forcer la quantité sur un prix
-    // Remplace 'price_1TixJeFO9eM1bfAy0TrRISNV' par ton identifiant de PRIX de test (pas l'ID du produit prod_...)
-    const priceId = "price_1TixJeFO9eM1bfAy0TrRISNV"; 
-    
-    // Construction de l'URL d'achat direct sans passer par le Payment Link bloqué
-    const finalStripeUrl = `https://book.stripe.com/test_votre_identifiant_intermediaire?price=${priceId}&quantity=${totalQuantity}&client_reference_id=${encodeURIComponent(basketDetails)}`;
-    
-    // ALTERNATIVE SÉCURISÉE SI TU PRÉFÈRES RETENIR TON LIEN ACTUEL :
-    // Si tu veux absolument garder ton lien buy.stripe.com actuel, Stripe exige parfois de passer 
-    // les options de produit sous la forme suivante :
-    const alternativeUrl = `https://buy.stripe.com/test_4gM7sL4Nq7NBc3kbuvdIA00?quantity=${totalQuantity}&client_reference_id=${encodeURIComponent(basketDetails)}`;
+    // 3. Ton tout nouveau lien Stripe rafraîchi
+    const baseStripeUrl = "https://buy.stripe.com/test_bJeeVdeo09VJ8R8aqrdIA01"; 
+
+    // Construction propre de l'URL finale
+    const finalStripeUrl = `${baseStripeUrl}?quantity=${totalQuantity}&client_reference_id=${encodeURIComponent(basketDetails)}`;
 
     console.log("Propulsion vers Stripe pour :", basketDetails, "| Quantité Totale :", totalQuantity);
-    
-    // Teste d'abord avec la ligne du dessous (alternativeUrl) pour voir si ton lien accepte la quantité maintenant :
-    window.location.href = alternativeUrl;
+    window.location.href = finalStripeUrl;
   });
 }
 
