@@ -226,7 +226,7 @@ function initCartEvents() {
 
 
 /* ============================================================
-   GESTION DE LA VALIDATION DU PANIER — LIEN UNIQUE STRIPE 39€
+   GESTION DE LA VALIDATION DU PANIER — VERSION MULTI-ARTICLES
    ============================================================ */
 const checkoutBtn = document.getElementById('cartCheckoutBtn');
 if (checkoutBtn) {
@@ -240,15 +240,20 @@ if (checkoutBtn) {
       return;
     }
 
-    const itemToPay = cart[0];
-    const quantity = itemToPay.quantity;
-    const boxName = itemToPay.name; 
+    // 1. On calcule la quantité TOTALE toutes boxes confondues
+    const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
 
+    // 2. On crée une chaîne de texte claire avec le détail du panier
+    // Exemple : "2x Des paillettes dans ta vie, 1x Plus belle la vie"
+    const basketDetails = cart.map(item => `${item.quantity}x ${item.name}`).join(', ');
+
+    // Ton lien Stripe unique de test
     const baseStripeUrl = "https://buy.stripe.com/test_4gM7sL4Nq7NBc3kbuvdIA00"; 
 
-    const finalStripeUrl = `${baseStripeUrl}?quantity=${quantity}&client_reference_id=${encodeURIComponent(boxName)}`;
+    // On passe la quantité totale cumulée ET le détail textuel complet du panier
+    const finalStripeUrl = `${baseStripeUrl}?quantity=${totalQuantity}&client_reference_id=${encodeURIComponent(basketDetails)}`;
 
-    console.log("Propulsion vers Stripe pour :", boxName, "| Quantité :", quantity);
+    console.log("Propulsion vers Stripe pour :", basketDetails, "| Quantité Totale :", totalQuantity);
     window.location.href = finalStripeUrl;
   });
 }
