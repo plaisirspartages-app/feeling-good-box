@@ -49,21 +49,29 @@ function fgbHydrateLogos() {
 
 /* ---- Burger menu ---- */
 function fgbBurger() {
-  const burger = document.getElementById('navBurger');
-  const menu = document.getElementById('navMenu');
-  const backdrop = document.getElementById('navBackdrop');
-  if (!burger || !menu) return;
+  // On cherche par classe ou par ID pour être sûr de le trouver
+  const burger = document.getElementById('navBurger') || document.querySelector('.burger');
+  const menu = document.getElementById('navMenu') || document.querySelector('.nav-menu');
+  const backdrop = document.getElementById('navBackdrop') || document.querySelector('.nav-backdrop');
+  
+  if (!burger || !menu) {
+    console.warn("Menu Burger : Éléments manquants dans le HTML de cette page.");
+    return;
+  }
+  
   const close = () => {
     burger.setAttribute('aria-expanded', 'false');
     menu.classList.remove('open');
     if (backdrop) backdrop.classList.remove('open');
   };
+  
   const toggle = (e) => {
     e.stopPropagation();
     const open = menu.classList.toggle('open');
     burger.setAttribute('aria-expanded', open ? 'true' : 'false');
     if (backdrop) backdrop.classList.toggle('open', open);
   };
+  
   burger.addEventListener('click', toggle);
   if (backdrop) backdrop.addEventListener('click', close);
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
