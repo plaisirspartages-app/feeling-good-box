@@ -225,7 +225,7 @@ function initCartEvents() {
 
 
 /* ============================================================
-   GESTION DE LA VALIDATION DU PANIER — VERSION NOUVEAU LIEN STRIPE
+   GESTION DE LA VALIDATION DU PANIER — VERSION CORRIGÉE
    ============================================================ */
 const checkoutBtn = document.getElementById('cartCheckoutBtn');
 if (checkoutBtn) {
@@ -239,16 +239,12 @@ if (checkoutBtn) {
       return;
     }
 
-    // 1. Calcul de la quantité cumulée totale
     const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
-
-    // 2. Formatage de la chaîne descriptive des boîtes choisies
     const basketDetails = cart.map(item => `${item.quantity}x ${item.name}`).join(', ');
 
-    // 3. Ton tout nouveau lien Stripe rafraîchi
-    const baseStripeUrl = "https://buy.stripe.com/test_bJeeVdeo09VJ8R8aqrdIA01"; 
+    // URL Stripe nettoyée sans le code d'erreur de fin
+    const baseStripeUrl = "https://buy.stripe.com/test_bJeeVdeo09VJ8R8aqrdIA0"; 
 
-    // Construction propre de l'URL finale
     const finalStripeUrl = `${baseStripeUrl}?quantity=${totalQuantity}&client_reference_id=${encodeURIComponent(basketDetails)}`;
 
     console.log("Propulsion vers Stripe pour :", basketDetails, "| Quantité Totale :", totalQuantity);
