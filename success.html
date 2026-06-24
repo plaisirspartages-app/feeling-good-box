@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Merci pour votre commande ! — Feeling Good Box</title>
+<link rel="stylesheet" href="fgb.css" />
+<style>
+  .success-card { max-width: 560px; margin: 80px auto; text-align: center; background: #fff; padding: 48px; border-radius: var(--radius-lg); border: 1px solid var(--line); box-shadow: var(--shadow-md); }
+  .success-icon { font-size: 4rem; margin-bottom: 24px; display: inline-block; filter: drop-shadow(0 6px 12px rgba(58,39,30,.12)); }
+  .success-card h1 { font-family: var(--font-display); font-weight: 800; font-size: 2.2rem; color: var(--ink); line-height: 1.1; }
+  .success-card p { color: var(--ink-soft); margin-top: 16px; font-size: 1.05rem; line-height: 1.6; }
+  .success-actions { margin-top: 32px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div style="width:44px;"></div>
+    <a href="index.html" class="nav-logo" data-logo data-logo-line aria-label="Feeling Good Box"></a>
+    <div style="width:44px;"></div>
+  </div>
+</nav>
+
+<main class="wrap">
+  <div class="success-card">
+    <div class="success-icon">🌤️</div>
+    <h1>Commande validée,<br><span class="sun-text">merci beaucoup !</span></h1>
+    <p>
+      Ta parenthèse de bien-être est en route. Un e-mail de confirmation vient de t'être envoyé avec les détails de ta commande et ton suivi Colissimo.
+    </p>
+    <div class="success-actions">
+      <a class="btn btn-primary" href="index.html">Retour à l'accueil</a>
+      <a class="btn btn-ghost" href="les-boxes.html">Voir les autres boxes</a>
+    </div>
+  </div>
+</main>
+
+<script src="image-slot.js"></script>
+<script src="fgb.js"></script>
+<script>
+  // Une fois arrivé ici, le paiement est fait : on nettoie le panier local
+  document.addEventListener('DOMContentLoaded', () => {
+    localStorage.removeItem('fgb_cart');
+    // Si tu as des badges de quantité sur la page, on force la mise à jour visuelle à 0
+    if (typeof updateCartUI === 'function') {
+      updateCartUI();
+    }
+  });
+</script>
+</body>
+</html>

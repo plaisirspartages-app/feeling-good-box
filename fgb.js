@@ -219,6 +219,38 @@ function initCartEvents() {
   }
 }
 
+/* ============================================================
+   GESTION DE LA VALIDATION DU PANIER — LIEN UNIQUE STRIPE 39€
+   ============================================================ */
+const checkoutBtn = document.getElementById('cartCheckoutBtn');
+if (checkoutBtn) {
+  checkoutBtn.addEventListener('click', (e) => {
+    e.preventDefault(); // Bloque la redirection brute
+    
+    const cart = getCart();
+
+    // Sécurité : Panier vide
+    if (cart.length === 0) {
+      alert("Oups ! Ton panier est vide. Choisis une box avant de valider ! 🌤️");
+      return;
+    }
+
+    // Récupération des infos du premier article (toutes tes boxes coûtent 39€)
+    const itemToPay = cart[0];
+    const quantity = itemToPay.quantity;
+    const boxName = itemToPay.name; // "Plus belle la vie" ou "Des paillettes dans ta vie"
+
+    // Remplacer "votre_code_ici" par la fin de ton lien réel (ex: buy.stripe.com/6oE14kaM7...)
+    const baseStripeUrl = "https://buy.stripe.com/test_4gM7sL4Nq7NBc3kbuvdIA00"; 
+
+    // Construction de la redirection dynamique vers Stripe avec la quantité et la box choisie
+    const finalStripeUrl = `${baseStripeUrl}?quantity=${quantity}&client_reference_id=${encodeURIComponent(boxName)}`;
+
+    console.log("Propulsion vers Stripe pour :", boxName, "| Quantité :", quantity);
+    window.location.href = finalStripeUrl;
+  });
+}
+
 
 /* ============================================================
    LOGIQUE DE LA PAGE OFFRIR.HTML
