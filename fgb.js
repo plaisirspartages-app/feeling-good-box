@@ -152,22 +152,27 @@ function updateCartUI() {
 function addToCart(boxId, boxName, boxPrice, stripePriceId) {
   let cart = getCart();
   
-  const existingItem = cart.find(item => item.id === boxId);
-  
-  if (existingItem) {
-    existingItem.quantity += 1;
-  } else {
-    cart.push({ 
-      id: boxId, 
-      name: boxName, 
-      price: parseFloat(boxPrice), 
-      stripePriceId: stripePriceId,
-      quantity: 1 
-    });
+  // Si le panier n'est pas vide et que c'est une box différente, on prévient
+  if (cart.length > 0 && cart[0].id !== boxId) {
+    const confirmer = confirm(`Pour garantir une livraison Colissimo parfaite, nous préparons nos coffrets un par un. 🌤️\n\nVeux-tu remplacer la box "${cart[0].name}" par la box "${boxName}" dans ton panier ?`);
+    
+    if (!confirmer) {
+      return; // On arrête tout, le client garde son ancienne box
+    }
   }
+  
+  // On configure le panier avec l'unique box choisie (quantité toujours à 1)
+  cart = [{ 
+    id: boxId, 
+    name: boxName, 
+    price: parseFloat(boxPrice), 
+    stripePriceId: stripePriceId,
+    quantity: 1 
+  }];
   
   saveCart(cart);
 
+  // Ouverture automatique du volet panier
   const drawer = document.getElementById('cartDrawer');
   const overlay = document.getElementById('cartOverlay');
   if (drawer && overlay) {
@@ -225,33 +230,23 @@ function initCartEvents() {
 
 
 /* ============================================================
-   GESTION DE LA VALIDATION DU PANIER — VERSION CORRIGÉE
+   GESTION DE LA VALIDATION DU PANIER 
    ============================================================ */
 const checkoutBtn = document.getElementById('cartCheckoutBtn');
 if (checkoutBtn) {
   checkoutBtn.addEventListener('click', (e) => {
     e.preventDefault(); 
-    
     const cart = getCart();
+    if (cart.length === 0) return;
 
-    if (cart.length === 0) {
-      alert("Oups ! Ton panier est vide. Choisis une box avant de valider ! 🌤️");
-      return;
-    }
-
-    const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
     const basketDetails = cart.map(item => `${item.quantity}x ${item.name}`).join(', ');
-
-    // URL Stripe nettoyée sans le code d'erreur de fin
     const baseStripeUrl = "https://buy.stripe.com/test_bJeeVdeo09VJ8R8aqrdIA0"; 
 
-    const finalStripeUrl = `${baseStripeUrl}?quantity=${totalQuantity}&client_reference_id=${encodeURIComponent(basketDetails)}`;
-
-    console.log("Propulsion vers Stripe pour :", basketDetails, "| Quantité Totale :", totalQuantity);
+    // On envoie le détail textuel, mais on laisse le client ajuster sa quantité globale (ex: 2 ou 3) sur Stripe
+    const finalStripeUrl = `${baseStripeUrl}?client_reference_id=${encodeURIComponent(basketDetails)}`;
     window.location.href = finalStripeUrl;
   });
 }
-
 
 /* ============================================================
    LOGIQUE DE LA PAGE OFFRIR.HTML
