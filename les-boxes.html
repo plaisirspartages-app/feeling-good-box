@@ -36,7 +36,7 @@
 .soon-head { text-align:center; margin:0 auto; max-width:640px; }
 .soon-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:22px; margin-top:42px; }
 .soonbox { overflow:hidden; display:flex; flex-direction:column; }
-.soonbox-top { height:128px; position:relative; display:grid; place-items:center; }
+.soonbox-top { height:128px; position:relative; display:grid; place-items:center; overflow:hidden; }
 .soonbox-emoji { font-size:3rem; filter:drop-shadow(0 6px 10px rgba(58,39,30,.18)); }
 .soonbox-badge { position:absolute; top:14px; left:14px; background:rgba(255,255,255,.92); color:var(--ink); box-shadow:var(--shadow-sm); }
 .soonbox-body { padding:24px 26px; flex:1; display:flex; flex-direction:column; }
@@ -110,7 +110,7 @@
     <!-- BOX 1 — DOUCEUR -->
     <article class="boxrow reveal" id="douceur">
       <div class="box-media">
-        <image-slot id="bx-douceur" src="img/box-douceur.svg" placeholder="Box Douceur"></image-slot>
+        <image-slot id="bx-douceur" src="img/Boxes/plus_belle_la_vie.jpeg" placeholder="Plus belle la vie"></image-slot>
         <span class="floattag pill pill-sun">Douceur & Renouveau</span>
       </div>
       <div class="box-body">
@@ -136,7 +136,7 @@
     <!-- BOX 2 — ÉNERGIE -->
     <article class="boxrow flip reveal" id="energie">
       <div class="box-media">
-        <image-slot id="bx-energie" src="img/box-energie.svg" placeholder="Box Énergie"></image-slot>
+        <image-slot id="bx-energie" src="img/Boxes/paillettes.jpeg" placeholder="Des paillettes dans ta vie"></image-slot>
         <span class="floattag pill pill-sun">Énergie & Plaisir</span>
       </div>
       <div class="box-body">
@@ -174,9 +174,9 @@
     <div class="soon-grid">
 
       <article class="card soonbox reveal">
-        <div class="soonbox-top" style="background:linear-gradient(135deg,#FFD96B 0%,#FF9E2C 60%,#F2613F 100%);">
+        <div class="soonbox-top">
+          <img src="img/Boxes/Reprends_cette_image_mais_avec_202606281603.jpeg" alt="Âme d'enfant" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
           <span class="soonbox-badge pill">🔒 À venir</span>
-          <div class="soonbox-emoji">🎈</div>
         </div>
         <div class="soonbox-body">
           <h3>Âme d'enfant</h3>
@@ -187,9 +187,9 @@
       </article>
 
       <article class="card soonbox reveal">
-        <div class="soonbox-top" style="background:linear-gradient(135deg,#6E5B7E 0%,#A98FC2 55%,#FFC6C0 100%);">
+        <div class="soonbox-top">
+          <img src="img/Boxes/vers_linfini.jpeg" alt="Vers l'infini et l'au-delà" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
           <span class="soonbox-badge pill">🔒 À venir</span>
-          <div class="soonbox-emoji">🚀</div>
         </div>
         <div class="soonbox-body">
           <h3>Vers l'infini et l'au-delà</h3>
@@ -200,9 +200,9 @@
       </article>
 
       <article class="card soonbox reveal">
-        <div class="soonbox-top" style="background:linear-gradient(135deg,#C9A88A 0%,#B97A5C 55%,#2E9E78 125%);">
+        <div class="soonbox-top">
+          <img src="img/Boxes/gettin_dirty.jpeg" alt="Gettin' dirty" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
           <span class="soonbox-badge pill">🔒 À venir</span>
-          <div class="soonbox-emoji">🏺</div>
         </div>
         <div class="soonbox-body">
           <h3>Gettin' dirty</h3>
@@ -213,9 +213,9 @@
       </article>
 
       <article class="card soonbox reveal">
-        <div class="soonbox-top" style="background:linear-gradient(135deg,#FFE08A 0%,#FFC23D 55%,#E0922A 100%);">
+        <div class="soonbox-top">
+          <img src="img/Boxes/Que_la_force_soit_avec_toi.jpeg" alt="Que la force soit avec toi" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
           <span class="soonbox-badge pill">🔒 À venir</span>
-          <div class="soonbox-emoji">💫</div>
         </div>
         <div class="soonbox-body">
           <h3>Que la force soit avec toi</h3>
