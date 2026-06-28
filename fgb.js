@@ -43,7 +43,7 @@ function fgbHydrateLogos() {
     let text = '';
     if (oneLine) text = window.FGB_LOGOTEXT_LINE;
     else if (withText) text = window.FGB_LOGOTEXT;
-    el.innerHTML = window.FGB_LOGO + text;
+    el.innerHTML = `<img class="logo-mark" src="logo.jpeg" alt="Feeling Good Box" />` + text;
   });
 }
 
@@ -94,6 +94,25 @@ function fgbReveal() {
 /* ============================================================
    FEELING GOOD BOX — Moteur de Panier E-Commerce
    ============================================================ */
+
+/* Crée le volet panier dans le DOM si la page ne l'a pas déjà */
+function fgbEnsureCartDrawer() {
+  if (document.getElementById('cartDrawer')) return;
+  document.body.insertAdjacentHTML('beforeend', `
+    <div class="cart-drawer" id="cartDrawer">
+      <div class="cart-drawer-header">
+        <h2>Mon Panier</h2>
+        <button class="cart-drawer-close" id="cartClose" aria-label="Fermer le panier">✕</button>
+      </div>
+      <div class="cart-drawer-body" id="cartDrawerBody"></div>
+      <div class="cart-drawer-footer">
+        <div class="cart-total"><span>Total :</span><span id="cartTotalAmount">0€</span></div>
+        <button id="cartCheckoutBtn" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:15px;border:none;cursor:pointer;">Valider ma commande →</button>
+      </div>
+    </div>
+    <div class="cart-overlay" id="cartOverlay"></div>
+  `);
+}
 
 // Récupérer le panier
 function getCart() {
@@ -195,131 +214,49 @@ function initCartEvents() {
   const drawer = document.getElementById('cartDrawer');
   const overlay = document.getElementById('cartOverlay');
   const closeBtn = document.getElementById('cartClose');
-  const navCartBtn = document.getElementById('navCartBtn');
+  const navCartBtn = document.querySelector('.icon-btn[aria-label="Panier"]');
 
   document.querySelectorAll('[data-box-id]').forEach(button => {
     button.addEventListener('click', (e) => {
-      e.preventDefault(); 
+      e.preventDefault();
       const boxId = button.getAttribute('data-box-id');
       const boxName = button.getAttribute('data-box-name');
       const boxPrice = button.getAttribute('data-box-price');
       const stripePriceId = button.getAttribute('data-stripe-price-id');
-      
       if (boxId && boxName && boxPrice) {
         addToCart(boxId, boxName, boxPrice, stripePriceId);
       }
     });
   });
 
+  const openDrawer = () => {
+    if (drawer) drawer.classList.add('open');
+    if (overlay) overlay.classList.add('open');
+  };
   const closeDrawer = () => {
     if (drawer) drawer.classList.remove('open');
     if (overlay) overlay.classList.remove('open');
   };
 
+  if (navCartBtn) navCartBtn.addEventListener('click', (e) => { e.preventDefault(); openDrawer(); });
   if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
   if (overlay) overlay.addEventListener('click', closeDrawer);
 
-  if (navCartBtn) {
-    navCartBtn.addEventListener('click', (e) => {
+  const checkoutBtn = document.getElementById('cartCheckoutBtn');
+  if (checkoutBtn) {
+    checkoutBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      if (drawer && overlay) {
-        drawer.classList.add('open');
-        overlay.classList.add('open');
-      }
+      const cart = getCart();
+      if (cart.length === 0) return;
+      const basketDetails = cart.map(item => `${item.quantity}x ${item.name}`).join(', ');
+      const baseStripeUrl = "https://buy.stripe.com/test_bJeeVdeo09VJ8R8aqrdIA0";
+      window.location.href = `${baseStripeUrl}?client_reference_id=${encodeURIComponent(basketDetails)}`;
     });
   }
 }
 
 
-/* ============================================================
-   GESTION DE LA VALIDATION DU PANIER 
-   ============================================================ */
-const checkoutBtn = document.getElementById('cartCheckoutBtn');
-if (checkoutBtn) {
-  checkoutBtn.addEventListener('click', (e) => {
-    e.preventDefault(); 
-    const cart = getCart();
-    if (cart.length === 0) return;
 
-    const basketDetails = cart.map(item => `${item.quantity}x ${item.name}`).join(', ');
-    const baseStripeUrl = "https://buy.stripe.com/test_bJeeVdeo09VJ8R8aqrdIA0"; 
-
-    // On envoie le détail textuel, mais on laisse le client ajuster sa quantité globale (ex: 2 ou 3) sur Stripe
-    const finalStripeUrl = `${baseStripeUrl}?client_reference_id=${encodeURIComponent(basketDetails)}`;
-    window.location.href = finalStripeUrl;
-  });
-}
-
-/* ============================================================
-   LOGIQUE DE LA PAGE OFFRIR.HTML
-   ============================================================ */
-
-let selectedFormula = "unique";
-
-function initGiftPage() {
-  const formSubmitBtn = document.getElementById('btn-final-submit');
-  if (!formSubmitBtn) return;
-
-  const cart = getCart();
-  let currentBox = cart[cart.length - 1]; 
-
-  if (!currentBox) {
-    currentBox = { id: "plus-belle-la-vie", name: "Plus belle la vie", price: 39.00 };
-  }
-
-  document.querySelectorAll('.btn-choose-formula').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      selectedFormula = btn.getAttribute('data-formula');
-      
-      if (selectedFormula === "3-mois") {
-        formSubmitBtn.textContent = "Ajouter l'abonnement au panier (87€) →";
-      } else if (selectedFormula === "carte") {
-        formSubmitBtn.textContent = "Ajouter la carte au panier →";
-      } else {
-        formSubmitBtn.textContent = "Ajouter la box au panier (39€) →";
-      }
-    });
-  });
-
-  formSubmitBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-
-    const giftTo = document.getElementById('f-to') ? document.getElementById('f-to').value.trim() : "";
-    const giftMsg = document.getElementById('f-msg') ? document.getElementById('f-msg').value.trim() : "";
-    const giftFrom = document.getElementById('f-from') ? document.getElementById('f-from').value.trim() : "";
-    const giftDate = document.getElementById('f-date') ? document.getElementById('f-date').value : "";
-    
-    const activeSwatch = document.querySelector('#swatches .swatch[aria-checked="true"]');
-    const giftVisual = activeSwatch ? activeSwatch.getAttribute('title') : 'Standard';
-
-    if (!giftTo || !giftMsg || !giftFrom) {
-      alert("N'oublie pas de remplir les petits mots pour ta carte cadeau ! ✨");
-      return;
-    }
-
-    const finalGiftItem = {
-      id: `${currentBox.id}_${selectedFormula}`, 
-      boxId: currentBox.id,
-      boxName: currentBox.name,
-      formula: selectedFormula,
-      price: selectedFormula === "3-mois" ? 87.00 : 39.00, 
-      personalization: {
-        to: giftTo,
-        message: giftMsg,
-        from: giftFrom,
-        date: giftDate,
-        visual: giftVisual
-      },
-      quantity: 1
-    };
-
-    localStorage.setItem('fgb_cart', JSON.stringify([finalGiftItem]));
-    updateCartUI();
-
-    alert(`Votre cadeau personnalisé pour ${giftTo} a bien été configuré !`);
-  });
-}
 
 
 /* ============================================================
@@ -329,14 +266,14 @@ document.addEventListener('DOMContentLoaded', () => {
   fgbHydrateLogos();
   fgbBurger();
   fgbReveal();
-  
+  fgbEnsureCartDrawer();
+
   try {
     initCartEvents();
     updateCartUI();
-    initGiftPage();
   } catch (error) {
     console.error("Erreur e-commerce ignorée pour protéger l'affichage :", error);
   }
-  
+
   const y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
 });
