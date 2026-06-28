@@ -72,7 +72,9 @@ function fgbBurger() {
   };
   
   burger.addEventListener('click', toggle);
+  menu.addEventListener('click', (e) => e.stopPropagation());
   if (backdrop) backdrop.addEventListener('click', close);
+  document.addEventListener('click', close);
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
 }
 

@@ -36,6 +36,14 @@
 .soi .script { color:var(--sun); font-size:clamp(1.6rem,3vw,2.4rem); }
 .soi p { color:rgba(255,247,234,.8); max-width:560px; margin:18px auto 0; font-size:1.1rem; }
 
+/* steps offrir */
+.steps { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:50px; }
+.gstep { text-align:center; padding:28px 22px; }
+.gstep .n { width:60px; height:60px; border-radius:50%; background:var(--grad-sun); color:#fff; font-family:var(--font-display); font-weight:800; font-size:1.5rem; display:grid; place-items:center; margin:0 auto 16px; box-shadow:0 10px 24px rgba(255,158,44,.34); }
+.gstep b { font-family:var(--font-display); font-size:1.18rem; display:block; }
+.gstep p { color:var(--ink-soft); margin-top:6px; font-size:.96rem; }
+@media (max-width:980px){ .steps { grid-template-columns:1fr; } }
+
 /* footer */
 .foot-grid { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:36px; }
 .foot-col h5 { font-family:var(--font-display); font-weight:700; font-size:1rem; margin-bottom:14px; }
@@ -68,7 +76,6 @@
     <a href="les-boxes.html">Les boxes</a>
     <a href="abonnement.html">Abonnement <span class="soon">à venir</span></a>
     <a href="pour-qui.html">Pour qui&nbsp;?</a>
-    <a href="offrir.html">Offrir</a>
     <a href="notre-histoire.html">Notre histoire</a>
     <a href="faq.html">FAQ</a>
   </div>
@@ -111,18 +118,6 @@
         <h2>Réapprendre à habiter sa vie, seul·e.</h2>
         <p>Quand une histoire se termine, le quotidien sonne creux. La box réintroduit, tout doucement,
           des petits plaisirs rien qu'à soi : un soin, un geste créatif, un défi pour rouvrir une porte.</p>
-        <div class="inside">
-          <b>On y glisse souvent…</b>
-          <div class="items">
-            <span class="pill pill-coral">Soin réconfortant</span>
-            <span class="pill pill-coral">Défi « sortir seul·e »</span>
-            <span class="pill pill-coral">Cartes « tu es entier·ère »</span>
-          </div>
-        </div>
-        <div class="cta">
-          <a class="btn btn-primary" href="la-box.html">Découvrir la box</a>
-          <a class="btn btn-ghost" href="offrir.html">L'offrir à quelqu'un</a>
-        </div>
       </div>
     </div>
 
@@ -137,18 +132,6 @@
         <h2>Une présence douce, quand les mots manquent.</h2>
         <p>Face au chagrin, on ne sait jamais quoi dire. La box parle à notre place : elle dit « je pense à toi »,
           sans bruit, sans injonction à aller mieux. Juste de la tendresse, à ouvrir quand on est prêt·e.</p>
-        <div class="inside">
-          <b>On y glisse souvent…</b>
-          <div class="items">
-            <span class="pill pill-coral">Bougie & infusion du soir</span>
-            <span class="pill pill-coral">Carnet pour écrire</span>
-            <span class="pill pill-coral">Défi « marcher au calme »</span>
-          </div>
-        </div>
-        <div class="cta">
-          <a class="btn btn-primary" href="offrir.html">Offrir un réconfort</a>
-          <a class="btn btn-ghost" href="la-box.html">Voir la box</a>
-        </div>
       </div>
     </div>
 
@@ -163,18 +146,6 @@
         <h2>Exister encore, derrière la maman.</h2>
         <p>Les premiers mois, tout tourne autour du bébé. La box rappelle qu'il y a aussi une femme,
           qui mérite cinq minutes de douceur. Des rituels courts, faisables d'une main, sans culpabilité.</p>
-        <div class="inside">
-          <b>On y glisse souvent…</b>
-          <div class="items">
-            <span class="pill pill-coral">Soin express</span>
-            <span class="pill pill-coral">Gourmandise « pause café »</span>
-            <span class="pill pill-coral">Défi « 10 min pour toi »</span>
-          </div>
-        </div>
-        <div class="cta">
-          <a class="btn btn-primary" href="la-box.html">Découvrir la box</a>
-          <a class="btn btn-ghost" href="offrir.html">L'offrir à une maman</a>
-        </div>
       </div>
     </div>
 
@@ -189,18 +160,6 @@
         <h2>Quand tout va « bien »… mais que rien ne brille.</h2>
         <p>Pas besoin d'un drame pour avoir besoin de douceur. La routine, la grisaille, la charge mentale —
           la box rallume des petites étincelles de plaisir, une par semaine.</p>
-        <div class="inside">
-          <b>On y glisse souvent…</b>
-          <div class="items">
-            <span class="pill pill-coral">Atelier créatif</span>
-            <span class="pill pill-coral">Playlist & citations</span>
-            <span class="pill pill-coral">Défi « admire le ciel »</span>
-          </div>
-        </div>
-        <div class="cta">
-          <a class="btn btn-primary" href="abonnement.html">Abonnement · à venir</a>
-          <a class="btn btn-ghost" href="la-box.html">Voir la box</a>
-        </div>
       </div>
     </div>
 
@@ -215,20 +174,36 @@
         <h2>Dire « je suis là », autrement.</h2>
         <p>Un parent, un·e ami·e, un·e collègue qui traverse une période difficile ? La box est un câlin
           qu'on envoie par la poste. Tu choisis, on emballe avec soin, ton mot fait le reste.</p>
-        <div class="inside">
-          <b>On y glisse souvent…</b>
-          <div class="items">
-            <span class="pill pill-coral">Mot manuscrit personnalisé</span>
-            <span class="pill pill-coral">Emballage cadeau</span>
-            <span class="pill pill-coral">Livraison directe</span>
-          </div>
-        </div>
-        <div class="cta">
-          <a class="btn btn-primary" href="offrir.html">Offrir une box →</a>
-        </div>
       </div>
     </div>
 
+  </div>
+</section>
+
+<!-- COMMENT OFFRIR -->
+<section class="section-pad" style="background:var(--cream-2);">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow">Comment offrir</span>
+      <h2 class="display mt-s" style="font-size:clamp(2rem,4vw,3rem);">Trois petits gestes, beaucoup d'émotion</h2>
+    </div>
+    <div class="steps">
+      <div class="card gstep reveal">
+        <div class="n">1</div>
+        <b>Tu choisis</b>
+        <p>Une box unique, un abonnement de 3 mois, ou une carte au montant libre.</p>
+      </div>
+      <div class="card gstep reveal">
+        <div class="n">2</div>
+        <b>Tu personnalises</b>
+        <p>Un mot manuscrit, la date d'envoi, et la box est à son nom.</p>
+      </div>
+      <div class="card gstep reveal">
+        <div class="n">3</div>
+        <b>On s'occupe du reste</b>
+        <p>Emballage soigné, livraison directe chez la personne. Magie.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -254,7 +229,7 @@
         <div data-logo data-logo-text style="--terra:var(--cream);"></div>
         <p class="script" style="color:var(--sun); font-size:1.5rem; margin-top:14px;">Reprendre goût.<br>Reprendre vie.</p>
       </div>
-      <div class="foot-col"><h5>La boutique</h5><a href="les-boxes.html">Les boxes</a><a href="abonnement.html">Abonnement</a><a href="offrir.html">Cartes cadeaux</a></div>
+      <div class="foot-col"><h5>La boutique</h5><a href="les-boxes.html">Les boxes</a><a href="abonnement.html">Abonnement</a></div>
       <div class="foot-col"><h5>Le concept</h5><a href="pour-qui.html">Pour qui ?</a><a href="notre-histoire.html">Notre histoire</a></div>
       <div class="foot-col"><h5>Aide</h5><a href="faq.html">FAQ</a><a href="#">Livraison</a><a href="#">Contact</a></div>
     </div>
