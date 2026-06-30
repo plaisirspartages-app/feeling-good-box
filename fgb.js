@@ -43,7 +43,7 @@ function fgbHydrateLogos() {
     let text = '';
     if (oneLine) text = window.FGB_LOGOTEXT_LINE;
     else if (withText) text = window.FGB_LOGOTEXT;
-    el.innerHTML = `<img class="logo-mark" src="logo.jpeg" alt="Feeling Good Box" />` + text;
+    el.innerHTML = `<img class="logo-mark" src="logo%20V2.png" alt="Feeling Good Box" />` + text;
   });
 }
 
@@ -170,7 +170,7 @@ function updateCartUI() {
 }
 
 // Ajouter au panier ET ouvrir le volet
-function addToCart(boxId, boxName, boxPrice, stripePriceId) {
+function addToCart(boxId, boxName, boxPrice, stripePriceId, stripeUrl) {
   let cart = getCart();
   
   // Si le panier n'est pas vide et que c'est une box différente, on prévient
@@ -183,12 +183,13 @@ function addToCart(boxId, boxName, boxPrice, stripePriceId) {
   }
   
   // On configure le panier avec l'unique box choisie (quantité toujours à 1)
-  cart = [{ 
-    id: boxId, 
-    name: boxName, 
-    price: parseFloat(boxPrice), 
+  cart = [{
+    id: boxId,
+    name: boxName,
+    price: parseFloat(boxPrice),
     stripePriceId: stripePriceId,
-    quantity: 1 
+    stripeUrl: stripeUrl,
+    quantity: 1
   }];
   
   saveCart(cart);
@@ -223,8 +224,9 @@ function initCartEvents() {
       const boxName = button.getAttribute('data-box-name');
       const boxPrice = button.getAttribute('data-box-price');
       const stripePriceId = button.getAttribute('data-stripe-price-id');
+      const stripeUrl = button.getAttribute('data-stripe-url');
       if (boxId && boxName && boxPrice) {
-        addToCart(boxId, boxName, boxPrice, stripePriceId);
+        addToCart(boxId, boxName, boxPrice, stripePriceId, stripeUrl);
       }
     });
   });
@@ -248,9 +250,9 @@ function initCartEvents() {
       e.preventDefault();
       const cart = getCart();
       if (cart.length === 0) return;
-      const basketDetails = cart.map(item => `${item.quantity}x ${item.name}`).join(', ');
-      const baseStripeUrl = "https://buy.stripe.com/test_bJeeVdeo09VJ8R8aqrdIA0";
-      window.location.href = `${baseStripeUrl}?client_reference_id=${encodeURIComponent(basketDetails)}`;
+      const item = cart[0];
+      const stripeUrl = item.stripeUrl || "https://buy.stripe.com/test_bJeeVdeo09VJ8R8aqrdIA01";
+      window.location.href = `${stripeUrl}?client_reference_id=${encodeURIComponent(item.name)}`;
     });
   }
 }

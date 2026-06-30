@@ -189,7 +189,7 @@ section { position: relative; }
 
 /* ---------- Logo ---------- */
 .logo { display: flex; align-items: center; gap: 11px; }
-.logo-mark { height: 52px; width: auto; flex: none; mix-blend-mode: multiply; }
+.logo-mark { height: 72px; width: auto; flex: none; }
 .logo-text { font-family: var(--font-display); font-weight: 800; font-size: 1.12rem; line-height: .92; letter-spacing: -.02em; color: var(--terra); }
 
 /* ---------- Cards ---------- */
