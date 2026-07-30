@@ -236,6 +236,9 @@ image-slot {
 @media (max-width: 880px) {
   .nav-links { display: none; }
   .section-pad { padding: 64px 0; }
+  .nav-inner { padding: 8px 14px; }
+  .logo-mark { height: 46px; }
+  .logo-text { display: none; }
 }
 
 /* ---------- Hero variant switching ---------- */
