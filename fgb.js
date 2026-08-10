@@ -251,7 +251,7 @@ function initCartEvents() {
       const cart = getCart();
       if (cart.length === 0) return;
       const item = cart[0];
-      const stripeUrl = item.stripeUrl || "https://buy.stripe.com/test_bJeeVdeo09VJ8R8aqrdIA01";
+      const stripeUrl = (item.stripeUrl && item.stripeUrl !== '#') ? item.stripeUrl : "https://buy.stripe.com/test_bJeeVdeo09VJ8R8aqrdIA01";
       window.location.href = `${stripeUrl}?client_reference_id=${encodeURIComponent(item.name)}`;
     });
   }

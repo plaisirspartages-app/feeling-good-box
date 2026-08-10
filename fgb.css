@@ -184,8 +184,9 @@ section { position: relative; }
 
 /* ---------- Logo single-line ---------- */
 .logo-text--line { white-space: nowrap; line-height: 1; }
-.icon-btn { font-size: 1.15rem; color: var(--ink); display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; transition: background .15s; }
+.icon-btn { position: relative; font-size: 1.15rem; color: var(--ink); display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; transition: background .15s; }
 .icon-btn:hover { background: var(--cream-2); }
+.cart-count { position: absolute; top: 2px; right: 2px; background: var(--coral); color: #fff; border-radius: 50%; width: 16px; height: 16px; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; line-height: 1; pointer-events: none; }
 
 /* ---------- Logo ---------- */
 .logo { display: flex; align-items: center; gap: 11px; }
