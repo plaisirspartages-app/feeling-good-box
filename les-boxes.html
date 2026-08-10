@@ -2,11 +2,13 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Les boxes — Feeling Good Box</title>
-<meta name="description" content="Découvre les boxes Feeling Good Box : douceur & renouveau ou énergie & plaisir. Des coffrets bien-être à 49€ pour se faire du bien ou faire plaisir à quelqu'un qu'on aime." />
-<meta property="og:title" content="Les boxes — Feeling Good Box" />
-<meta property="og:description" content="Découvre les boxes Feeling Good Box : douceur & renouveau ou énergie & plaisir. Des coffrets bien-être à 49€ pour se faire du bien ou faire plaisir à quelqu'un qu'on aime." />
+<title>Box bien-être cadeau à offrir ou s'offrir — Feeling Good Box · dès 49€</title>
+<meta name="description" content="Découvre les boxes bien-être Feeling Good Box : Plus belle la vie (douceur & renouveau) et Paillettes & Chill (créativité & plaisir). Idéal cadeau rupture, deuil, coup de mou. Dès 49€." />
+<meta property="og:title" content="Box bien-être cadeau à offrir ou s'offrir — Feeling Good Box" />
+<meta property="og:description" content="Découvre les boxes bien-être Feeling Good Box : Plus belle la vie (douceur & renouveau) et Paillettes & Chill (créativité & plaisir). Idéal cadeau rupture, deuil, coup de mou. Dès 49€." />
 <meta property="og:image" content="https://www.feelinggoodbox.fr/logo%20V2.png" />
 <meta property="og:url" content="https://www.feelinggoodbox.fr/les-boxes.html" />
 <meta property="og:type" content="website" />
@@ -16,6 +18,60 @@
 <link rel="icon" href="logo.png" type="image/png" />
 <link rel="apple-touch-icon" href="logo.png" />
 <link rel="canonical" href="https://www.feelinggoodbox.fr/les-boxes.html" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://www.feelinggoodbox.fr/"},
+        {"@type": "ListItem", "position": 2, "name": "Les boxes", "item": "https://www.feelinggoodbox.fr/les-boxes.html"}
+      ]
+    },
+    {
+      "@type": "Product",
+      "name": "Plus belle la vie — Feeling Good Box",
+      "description": "Box bien-être douceur & renouveau — soin, objet déco, atelier créatif, pause gourmande, cartes citations et défis du mois. Idéale après une rupture, un deuil ou un coup de mou.",
+      "brand": {"@type": "Brand", "name": "Feeling Good Box"},
+      "image": "https://www.feelinggoodbox.fr/img/Boxes/plus_belle_la_vie.jpeg",
+      "offers": {
+        "@type": "Offer",
+        "price": "49.00",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "url": "https://www.feelinggoodbox.fr/les-boxes.html#douceur",
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingDestination": {"@type": "DefinedRegion", "addressCountry": ["FR", "BE", "LU", "CH"]},
+          "deliveryTime": {"@type": "ShippingDeliveryTime", "transitTime": {"@type": "QuantitativeValue", "minValue": 3, "maxValue": 5, "unitCode": "DAY"}}
+        },
+        "hasMerchantReturnPolicy": {"@type": "MerchantReturnPolicy", "applicableCountry": "FR", "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted"}
+      }
+    },
+    {
+      "@type": "Product",
+      "name": "Paillettes & Chill — Feeling Good Box",
+      "description": "Box bien-être créativité & plaisir — atelier créatif pétillant, pause gourmande et petits défis pour retrouver son étincelle en douceur.",
+      "brand": {"@type": "Brand", "name": "Feeling Good Box"},
+      "image": "https://www.feelinggoodbox.fr/img/Boxes/paillettes_light.jpeg",
+      "offers": {
+        "@type": "Offer",
+        "price": "49.00",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "url": "https://www.feelinggoodbox.fr/les-boxes.html#paillettes-chill",
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingDestination": {"@type": "DefinedRegion", "addressCountry": ["FR", "BE", "LU", "CH"]},
+          "deliveryTime": {"@type": "ShippingDeliveryTime", "transitTime": {"@type": "QuantitativeValue", "minValue": 3, "maxValue": 5, "unitCode": "DAY"}}
+        },
+        "hasMerchantReturnPolicy": {"@type": "MerchantReturnPolicy", "applicableCountry": "FR", "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted"}
+      }
+    }
+  ]
+}
+</script>
 <link rel="stylesheet" href="fgb.css" />
 <style>
 /* ===== LES BOXES ===== */
@@ -189,7 +245,7 @@
 
       <article class="card soonbox reveal">
         <div class="soonbox-top">
-          <img src="img/Boxes/paillettes.jpeg" alt="Grand Frisson & Paillettes" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <img src="img/Boxes/paillettes.jpeg" alt="Grand Frisson & Paillettes" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
           <span class="soonbox-badge pill">✦ À venir</span>
         </div>
         <div class="soonbox-body">
@@ -202,7 +258,7 @@
 
       <article class="card soonbox reveal">
         <div class="soonbox-top">
-          <img src="img/Boxes/Reprends_cette_image_mais_avec_202606281603.jpeg" alt="Âme d'enfant" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <img src="img/Boxes/Reprends_cette_image_mais_avec_202606281603.jpeg" alt="Âme d'enfant" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
           <span class="soonbox-badge pill">🔒 À venir</span>
         </div>
         <div class="soonbox-body">
@@ -215,7 +271,7 @@
 
       <article class="card soonbox reveal">
         <div class="soonbox-top">
-          <img src="img/Boxes/vers_linfini.jpeg" alt="Vers l'infini et l'au-delà" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <img src="img/Boxes/vers_linfini.jpeg" alt="Vers l'infini et l'au-delà" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
           <span class="soonbox-badge pill">🔒 À venir</span>
         </div>
         <div class="soonbox-body">
@@ -228,7 +284,7 @@
 
       <article class="card soonbox reveal">
         <div class="soonbox-top">
-          <img src="img/Boxes/gettin_dirty.jpeg" alt="Gettin' dirty" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <img src="img/Boxes/gettin_dirty.jpeg" alt="Gettin' dirty" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
           <span class="soonbox-badge pill">🔒 À venir</span>
         </div>
         <div class="soonbox-body">
@@ -241,7 +297,7 @@
 
       <article class="card soonbox reveal">
         <div class="soonbox-top">
-          <img src="img/Boxes/Que_la_force_soit_avec_toi.jpeg" alt="Que la force soit avec toi" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <img src="img/Boxes/Que_la_force_soit_avec_toi.jpeg" alt="Que la force soit avec toi" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
           <span class="soonbox-badge pill">🔒 À venir</span>
         </div>
         <div class="soonbox-body">
