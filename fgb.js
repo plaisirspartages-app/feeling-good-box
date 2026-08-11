@@ -106,40 +106,40 @@ function fgbEnsureCartDrawer() {
       </div>
       <div class="cart-drawer-body" id="cartDrawerBody"></div>
 
-      <div class="cart-shipping" id="cartShipping">
-        <div class="ship-label">Mode de livraison</div>
-        <label class="ship-opt active" id="shipOptRelay">
-          <input type="radio" name="shipping" value="relay" checked />
-          <div class="ship-opt-body">
-            <div>
-              <strong>Point relais</strong>
-              <span>Mondial Relay · Shop2Shop</span>
-            </div>
-            <span class="ship-price green">Gratuit</span>
-          </div>
-        </label>
-        <label class="ship-opt" id="shipOptHome">
-          <input type="radio" name="shipping" value="home" />
-          <div class="ship-opt-body">
-            <div>
-              <strong>À domicile</strong>
-              <span>Colissimo · 3–5 jours ouvrés</span>
-            </div>
-            <span class="ship-price">+3€</span>
-          </div>
-        </label>
-        <div class="ship-relay-picker" id="shipRelayPicker">
-          <input class="ship-input" id="shipZip" type="text" inputmode="numeric" maxlength="5" placeholder="Code postal (ex : 75011)" />
-          <a class="ship-find-btn" href="https://www.mondialrelay.fr/trouver-un-point-relais/" target="_blank" rel="noopener">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            Trouver mon point relais ↗
-          </a>
-          <input class="ship-input" id="shipRelayName" type="text" placeholder="Nom du point relais choisi" />
-          <p class="ship-hint">Cherche ton relais sur la carte Mondial Relay, puis entre son nom ci-dessus.</p>
-        </div>
-      </div>
-
       <div class="cart-drawer-footer">
+        <div class="cart-shipping" id="cartShipping">
+          <div class="ship-label">Mode de livraison</div>
+          <label class="ship-opt active" id="shipOptRelay">
+            <input type="radio" name="shipping" value="relay" checked />
+            <div class="ship-opt-body">
+              <div>
+                <strong>Point relais</strong>
+                <span>Mondial Relay · Shop2Shop</span>
+              </div>
+              <span class="ship-price green">Gratuit</span>
+            </div>
+          </label>
+          <label class="ship-opt" id="shipOptHome">
+            <input type="radio" name="shipping" value="home" />
+            <div class="ship-opt-body">
+              <div>
+                <strong>À domicile</strong>
+                <span>Colissimo · 3–5 jours ouvrés</span>
+              </div>
+              <span class="ship-price">+3€</span>
+            </div>
+          </label>
+          <div class="ship-relay-picker" id="shipRelayPicker">
+            <input class="ship-input" id="shipZip" type="text" inputmode="numeric" maxlength="5" placeholder="Code postal (ex : 75011)" />
+            <p class="ship-error-msg" id="shipZipError">Merci d'entrer ton code postal.</p>
+            <a class="ship-find-btn" href="https://www.mondialrelay.fr/trouver-un-point-relais/" target="_blank" rel="noopener">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              Trouver mon point relais ↗
+            </a>
+            <input class="ship-input" id="shipRelayName" type="text" placeholder="Nom du point relais choisi" />
+            <p class="ship-hint">Cherche ton relais sur la carte, puis entre son nom ci-dessus.</p>
+          </div>
+        </div>
         <div class="cart-total"><span>Total :</span><span id="cartTotalAmount">0€</span></div>
         <button id="cartCheckoutBtn" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:15px;border:none;cursor:pointer;">Valider ma commande →</button>
       </div>
@@ -174,6 +174,9 @@ function updateCartUI() {
   // 2. Section livraison visible seulement si panier non vide
   const shippingEl = document.getElementById('cartShipping');
   if (shippingEl) shippingEl.style.display = cart.length > 0 ? 'block' : 'none';
+  // Masquer le message d'erreur code postal si panier vidé
+  const zipErrEl = document.getElementById('shipZipError');
+  if (zipErrEl && cart.length === 0) zipErrEl.style.display = 'none';
 
   // 3. Corps du panier
   const drawerBody = document.getElementById('cartDrawerBody');
@@ -311,14 +314,9 @@ function initCartEvents() {
       if (isRelay) {
         const zip = (document.getElementById('shipZip')?.value || '').trim();
         const relayName = (document.getElementById('shipRelayName')?.value || '').trim();
-        const zipEl = document.getElementById('shipZip');
-        if (!zip || zip.length < 4) {
-          if (zipEl) { zipEl.classList.add('ship-error'); zipEl.focus(); }
-          return;
-        }
-        if (zipEl) zipEl.classList.remove('ship-error');
         const baseUrl = (item.stripeUrl && item.stripeUrl !== '#') ? item.stripeUrl : fallback;
-        const ref = `${item.name} | Relais: ${relayName || 'à préciser'} (${zip})`;
+        const relayInfo = relayName ? `${relayName} (${zip})` : zip ? `code postal ${zip}` : 'à préciser par email';
+        const ref = `${item.name} | Point relais: ${relayInfo}`;
         window.location.href = `${baseUrl}?client_reference_id=${encodeURIComponent(ref)}`;
       } else {
         const homeUrl = (item.stripeUrlHome && item.stripeUrlHome !== '#')

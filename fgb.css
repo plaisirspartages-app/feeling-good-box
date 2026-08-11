@@ -186,7 +186,7 @@ section { position: relative; }
 .logo-text--line { white-space: nowrap; line-height: 1; }
 .icon-btn { position: relative; font-size: 1.15rem; color: var(--ink); display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; transition: background .15s; }
 .icon-btn:hover { background: var(--cream-2); }
-.cart-count { position: absolute; top: 2px; right: 2px; background: var(--coral); color: #fff; border-radius: 50%; width: 16px; height: 16px; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; line-height: 1; pointer-events: none; }
+.cart-count { position: absolute; top: 0px; right: 0px; background: var(--coral); color: #fff; border-radius: 50%; width: 18px; height: 18px; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center; line-height: 1; pointer-events: none; border: 2px solid #fff; }
 
 /* ---------- Logo ---------- */
 .logo { display: flex; align-items: center; gap: 11px; }
@@ -326,7 +326,8 @@ image-slot {
 
 /* Le bas du panier utilise la couleur crème de Claude, mais on la force pour qu'elle soit opaque */
 /* Cart shipping */
-.cart-shipping { display: none; padding: 14px 18px 0; }
+.cart-shipping { display: none; padding: 14px 0 14px; border-bottom: 1px solid var(--line); margin-bottom: 14px; }
+.ship-error-msg { display: none; color: var(--coral); font-size: .82rem; margin: -4px 0 4px; }
 .ship-label { font-weight: 700; font-size: .78rem; text-transform: uppercase; letter-spacing: .1em; color: var(--ink-soft); margin-bottom: 10px; }
 .ship-opt { display: flex; align-items: center; gap: 10px; padding: 11px 13px; border: 2px solid var(--line); border-radius: 13px; margin-bottom: 8px; cursor: pointer; transition: border-color .15s, background .15s; }
 .ship-opt.active { border-color: var(--coral); background: rgba(242,97,63,.05); }
