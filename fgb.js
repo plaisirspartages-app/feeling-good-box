@@ -105,6 +105,40 @@ function fgbEnsureCartDrawer() {
         <button class="cart-drawer-close" id="cartClose" aria-label="Fermer le panier">✕</button>
       </div>
       <div class="cart-drawer-body" id="cartDrawerBody"></div>
+
+      <div class="cart-shipping" id="cartShipping">
+        <div class="ship-label">Mode de livraison</div>
+        <label class="ship-opt active" id="shipOptRelay">
+          <input type="radio" name="shipping" value="relay" checked />
+          <div class="ship-opt-body">
+            <div>
+              <strong>Point relais</strong>
+              <span>Mondial Relay · Shop2Shop</span>
+            </div>
+            <span class="ship-price green">Gratuit</span>
+          </div>
+        </label>
+        <label class="ship-opt" id="shipOptHome">
+          <input type="radio" name="shipping" value="home" />
+          <div class="ship-opt-body">
+            <div>
+              <strong>À domicile</strong>
+              <span>Colissimo · 3–5 jours ouvrés</span>
+            </div>
+            <span class="ship-price">+3€</span>
+          </div>
+        </label>
+        <div class="ship-relay-picker" id="shipRelayPicker">
+          <input class="ship-input" id="shipZip" type="text" inputmode="numeric" maxlength="5" placeholder="Code postal (ex : 75011)" />
+          <a class="ship-find-btn" href="https://www.mondialrelay.fr/trouver-un-point-relais/" target="_blank" rel="noopener">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            Trouver mon point relais ↗
+          </a>
+          <input class="ship-input" id="shipRelayName" type="text" placeholder="Nom du point relais choisi" />
+          <p class="ship-hint">Cherche ton relais sur la carte Mondial Relay, puis entre son nom ci-dessus.</p>
+        </div>
+      </div>
+
       <div class="cart-drawer-footer">
         <div class="cart-total"><span>Total :</span><span id="cartTotalAmount">0€</span></div>
         <button id="cartCheckoutBtn" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:15px;border:none;cursor:pointer;">Valider ma commande →</button>
@@ -129,66 +163,71 @@ function saveCart(cart) {
 // Mettre à jour visuellement le volet panier et les chiffres
 function updateCartUI() {
   const cart = getCart();
-  
-  // 1. Mettre à jour le badge du menu
+
+  // 1. Badge panier
   const totalCount = cart.reduce((total, item) => total + item.quantity, 0);
-  const cartBadges = document.querySelectorAll('.cart-count');
-  cartBadges.forEach(badge => {
+  document.querySelectorAll('.cart-count').forEach(badge => {
     badge.textContent = totalCount;
     badge.style.display = totalCount > 0 ? 'inline-block' : 'none';
   });
 
-  // 2. Remplir le corps du panier coulissant
+  // 2. Section livraison visible seulement si panier non vide
+  const shippingEl = document.getElementById('cartShipping');
+  if (shippingEl) shippingEl.style.display = cart.length > 0 ? 'block' : 'none';
+
+  // 3. Corps du panier
   const drawerBody = document.getElementById('cartDrawerBody');
-  const totalAmountEl = document.getElementById('cartTotalAmount');
-  
   if (drawerBody) {
     if (cart.length === 0) {
       drawerBody.innerHTML = `<p style="text-align:center; color:var(--ink-soft); margin-top:40px;">Ton panier est encore vide... 🌥️</p>`;
-      if (totalAmountEl) totalAmountEl.textContent = "0€";
     } else {
       let html = "";
-      let totalCommande = 0;
-
       cart.forEach((item, index) => {
-        totalCommande += item.price * item.quantity;
         html += `
           <div class="cart-item">
             <div class="cart-item-details">
               <div class="cart-item-title">${item.name}</div>
-              <div class="cart-item-price">${item.price}€ x ${item.quantity}</div>
+              <div class="cart-item-price">${item.price}€</div>
               <button class="cart-item-remove" onclick="removeFromCart(${index})">Supprimer</button>
             </div>
           </div>
         `;
       });
-      
       drawerBody.innerHTML = html;
-      if (totalAmountEl) totalAmountEl.textContent = `${totalCommande}€`;
     }
+  }
+
+  // 4. Recalcul du total avec livraison
+  updateCartTotal();
+}
+
+function updateCartTotal() {
+  const cart = getCart();
+  const base = cart.reduce((t, i) => t + i.price * i.quantity, 0);
+  const isRelay = document.querySelector('input[name="shipping"][value="relay"]')?.checked ?? true;
+  const shipping = (!isRelay && cart.length > 0) ? 3 : 0;
+  const totalEl = document.getElementById('cartTotalAmount');
+  if (totalEl) {
+    totalEl.textContent = shipping > 0 ? `${base + shipping}€` : `${base}€`;
   }
 }
 
 // Ajouter au panier ET ouvrir le volet
-function addToCart(boxId, boxName, boxPrice, stripePriceId, stripeUrl) {
+function addToCart(boxId, boxName, boxPrice, stripePriceId, stripeUrl, stripeUrlHome) {
   let cart = getCart();
-  
-  // Si le panier n'est pas vide et que c'est une box différente, on prévient
+
   if (cart.length > 0 && cart[0].id !== boxId) {
-    const confirmer = confirm(`Pour garantir une livraison Colissimo parfaite, nous préparons nos coffrets un par un. 🌤️\n\nVeux-tu remplacer la box "${cart[0].name}" par la box "${boxName}" dans ton panier ?`);
-    
-    if (!confirmer) {
-      return; // On arrête tout, le client garde son ancienne box
-    }
+    const confirmer = confirm(`Pour garantir une livraison parfaite, nous préparons nos coffrets un par un. 🌤️\n\nVeux-tu remplacer la box "${cart[0].name}" par la box "${boxName}" dans ton panier ?`);
+    if (!confirmer) return;
   }
-  
-  // On configure le panier avec l'unique box choisie (quantité toujours à 1)
+
   cart = [{
     id: boxId,
     name: boxName,
     price: parseFloat(boxPrice),
     stripePriceId: stripePriceId,
     stripeUrl: stripeUrl,
+    stripeUrlHome: stripeUrlHome || null,
     quantity: 1
   }];
   
@@ -225,9 +264,24 @@ function initCartEvents() {
       const boxPrice = button.getAttribute('data-box-price');
       const stripePriceId = button.getAttribute('data-stripe-price-id');
       const stripeUrl = button.getAttribute('data-stripe-url');
+      const stripeUrlHome = button.getAttribute('data-stripe-url-home');
       if (boxId && boxName && boxPrice) {
-        addToCart(boxId, boxName, boxPrice, stripePriceId, stripeUrl);
+        addToCart(boxId, boxName, boxPrice, stripePriceId, stripeUrl, stripeUrlHome);
       }
+    });
+  });
+
+  // Shipping radio events
+  document.querySelectorAll('input[name="shipping"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      const isRelay = document.querySelector('input[name="shipping"][value="relay"]')?.checked;
+      const relayPicker = document.getElementById('shipRelayPicker');
+      const optRelay = document.getElementById('shipOptRelay');
+      const optHome = document.getElementById('shipOptHome');
+      if (relayPicker) relayPicker.style.display = isRelay ? 'flex' : 'none';
+      if (optRelay) optRelay.classList.toggle('active', isRelay);
+      if (optHome) optHome.classList.toggle('active', !isRelay);
+      updateCartTotal();
     });
   });
 
@@ -251,8 +305,28 @@ function initCartEvents() {
       const cart = getCart();
       if (cart.length === 0) return;
       const item = cart[0];
-      const stripeUrl = (item.stripeUrl && item.stripeUrl !== '#') ? item.stripeUrl : "https://buy.stripe.com/test_bJeeVdeo09VJ8R8aqrdIA01";
-      window.location.href = `${stripeUrl}?client_reference_id=${encodeURIComponent(item.name)}`;
+      const fallback = "https://buy.stripe.com/test_bJeeVdeo09VJ8R8aqrdIA01";
+      const isRelay = document.querySelector('input[name="shipping"][value="relay"]')?.checked ?? true;
+
+      if (isRelay) {
+        const zip = (document.getElementById('shipZip')?.value || '').trim();
+        const relayName = (document.getElementById('shipRelayName')?.value || '').trim();
+        const zipEl = document.getElementById('shipZip');
+        if (!zip || zip.length < 4) {
+          if (zipEl) { zipEl.classList.add('ship-error'); zipEl.focus(); }
+          return;
+        }
+        if (zipEl) zipEl.classList.remove('ship-error');
+        const baseUrl = (item.stripeUrl && item.stripeUrl !== '#') ? item.stripeUrl : fallback;
+        const ref = `${item.name} | Relais: ${relayName || 'à préciser'} (${zip})`;
+        window.location.href = `${baseUrl}?client_reference_id=${encodeURIComponent(ref)}`;
+      } else {
+        const homeUrl = (item.stripeUrlHome && item.stripeUrlHome !== '#')
+          ? item.stripeUrlHome
+          : ((item.stripeUrl && item.stripeUrl !== '#') ? item.stripeUrl : fallback);
+        const ref = `${item.name} | Livraison domicile (+3€)`;
+        window.location.href = `${homeUrl}?client_reference_id=${encodeURIComponent(ref)}`;
+      }
     });
   }
 }
