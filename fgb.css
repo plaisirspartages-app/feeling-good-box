@@ -326,8 +326,7 @@ image-slot {
 
 /* Le bas du panier utilise la couleur crème de Claude, mais on la force pour qu'elle soit opaque */
 /* Cart shipping */
-.cart-shipping { display: none; padding: 14px 0 14px; border-bottom: 1px solid var(--line); margin-bottom: 14px; }
-.ship-error-msg { display: none; color: var(--coral); font-size: .82rem; margin: -4px 0 4px; }
+.cart-shipping-line { display: none; justify-content: space-between; align-items: center; font-size: .92rem; color: var(--ink-soft); padding-bottom: 10px; margin-bottom: 10px; border-bottom: 1px solid var(--line); }
 .ship-label { font-weight: 700; font-size: .78rem; text-transform: uppercase; letter-spacing: .1em; color: var(--ink-soft); margin-bottom: 10px; }
 .ship-opt { display: flex; align-items: center; gap: 10px; padding: 11px 13px; border: 2px solid var(--line); border-radius: 13px; margin-bottom: 8px; cursor: pointer; transition: border-color .15s, background .15s; }
 .ship-opt.active { border-color: var(--coral); background: rgba(242,97,63,.05); }

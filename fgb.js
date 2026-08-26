@@ -107,38 +107,9 @@ function fgbEnsureCartDrawer() {
       <div class="cart-drawer-body" id="cartDrawerBody"></div>
 
       <div class="cart-drawer-footer">
-        <div class="cart-shipping" id="cartShipping">
-          <div class="ship-label">Mode de livraison</div>
-          <label class="ship-opt active" id="shipOptRelay">
-            <input type="radio" name="shipping" value="relay" checked />
-            <div class="ship-opt-body">
-              <div>
-                <strong>Point relais</strong>
-                <span>Mondial Relay · Shop2Shop</span>
-              </div>
-              <span class="ship-price green">Gratuit</span>
-            </div>
-          </label>
-          <label class="ship-opt" id="shipOptHome">
-            <input type="radio" name="shipping" value="home" />
-            <div class="ship-opt-body">
-              <div>
-                <strong>À domicile</strong>
-                <span>Colissimo · 3–5 jours ouvrés</span>
-              </div>
-              <span class="ship-price">+3€</span>
-            </div>
-          </label>
-          <div class="ship-relay-picker" id="shipRelayPicker">
-            <input class="ship-input" id="shipZip" type="text" inputmode="numeric" maxlength="5" placeholder="Code postal (ex : 75011)" />
-            <p class="ship-error-msg" id="shipZipError">Merci d'entrer ton code postal.</p>
-            <a class="ship-find-btn" href="https://www.mondialrelay.fr/trouver-un-point-relais/" target="_blank" rel="noopener">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-              Trouver mon point relais ↗
-            </a>
-            <input class="ship-input" id="shipRelayName" type="text" placeholder="Nom du point relais choisi" />
-            <p class="ship-hint">Cherche ton relais sur la carte, puis entre son nom ci-dessus.</p>
-          </div>
+        <div class="cart-shipping-line" id="cartShippingLine" style="display:none;">
+          <span>Livraison à domicile (Colissimo)</span>
+          <span>2,90€</span>
         </div>
         <div class="cart-total"><span>Total :</span><span id="cartTotalAmount">0€</span></div>
         <button id="cartCheckoutBtn" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:15px;border:none;cursor:pointer;">Valider ma commande →</button>
@@ -171,12 +142,9 @@ function updateCartUI() {
     badge.style.display = totalCount > 0 ? 'inline-block' : 'none';
   });
 
-  // 2. Section livraison visible seulement si panier non vide
-  const shippingEl = document.getElementById('cartShipping');
-  if (shippingEl) shippingEl.style.display = cart.length > 0 ? 'block' : 'none';
-  // Masquer le message d'erreur code postal si panier vidé
-  const zipErrEl = document.getElementById('shipZipError');
-  if (zipErrEl && cart.length === 0) zipErrEl.style.display = 'none';
+  // 2. Ligne livraison visible seulement si panier non vide
+  const shippingLineEl = document.getElementById('cartShippingLine');
+  if (shippingLineEl) shippingLineEl.style.display = cart.length > 0 ? 'flex' : 'none';
 
   // 3. Corps du panier
   const drawerBody = document.getElementById('cartDrawerBody');
@@ -207,12 +175,9 @@ function updateCartUI() {
 function updateCartTotal() {
   const cart = getCart();
   const base = cart.reduce((t, i) => t + i.price * i.quantity, 0);
-  const isRelay = document.querySelector('input[name="shipping"][value="relay"]')?.checked ?? true;
-  const shipping = (!isRelay && cart.length > 0) ? 3 : 0;
+  const shipping = cart.length > 0 ? 2.90 : 0;
   const totalEl = document.getElementById('cartTotalAmount');
-  if (totalEl) {
-    totalEl.textContent = shipping > 0 ? `${base + shipping}€` : `${base}€`;
-  }
+  if (totalEl) totalEl.textContent = cart.length > 0 ? `${(base + shipping).toFixed(2)}€` : '0€';
 }
 
 // Ajouter au panier ET ouvrir le volet
@@ -274,19 +239,6 @@ function initCartEvents() {
     });
   });
 
-  // Shipping radio events
-  document.querySelectorAll('input[name="shipping"]').forEach(radio => {
-    radio.addEventListener('change', () => {
-      const isRelay = document.querySelector('input[name="shipping"][value="relay"]')?.checked;
-      const relayPicker = document.getElementById('shipRelayPicker');
-      const optRelay = document.getElementById('shipOptRelay');
-      const optHome = document.getElementById('shipOptHome');
-      if (relayPicker) relayPicker.style.display = isRelay ? 'flex' : 'none';
-      if (optRelay) optRelay.classList.toggle('active', isRelay);
-      if (optHome) optHome.classList.toggle('active', !isRelay);
-      updateCartTotal();
-    });
-  });
 
   const openDrawer = () => {
     if (drawer) drawer.classList.add('open');
@@ -311,20 +263,9 @@ function initCartEvents() {
       const fallback = "https://buy.stripe.com/test_bJeeVdeo09VJ8R8aqrdIA01";
       const isRelay = document.querySelector('input[name="shipping"][value="relay"]')?.checked ?? true;
 
-      if (isRelay) {
-        const zip = (document.getElementById('shipZip')?.value || '').trim();
-        const relayName = (document.getElementById('shipRelayName')?.value || '').trim();
-        const baseUrl = (item.stripeUrl && item.stripeUrl !== '#') ? item.stripeUrl : fallback;
-        const relayInfo = relayName ? `${relayName} (${zip})` : zip ? `code postal ${zip}` : 'à préciser par email';
-        const ref = `${item.name} | Point relais: ${relayInfo}`;
-        window.location.href = `${baseUrl}?client_reference_id=${encodeURIComponent(ref)}`;
-      } else {
-        const homeUrl = (item.stripeUrlHome && item.stripeUrlHome !== '#')
-          ? item.stripeUrlHome
-          : ((item.stripeUrl && item.stripeUrl !== '#') ? item.stripeUrl : fallback);
-        const ref = `${item.name} | Livraison domicile (+3€)`;
-        window.location.href = `${homeUrl}?client_reference_id=${encodeURIComponent(ref)}`;
-      }
+      const baseUrl = (item.stripeUrl && item.stripeUrl !== '#') ? item.stripeUrl : fallback;
+      const ref = `${item.name} | Livraison domicile`;
+      window.location.href = `${baseUrl}?client_reference_id=${encodeURIComponent(ref)}`;
     });
   }
 }
