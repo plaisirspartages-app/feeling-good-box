@@ -260,7 +260,7 @@ function initCartEvents() {
       const cart = getCart();
       if (cart.length === 0) return;
       const item = cart[0];
-      const fallback = "https://buy.stripe.com/test_bJeeVdeo09VJ8R8aqrdIA01";
+      const fallback = "https://buy.stripe.com/7sY00c1gT8o3d2DfsT2B205";
       const isRelay = document.querySelector('input[name="shipping"][value="relay"]')?.checked ?? true;
 
       const baseUrl = (item.stripeUrl && item.stripeUrl !== '#') ? item.stripeUrl : fallback;

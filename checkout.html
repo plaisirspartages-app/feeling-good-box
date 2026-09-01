@@ -76,8 +76,7 @@
 <script src="fgb.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    // Initialisation de Stripe avec ta clé publique de test
-    const stripe = Stripe('pk_test_51TixEJFO9eM1bfAyuTSQRL5RgkUZVWZzDQf1R5PZGEJWGohALqeUUgTbvb89JF8XUR0oTaaaA7F9QRl920Q0yG5H00FJBa1BhL');
+    const stripe = Stripe('pk_live_51TixE12Uq1TJX7vNc5r4seCOgR7fipxwExfB23MAUqBJuDkTJWBmVDfTVWrxteCrjfuLaPwzEv8R3CkX04JwW2jU00AUneDMk1');
 
     const cart = JSON.parse(localStorage.getItem('fgb_cart')) || [];
     const listEl = document.getElementById('checkout-items-list');
