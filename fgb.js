@@ -268,21 +268,31 @@ function initCartEvents() {
 
   const checkoutBtn = document.getElementById('cartCheckoutBtn');
   if (checkoutBtn) {
-    checkoutBtn.addEventListener('click', (e) => {
+    checkoutBtn.addEventListener('click', async (e) => {
       e.preventDefault();
       const cart = getCart();
       if (cart.length === 0) return;
-      const fallback = "https://buy.stripe.com/7sY00c1gT8o3d2DfsT2B205";
-      const ref = cart.map(i => `${i.name} ×${i.quantity}`).join(' + ');
-      // Si plusieurs types de boxes, on les paie séquentiellement via success.html
-      if (cart.length > 1) {
-        localStorage.setItem('fgb_pending_cart', JSON.stringify(cart.slice(1)));
-      } else {
-        localStorage.removeItem('fgb_pending_cart');
+
+      checkoutBtn.disabled = true;
+      checkoutBtn.textContent = 'Chargement…';
+
+      try {
+        const res = await fetch('/api/checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ cart }),
+        });
+        const data = await res.json();
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          throw new Error(data.error || 'Erreur inconnue');
+        }
+      } catch (err) {
+        checkoutBtn.disabled = false;
+        checkoutBtn.textContent = 'Valider ma commande →';
+        alert('Une erreur est survenue. Réessaie ou contacte-nous à contact@feelinggoodbox.fr');
       }
-      const item = cart[0];
-      const baseUrl = (item.stripeUrl && item.stripeUrl !== '#') ? item.stripeUrl : fallback;
-      window.location.href = `${baseUrl}?prefilled_quantity=${item.quantity}&client_reference_id=${encodeURIComponent(ref)}`;
     });
   }
 }

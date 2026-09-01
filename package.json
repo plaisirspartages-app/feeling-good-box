@@ -1,0 +1,7 @@
+{
+  "name": "feeling-good-box",
+  "version": "1.0.0",
+  "dependencies": {
+    "stripe": "^14.0.0"
+  }
+}

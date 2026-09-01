@@ -121,24 +121,8 @@
 <script src="fgb.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const pending = localStorage.getItem('fgb_pending_cart');
-    if (pending) {
-      const remaining = JSON.parse(pending);
-      if (remaining && remaining.length > 0) {
-        const fallback = "https://buy.stripe.com/7sY00c1gT8o3d2DfsT2B205";
-        const next = remaining[0];
-        if (remaining.length > 1) {
-          localStorage.setItem('fgb_pending_cart', JSON.stringify(remaining.slice(1)));
-        } else {
-          localStorage.removeItem('fgb_pending_cart');
-        }
-        const baseUrl = (next.stripeUrl && next.stripeUrl !== '#') ? next.stripeUrl : fallback;
-        window.location.href = `${baseUrl}?prefilled_quantity=${next.quantity}`;
-        return;
-      }
-    }
-    localStorage.removeItem('fgb_pending_cart');
     localStorage.removeItem('fgb_cart');
+    localStorage.removeItem('fgb_pending_cart');
     if (typeof updateCartUI === 'function') updateCartUI();
   });
 </script>
