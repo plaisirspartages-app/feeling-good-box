@@ -139,7 +139,7 @@ function updateCartUI() {
   const totalCount = cart.reduce((total, item) => total + item.quantity, 0);
   document.querySelectorAll('.cart-count').forEach(badge => {
     badge.textContent = totalCount;
-    badge.style.display = totalCount > 0 ? 'inline-block' : 'none';
+    badge.style.display = totalCount > 0 ? 'flex' : 'none';
   });
 
   // 2. Ligne livraison visible seulement si panier non vide
