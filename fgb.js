@@ -158,7 +158,7 @@ function updateCartUI() {
           <div class="cart-item">
             <div class="cart-item-details">
               <div class="cart-item-title">${item.name}</div>
-              <div class="cart-item-price">${item.price}€</div>
+              <div class="cart-item-price">${String(item.price.toFixed(2)).replace('.', ',')} €</div>
               <button class="cart-item-remove" onclick="removeFromCart(${index})">Supprimer</button>
             </div>
           </div>
@@ -177,7 +177,7 @@ function updateCartTotal() {
   const base = cart.reduce((t, i) => t + i.price * i.quantity, 0);
   const shipping = cart.length > 0 ? 2.90 : 0;
   const totalEl = document.getElementById('cartTotalAmount');
-  if (totalEl) totalEl.textContent = cart.length > 0 ? `${(base + shipping).toFixed(2)}€` : '0€';
+  if (totalEl) totalEl.textContent = cart.length > 0 ? `${(base + shipping).toFixed(2).replace('.', ',')} €` : '0 €';
 }
 
 // Ajouter au panier ET ouvrir le volet
