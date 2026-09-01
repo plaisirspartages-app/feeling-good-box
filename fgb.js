@@ -112,6 +112,7 @@ function fgbEnsureCartDrawer() {
           <span>2,90€</span>
         </div>
         <div class="cart-total"><span>Total :</span><span id="cartTotalAmount">0€</span></div>
+        <div id="cartQtyNote" style="display:none;font-size:.82rem;color:var(--ink-soft);text-align:center;margin-top:10px;line-height:1.4;">Vous pourrez ajuster la quantité sur la page de paiement.</div>
         <button id="cartCheckoutBtn" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:15px;border:none;cursor:pointer;">Valider ma commande →</button>
       </div>
     </div>
@@ -172,7 +173,11 @@ function updateCartUI() {
     }
   }
 
-  // 4. Recalcul du total avec livraison
+  // 4. Note quantité ajustable
+  const qtyNote = document.getElementById('cartQtyNote');
+  if (qtyNote) qtyNote.style.display = cart.some(i => i.quantity > 1) ? 'block' : 'none';
+
+  // 5. Recalcul du total avec livraison
   updateCartTotal();
 }
 
