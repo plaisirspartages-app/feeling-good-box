@@ -159,7 +159,11 @@ function updateCartUI() {
             <div class="cart-item-details">
               <div class="cart-item-title">${item.name}</div>
               <div class="cart-item-price">${String(item.price.toFixed(2)).replace('.', ',')} €</div>
-              <button class="cart-item-remove" onclick="removeFromCart(${index})">Supprimer</button>
+            </div>
+            <div class="cart-item-qty">
+              <button onclick="changeQty(${index}, -1)">−</button>
+              <span>${item.quantity}</span>
+              <button onclick="changeQty(${index}, +1)">+</button>
             </div>
           </div>
         `;
@@ -183,25 +187,21 @@ function updateCartTotal() {
 // Ajouter au panier ET ouvrir le volet
 function addToCart(boxId, boxName, boxPrice, stripePriceId, stripeUrl, stripeUrlHome) {
   let cart = getCart();
-
-  if (cart.length > 0 && cart[0].id !== boxId) {
-    const confirmer = confirm(`Pour garantir une livraison parfaite, nous préparons nos coffrets un par un. 🌤️\n\nVeux-tu remplacer la box "${cart[0].name}" par la box "${boxName}" dans ton panier ?`);
-    if (!confirmer) return;
+  const existing = cart.find(item => item.id === boxId);
+  if (existing) {
+    existing.quantity += 1;
+  } else {
+    cart.push({
+      id: boxId,
+      name: boxName,
+      price: parseFloat(boxPrice),
+      stripePriceId: stripePriceId,
+      stripeUrl: stripeUrl,
+      stripeUrlHome: stripeUrlHome || null,
+      quantity: 1
+    });
   }
-
-  cart = [{
-    id: boxId,
-    name: boxName,
-    price: parseFloat(boxPrice),
-    stripePriceId: stripePriceId,
-    stripeUrl: stripeUrl,
-    stripeUrlHome: stripeUrlHome || null,
-    quantity: 1
-  }];
-  
   saveCart(cart);
-
-  // Ouverture automatique du volet panier
   const drawer = document.getElementById('cartDrawer');
   const overlay = document.getElementById('cartOverlay');
   if (drawer && overlay) {
@@ -210,10 +210,18 @@ function addToCart(boxId, boxName, boxPrice, stripePriceId, stripeUrl, stripeUrl
   }
 }
 
-// Fonction pour supprimer un article
+// Supprimer un article
 window.removeFromCart = function(index) {
   let cart = getCart();
   cart.splice(index, 1);
+  saveCart(cart);
+}
+
+// Modifier la quantité d'un article (+1 / -1, supprime si tombe à 0)
+window.changeQty = function(index, delta) {
+  let cart = getCart();
+  cart[index].quantity += delta;
+  if (cart[index].quantity <= 0) cart.splice(index, 1);
   saveCart(cart);
 }
 
@@ -259,13 +267,17 @@ function initCartEvents() {
       e.preventDefault();
       const cart = getCart();
       if (cart.length === 0) return;
-      const item = cart[0];
       const fallback = "https://buy.stripe.com/7sY00c1gT8o3d2DfsT2B205";
-      const isRelay = document.querySelector('input[name="shipping"][value="relay"]')?.checked ?? true;
-
+      const ref = cart.map(i => `${i.name} ×${i.quantity}`).join(' + ');
+      // Si plusieurs types de boxes, on les paie séquentiellement via success.html
+      if (cart.length > 1) {
+        localStorage.setItem('fgb_pending_cart', JSON.stringify(cart.slice(1)));
+      } else {
+        localStorage.removeItem('fgb_pending_cart');
+      }
+      const item = cart[0];
       const baseUrl = (item.stripeUrl && item.stripeUrl !== '#') ? item.stripeUrl : fallback;
-      const ref = `${item.name} | Livraison domicile`;
-      window.location.href = `${baseUrl}?client_reference_id=${encodeURIComponent(ref)}`;
+      window.location.href = `${baseUrl}?quantity=${item.quantity}&client_reference_id=${encodeURIComponent(ref)}`;
     });
   }
 }

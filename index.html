@@ -188,7 +188,8 @@
 
 /* ---- Pricing ---- */
 .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 50px; max-width: 860px; margin-left:auto; margin-right:auto; }
-.price-card { padding: 38px 34px; position: relative; }
+.price-card { padding: 38px 34px; position: relative; display: flex; flex-direction: column; }
+.price-card .btn { margin-top: auto; }
 .price-card.feature { background: var(--ink); color: var(--cream); border: none; }
 .price-card .kicker { font-weight: 700; letter-spacing: .14em; text-transform: uppercase; font-size: .76rem; color: var(--coral); }
 .price-card.feature .kicker { color: var(--sun); }
@@ -457,7 +458,7 @@
   <div class="wrap tl-teaser">
     <div class="reveal">
       <span class="eyebrow">Le rythme</span>
-      <h2 class="display mt-s" style="font-size: clamp(2rem,4vw,3rem);">On ne te livre pas une box.<br>On te livre un mois.</h2>
+      <h2 class="display mt-s" style="font-size: clamp(2rem,4vw,3rem);">On te livre plus qu'une box.<br>On te livre un mois.</h2>
       <p class="lead mt-s">
         Chaque semaine, un nouveau geste à découvrir. Un défi doux pour avancer. Et à la fin du mois,
         un grand défi pour fêter le chemin parcouru.
@@ -467,7 +468,7 @@
     <div class="tl-steps reveal">
       <div class="tl-step"><div class="num" style="background:var(--sun-deep);">1</div><div><b>Le soin de soi</b><span class="q">« Prends un long bain, sans écran. »</span></div></div>
       <div class="tl-step"><div class="num" style="background:var(--terra);">2</div><div><b>Le geste créatif</b><span class="q">« Termine ton atelier, pose-le sur l'étagère. »</span></div></div>
-      <div class="tl-step"><div class="num" style="background:var(--leaf);">3</div><div><b>Le lien</b><span class="q">« Téléphone à quelqu'un que tu n'as pas vu. »</span></div></div>
+      <div class="tl-step"><div class="num" style="background:var(--leaf);">3</div><div><b>Le lien</b><span class="q">« Téléphone à quelqu'un que tu n'as pas vu depuis longtemps. »</span></div></div>
       <div class="tl-step"><div class="num" style="background:var(--coral);">4</div><div><b>La gourmandise lente</b><span class="q">« Prends un apéro seul·e, au calme. »</span></div></div>
     </div>
   </div>
@@ -512,10 +513,6 @@
   <div class="wrap reveal" style="position:relative; z-index:1;">
     <div class="script">Et si on ouvrait...</div>
     <h2>...une box de plaisirs ?</h2>
-    <div class="final-ctas">
-      <a class="btn btn-sun btn-lg" href="les-boxes.html">Découvrir les boxes · à partir de 39€</a>
-      <a class="btn btn-lg" href="abonnement.html" style="background:rgba(255,247,234,.12); color:var(--cream); border:2px solid rgba(255,247,234,.3);">Abonnement · à venir</a>
-    </div>
   </div>
 </section>
 
