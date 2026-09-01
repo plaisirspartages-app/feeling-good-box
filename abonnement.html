@@ -135,10 +135,35 @@
 <script src="image-slot.js"></script>
 <script src="fgb.js"></script>
 <script>
-function notifyMe(e){
+const FORMSPREE_URL = 'https://formspree.io/f/mppzdqqa';
+
+function notifyMe(e) {
   e.preventDefault();
-  document.getElementById('notifyForm').style.display = 'none';
-  document.getElementById('notifyOk').classList.add('show');
+  const email = document.getElementById('notifyEmail').value;
+  const btn = e.target.querySelector('button[type="submit"]');
+  btn.disabled = true;
+  btn.textContent = '…';
+
+  fetch(FORMSPREE_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify({ email: email, _subject: 'Nouvelle inscription — abonnement FGB' })
+  })
+  .then(res => {
+    if (res.ok) {
+      document.getElementById('notifyForm').style.display = 'none';
+      document.getElementById('notifyOk').classList.add('show');
+    } else {
+      btn.disabled = false;
+      btn.textContent = 'Préviens-moi';
+      alert('Une erreur est survenue. Réessaie ou écris-nous à contact@feelinggoodbox.fr');
+    }
+  })
+  .catch(() => {
+    btn.disabled = false;
+    btn.textContent = 'Préviens-moi';
+    alert('Une erreur est survenue. Réessaie ou écris-nous à contact@feelinggoodbox.fr');
+  });
   return false;
 }
 </script>
