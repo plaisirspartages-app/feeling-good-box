@@ -133,7 +133,7 @@
           localStorage.removeItem('fgb_pending_cart');
         }
         const baseUrl = (next.stripeUrl && next.stripeUrl !== '#') ? next.stripeUrl : fallback;
-        window.location.href = `${baseUrl}?quantity=${next.quantity}`;
+        window.location.href = `${baseUrl}?prefilled_quantity=${next.quantity}`;
         return;
       }
     }

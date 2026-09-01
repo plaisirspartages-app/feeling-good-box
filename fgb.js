@@ -277,7 +277,7 @@ function initCartEvents() {
       }
       const item = cart[0];
       const baseUrl = (item.stripeUrl && item.stripeUrl !== '#') ? item.stripeUrl : fallback;
-      window.location.href = `${baseUrl}?quantity=${item.quantity}&client_reference_id=${encodeURIComponent(ref)}`;
+      window.location.href = `${baseUrl}?prefilled_quantity=${item.quantity}&client_reference_id=${encodeURIComponent(ref)}`;
     });
   }
 }
