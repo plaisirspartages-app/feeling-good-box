@@ -73,8 +73,8 @@ module.exports = async (req, res) => {
           options: [
             { label: 'Une femme', value: 'femme' },
             { label: 'Un homme', value: 'homme' },
-            { label: 'Non-binaire', value: 'non_binaire' },
-            { label: 'Je préfère ne pas préciser', value: 'non_precise' },
+            { label: 'Nonbinaire', value: 'nonbinaire' },
+            { label: 'Je préfère ne pas préciser', value: 'nonprecise' },
           ],
         },
       });
