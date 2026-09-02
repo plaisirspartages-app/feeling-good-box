@@ -267,6 +267,12 @@ function initCartEvents() {
   if (overlay) overlay.addEventListener('click', closeDrawer);
 
   const checkoutBtn = document.getElementById('cartCheckoutBtn');
+  window.addEventListener('pageshow', (e) => {
+    if (e.persisted && checkoutBtn) {
+      checkoutBtn.disabled = false;
+      checkoutBtn.textContent = 'Valider ma commande →';
+    }
+  });
   if (checkoutBtn) {
     checkoutBtn.addEventListener('click', async (e) => {
       e.preventDefault();
