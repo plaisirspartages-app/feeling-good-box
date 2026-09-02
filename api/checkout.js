@@ -1,5 +1,7 @@
 const Stripe = require('stripe');
 
+const PAILLETTES_ID = 'des-paillettes-dans-ta-vie';
+
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
@@ -21,14 +23,19 @@ module.exports = async (req, res) => {
   }
 
   try {
-    const line_items = cart.map(item => ({
-      price_data: {
-        currency: 'eur',
-        product_data: { name: item.name },
-        unit_amount: Math.round(item.price * 100),
-      },
-      quantity: item.quantity,
-    }));
+    const line_items = cart.map(item => {
+      if (item.stripePriceId) {
+        return { price: item.stripePriceId, quantity: item.quantity };
+      }
+      return {
+        price_data: {
+          currency: 'eur',
+          product_data: { name: item.name },
+          unit_amount: Math.round(item.price * 100),
+        },
+        quantity: item.quantity,
+      };
+    });
 
     line_items.push({
       price_data: {
@@ -39,9 +46,44 @@ module.exports = async (req, res) => {
       quantity: 1,
     });
 
+    const hasPaillettes = cart.some(i => i.id === PAILLETTES_ID);
+
+    const custom_fields = [
+      {
+        key: 'message_destinataire',
+        label: { type: 'custom', custom: 'Message pour le destinataire' },
+        type: 'text',
+        optional: true,
+      },
+      {
+        key: 'remarques',
+        label: { type: 'custom', custom: 'Remarques, allergies ou préférences' },
+        type: 'text',
+        optional: true,
+      },
+    ];
+
+    if (hasPaillettes) {
+      custom_fields.push({
+        key: 'vous_etes',
+        label: { type: 'custom', custom: 'Vous êtes' },
+        type: 'dropdown',
+        optional: true,
+        dropdown: {
+          options: [
+            { label: 'Une femme', value: 'femme' },
+            { label: 'Un homme', value: 'homme' },
+            { label: 'Non-binaire', value: 'non_binaire' },
+            { label: 'Je préfère ne pas préciser', value: 'non_precise' },
+          ],
+        },
+      });
+    }
+
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
       line_items,
+      custom_fields,
       shipping_address_collection: { allowed_countries: ['FR'] },
       success_url: 'https://www.feelinggoodbox.fr/success.html',
       cancel_url: 'https://www.feelinggoodbox.fr/les-boxes.html',

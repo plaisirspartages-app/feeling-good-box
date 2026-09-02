@@ -108,9 +108,10 @@ function fgbEnsureCartDrawer() {
 
       <div class="cart-drawer-footer">
         <div class="cart-shipping-line" id="cartShippingLine" style="display:none;">
-          <span>Livraison à domicile (Colissimo)</span>
+          <span>Livraison à domicile (Colissimo) 🇫🇷</span>
           <span>2,90€</span>
         </div>
+        <div id="cartFranceNote" style="display:none;font-size:.80rem;color:var(--ink-soft);text-align:center;margin-top:6px;">Livraison en France métropolitaine uniquement.</div>
         <div class="cart-total"><span>Total :</span><span id="cartTotalAmount">0€</span></div>
         <div id="cartQtyNote" style="display:none;font-size:.82rem;color:var(--ink-soft);text-align:center;margin-top:10px;line-height:1.4;">Vous pourrez ajuster la quantité sur la page de paiement.</div>
         <button id="cartCheckoutBtn" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:15px;border:none;cursor:pointer;">Valider ma commande →</button>
@@ -143,9 +144,11 @@ function updateCartUI() {
     badge.style.display = totalCount > 0 ? 'flex' : 'none';
   });
 
-  // 2. Ligne livraison visible seulement si panier non vide
+  // 2. Ligne livraison et note France visibles seulement si panier non vide
   const shippingLineEl = document.getElementById('cartShippingLine');
   if (shippingLineEl) shippingLineEl.style.display = cart.length > 0 ? 'flex' : 'none';
+  const franceNote = document.getElementById('cartFranceNote');
+  if (franceNote) franceNote.style.display = cart.length > 0 ? 'block' : 'none';
 
   // 3. Corps du panier
   const drawerBody = document.getElementById('cartDrawerBody');
