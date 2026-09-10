@@ -2,148 +2,82 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Politique de confidentialité — DustMyBox</title>
-<meta name="description" content="Politique de confidentialité de l'application DustMyBox — nettoyage de boîte Gmail." />
-<meta name="robots" content="noindex, follow" />
-<link rel="icon" href="logo.png" type="image/png" />
-<link rel="canonical" href="https://www.feelinggoodbox.fr/dustmybox-confidentialite.html" />
-<link rel="stylesheet" href="fgb.css" />
+<meta name="robots" content="noindex, nofollow" />
 <style>
-.legal-hero { padding: 56px 0 24px; text-align: center; }
-.legal-hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); }
-.legal-body { max-width: 760px; margin: 0 auto; padding: 40px 0 80px; }
-.legal-body h2 { font-family: var(--font-display); font-weight: 800; font-size: 1.25rem; margin: 36px 0 10px; color: var(--terra); }
-.legal-body p, .legal-body li { color: var(--ink-soft); line-height: 1.75; font-size: .97rem; }
-.legal-body ul { padding-left: 20px; margin: 8px 0; }
-.legal-body a { color: var(--coral); }
-.legal-body strong { color: var(--ink); }
-.legal-body code { background: #f4f4f4; padding: 2px 6px; border-radius: 4px; font-size: .9em; }
-.foot-grid { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:36px; }
-.foot-col h5 { font-family:var(--font-display); font-weight:700; font-size:1rem; margin-bottom:14px; }
-.foot-col a { display:block; padding:5px 0; font-size:.95rem; }
-.foot-bottom { display:flex; justify-content:space-between; margin-top:48px; padding-top:22px; border-top:1px solid rgba(255,247,234,.16); font-size:.86rem; color:rgba(255,247,234,.6); flex-wrap:wrap; gap:14px; }
-@media(max-width:700px){ .foot-grid{grid-template-columns:1fr;} }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; max-width: 760px; margin: 0 auto; padding: 48px 24px 80px; color: #1a1a1a; line-height: 1.7; }
+  header { margin-bottom: 40px; }
+  header h1 { font-size: 1.6rem; font-weight: 700; color: #1B5E20; }
+  header p { color: #666; margin-top: 6px; font-size: .9rem; }
+  h2 { font-size: 1.05rem; font-weight: 700; color: #2E7D32; margin: 36px 0 10px; }
+  p { margin-bottom: 12px; color: #333; }
+  ul { padding-left: 20px; margin-bottom: 12px; }
+  li { margin-bottom: 6px; color: #333; }
+  a { color: #2E7D32; }
+  code { background: #f0f0f0; padding: 2px 5px; border-radius: 3px; font-size: .88em; }
+  strong { color: #1a1a1a; }
 </style>
 </head>
 <body>
 
-<nav class="nav">
-  <div class="nav-inner">
-    <button class="burger" id="navBurger" aria-label="Ouvrir le menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-    <a href="index.html" class="nav-logo" data-logo data-logo-line aria-label="Feeling Good Box"></a>
-    <div class="nav-right">
-      <a class="icon-btn" href="mon-compte.html" aria-label="Mon compte" title="Mon compte"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-6 8-6s8 2 8 6"/></svg></a>
-    </div>
-  </div>
-  <div class="nav-backdrop" id="navBackdrop"></div>
-  <div class="nav-menu" id="navMenu">
-    <a href="index.html">Accueil</a>
-    <a href="les-boxes.html">Les boxes</a>
-    <a href="abonnement.html">Abonnement <span class="soon">à venir</span></a>
-    <a href="pour-qui.html">Pour qui&nbsp;?</a>
-    <a href="notre-histoire.html">Notre histoire</a>
-    <a href="faq.html">FAQ</a>
-  </div>
-</nav>
+<header>
+  <h1>Politique de confidentialité — DustMyBox</h1>
+  <p>Dernière mise à jour : août 2026</p>
+</header>
 
-<div class="wrap">
-  <div class="legal-hero">
-    <span class="pill pill-coral pill-dot">DustMyBox</span>
-    <h1 class="display mt-s">Politique de confidentialité</h1>
-    <p style="color:var(--ink-soft); margin-top:8px;">Dernière mise à jour : août 2026</p>
-  </div>
+<p>DustMyBox est une application mobile gratuite permettant d'analyser et de nettoyer des boîtes Gmail. Cette politique de confidentialité explique quelles données sont manipulées, comment et pourquoi.</p>
 
-  <div class="legal-body">
+<h2>1. Données accédées</h2>
+<p>DustMyBox accède aux données Gmail suivantes via l'API officielle de Google (OAuth 2.0, scope <code>GMAIL_MODIFY</code>) :</p>
+<ul>
+  <li>L'adresse e-mail de l'expéditeur</li>
+  <li>L'objet du mail</li>
+  <li>La date de réception</li>
+  <li>La taille du message (en octets)</li>
+  <li>Le statut lu / non lu</li>
+  <li>Les identifiants de message (ID Gmail)</li>
+</ul>
+<p><strong>Le corps du mail et les pièces jointes ne sont jamais lus ni accédés.</strong></p>
 
-    <p>DustMyBox est une application mobile gratuite permettant d'analyser et de nettoyer des boîtes Gmail. Cette politique de confidentialité explique quelles données sont manipulées, comment et pourquoi.</p>
+<h2>2. Utilisation des données</h2>
+<p>Les données accédées servent exclusivement à :</p>
+<ul>
+  <li>Regrouper les mails par expéditeur pour faciliter le tri ;</li>
+  <li>Afficher les statistiques de taille et de date ;</li>
+  <li>Supprimer les mails sélectionnés à votre demande explicite.</li>
+</ul>
 
-    <h2>1. Données accédées</h2>
-    <p>DustMyBox accède aux données Gmail suivantes via l'API officielle de Google (OAuth 2.0, scope <code>GMAIL_MODIFY</code>) :</p>
-    <ul>
-      <li>L'adresse e-mail de l'expéditeur</li>
-      <li>L'objet du mail</li>
-      <li>La date de réception</li>
-      <li>La taille du message (en octets)</li>
-      <li>Le statut lu / non lu</li>
-      <li>Les identifiants de message (ID Gmail)</li>
-    </ul>
-    <p><strong>Le corps du mail et les pièces jointes ne sont jamais lus ni accédés.</strong></p>
+<h2>3. Stockage des données</h2>
+<p>Toutes les données restent sur votre appareil. DustMyBox ne dispose d'aucun serveur propre.</p>
+<ul>
+  <li><strong>Cache temporaire (2 heures) :</strong> métadonnées des mails analysés. Effacé automatiquement.</li>
+  <li><strong>Données permanentes :</strong> expéditeurs protégés, statistiques de tri, défis. Conservées tant que l'application est installée.</li>
+</ul>
+<p>Aucune donnée n'est transmise à un tiers, ni à l'éditeur de l'application.</p>
 
-    <h2>2. Utilisation des données</h2>
-    <p>Les données accédées servent exclusivement à :</p>
-    <ul>
-      <li>Regrouper les mails par expéditeur pour faciliter le tri ;</li>
-      <li>Afficher les statistiques de taille et de date ;</li>
-      <li>Supprimer les mails sélectionnés à votre demande explicite.</li>
-    </ul>
+<h2>4. Partage avec des tiers</h2>
+<ul>
+  <li><strong>Google Gmail API</strong> — pour lire les métadonnées et supprimer les mails. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Politique de confidentialité Google</a></li>
+  <li><strong>Google AdMob</strong> — pour afficher des publicités. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Politique de confidentialité Google</a></li>
+</ul>
 
-    <h2>3. Stockage des données</h2>
-    <p>Toutes les données restent sur votre appareil. DustMyBox ne dispose d'aucun serveur propre.</p>
-    <ul>
-      <li><strong>Cache temporaire (2 heures) :</strong> métadonnées des mails analysés (expéditeur, taille, date, objet). Effacé automatiquement.</li>
-      <li><strong>Données permanentes :</strong> mails et expéditeurs que vous avez explicitement protégés, vos statistiques de tri et vos défis. Conservées tant que l'application est installée.</li>
-    </ul>
-    <p>Aucune donnée n'est transmise à un tiers, ni à l'éditeur de l'application.</p>
+<h2>5. Révocation des permissions</h2>
+<p>Vous pouvez révoquer l'accès de DustMyBox à votre compte Google à tout moment depuis <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">myaccount.google.com/permissions</a>. Désinstallez l'application pour effacer les données locales.</p>
 
-    <h2>4. Partage avec des tiers</h2>
-    <p>DustMyBox utilise les services suivants :</p>
-    <ul>
-      <li><strong>Google Gmail API</strong> — pour lire les métadonnées et supprimer les mails. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Politique de confidentialité Google</a></li>
-      <li><strong>Google AdMob</strong> — pour afficher des publicités. Google peut collecter des identifiants publicitaires selon ses propres règles. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Politique de confidentialité Google</a></li>
-    </ul>
-    <p>Aucune autre donnée n'est partagée avec des tiers.</p>
+<h2>6. Données des mineurs</h2>
+<p>DustMyBox n'est pas destinée aux enfants de moins de 13 ans.</p>
 
-    <h2>5. Révocation des permissions</h2>
-    <p>Vous pouvez révoquer l'accès de DustMyBox à votre compte Google à tout moment depuis <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">myaccount.google.com/permissions</a>. Cela ne supprime pas les données stockées localement ; désinstallez l'application pour les effacer.</p>
+<h2>7. Vos droits (RGPD)</h2>
+<ul>
+  <li><strong>Accès, rectification, effacement, opposition, portabilité</strong> de vos données.</li>
+</ul>
+<p>Contact : <a href="mailto:dustmybox.app@gmail.com">dustmybox.app@gmail.com</a><br>
+Vous pouvez également introduire une réclamation auprès de la <a href="https://www.cnil.fr" target="_blank" rel="noopener">CNIL</a>.</p>
 
-    <h2>6. Données des mineurs</h2>
-    <p>DustMyBox n'est pas destinée aux enfants de moins de 13 ans et ne collecte pas sciemment de données les concernant.</p>
+<h2>8. Mise à jour</h2>
+<p>Cette politique peut être mise à jour. La version en vigueur est toujours disponible dans l'application et à l'adresse de cette page.</p>
 
-    <h2>7. Vos droits (RGPD)</h2>
-    <p>Conformément au RGPD, vous disposez des droits suivants :</p>
-    <ul>
-      <li><strong>Accès</strong> : obtenir une copie de vos données ;</li>
-      <li><strong>Rectification</strong> : corriger des données inexactes ;</li>
-      <li><strong>Effacement</strong> : demander la suppression de vos données ;</li>
-      <li><strong>Opposition</strong> : vous opposer au traitement de vos données ;</li>
-      <li><strong>Portabilité</strong> : recevoir vos données dans un format structuré.</li>
-    </ul>
-    <p>Pour exercer ces droits : <a href="mailto:dustmybox.app@gmail.com">dustmybox.app@gmail.com</a>. Vous pouvez également introduire une réclamation auprès de la <a href="https://www.cnil.fr" target="_blank" rel="noopener">CNIL</a>.</p>
-
-    <h2>8. Mise à jour</h2>
-    <p>Cette politique peut être mise à jour. La version en vigueur est toujours disponible dans l'application et à l'adresse de cette page.</p>
-
-    <h2>9. Contact</h2>
-    <p>Pour toute question : <a href="mailto:dustmybox.app@gmail.com">dustmybox.app@gmail.com</a></p>
-
-  </div>
-</div>
-
-<footer class="footer">
-  <div class="wrap">
-    <div class="foot-grid">
-      <div class="foot-col">
-        <div data-logo data-logo-text style="--terra:var(--cream);"></div>
-        <p class="script" style="color:var(--sun); font-size:1.5rem; margin-top:14px;">Reprendre goût.<br>Reprendre vie.</p>
-      </div>
-      <div class="foot-col"><h5>La boutique</h5>
-        <a href="les-boxes.html">Les boxes</a><a href="abonnement.html">Abonnement</a></div>
-      <div class="foot-col"><h5>Le concept</h5><a href="pour-qui.html">Pour qui ?</a><a href="notre-histoire.html">Notre histoire</a></div>
-      <div class="foot-col"><h5>Aide</h5><a href="faq.html">FAQ</a><a href="#contact">Contact</a></div>
-    </div>
-    <div class="foot-bottom">
-      <span>© <span id="year">2026</span> Feeling Good Box — Fait avec ❤</span>
-      <span><a href="cgv.html" style="color:inherit;">CGV</a> · <a href="mentions-legales.html" style="color:inherit;">Mentions légales</a> · <a href="confidentialite.html" style="color:inherit;">Confidentialité</a></span>
-    </div>
-  </div>
-</footer>
-
-<script src="fgb.js"></script>
-<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
