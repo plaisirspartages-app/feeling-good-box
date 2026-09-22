@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Connexion — Box Map</title>
+<meta name="robots" content="noindex, nofollow" />
+<style>
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #f0f6ff; display: flex; align-items: center; justify-content: center;
+    min-height: 100vh; text-align: center; padding: 20px; box-sizing: border-box; }
+  .card { background: #fff; border-radius: 20px; padding: 40px 32px; max-width: 360px;
+    width: 100%; box-shadow: 0 4px 24px rgba(0,0,0,.08); }
+  .icon { font-size: 3rem; margin-bottom: 16px; }
+  h1 { font-size: 1.4rem; font-weight: 800; color: #14315A; margin: 0 0 10px; }
+  p { color: #6b7280; font-size: .95rem; line-height: 1.6; margin: 0 0 24px; }
+  .btn { display: inline-block; background: #2AA5AE; color: #fff; font-weight: 700;
+    font-size: 1rem; border-radius: 12px; padding: 14px 28px; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="icon">✅</div>
+  <h1>Connexion en cours…</h1>
+  <p>Retour vers Box Map…</p>
+  <a href="#" id="openBtn" class="btn" style="display:none;">Ouvrir Box Map</a>
+</div>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get('code');
+  const error = params.get('error');
+
+  const deepLink = code
+    ? 'exp+box-map://auth-callback?code=' + encodeURIComponent(code)
+    : 'exp+box-map://auth-callback?error=' + encodeURIComponent(error || 'unknown');
+
+  const btn = document.getElementById('openBtn');
+  btn.href = deepLink;
+  btn.style.display = 'inline-block';
+
+  // Redirect automatically
+  window.location.href = deepLink;
+</script>
+</body>
+</html>
